@@ -1,4 +1,4 @@
-package carservice.app
+package carService.app
 
 import org.junit.Test
 
