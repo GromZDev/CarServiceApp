@@ -3,7 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/drawable/ic_products.xml" value="0.23055555555555557" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/drawable/ic_profile.xml" value="0.23055555555555557" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/drawable/ic_services.xml" value="0.23055555555555557" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/activity_main.xml" value="0.25677083333333334" />
         <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/fragment_login.xml" value="0.11666666666666667" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/products_fragment.xml" value="0.25677083333333334" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/profile_fragment.xml" value="0.25677083333333334" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/registration_fragment.xml" value="0.24270833333333333" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/services_fragment.xml" value="0.25677083333333334" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/settings_fragment.xml" value="0.25677083333333334" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/stock_fragment.xml" value="0.25677083333333334" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/menu/bottom_navigation.xml" value="0.25677083333333334" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/menu/toolbar.xml" value="0.25677083333333334" />
       </map>
     </option>
   </component>
