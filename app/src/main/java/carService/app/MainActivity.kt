@@ -2,6 +2,7 @@ package carService.app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import carService.app.ui.auth.LoginFragment
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,5 +19,4 @@ class MainActivity : AppCompatActivity() {
                 .commitAllowingStateLoss()
         }
     }
-
 }
