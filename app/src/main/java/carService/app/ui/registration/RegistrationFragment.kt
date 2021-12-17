@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
 import carService.app.databinding.RegistrationFragmentBinding
-import carService.app.ui.auth.LoginFragment
+import carService.app.utils.navigate
 import org.koin.core.component.KoinApiExtension
 
 @KoinApiExtension
@@ -20,45 +20,15 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
     private val binding: RegistrationFragmentBinding by viewBinding()
     private lateinit var viewModel: RegistrationViewModel
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.haveAnAccountTextview.setOnClickListener {
-            goToLoginFragment()
+            navigate(R.id.loginFragment)
         }
 
         binding.createAccountButton.setOnClickListener {
-            goToRegistrationStep2Fragment()
-        }
-
-    }
-
-
-    private fun goToLoginFragment() {
-        val manager = activity?.supportFragmentManager
-        manager?.let {
-            manager.beginTransaction()
-                .replace(
-                    R.id.nav_main_fragment,
-                    LoginFragment.newInstance()
-                )
-                .addToBackStack("")
-                .commitAllowingStateLoss()
+            navigate(R.id.registrationStep2Fragment)
         }
     }
-
-    private fun goToRegistrationStep2Fragment() {
-        val manager = activity?.supportFragmentManager
-        manager?.let {
-            manager.beginTransaction()
-                .replace(
-                    R.id.nav_main_fragment,
-                    RegistrationStep2Fragment.newInstance()
-                )
-                .addToBackStack("")
-                .commitAllowingStateLoss()
-        }
-    }
-
 }
