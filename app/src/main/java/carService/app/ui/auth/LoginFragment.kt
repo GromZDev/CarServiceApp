@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
 import carService.app.databinding.FragmentLoginBinding
-import carService.app.ui.main.main_screen.MainUserFragment
-import carService.app.ui.registration.RegistrationFragment
+import carService.app.utils.navigate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
@@ -32,54 +31,15 @@ class LoginFragment : Fragment(R.layout.fragment_login), KoinComponent {
         navBar.visibility = View.GONE
 
         binding.forgotTextview.setOnClickListener {
-            goToForgotPasswordFragment()
+            navigate(R.id.forgotPasswordFragment)
         }
 
         binding.createAccountButton.setOnClickListener {
-            goToRegistrationFragment()
+            navigate(R.id.registrationFragment)
         }
 
         binding.loginButton.setOnClickListener {
-            goToMainUserFragment()
-        }
-    }
-
-    private fun goToForgotPasswordFragment() {
-        val manager = activity?.supportFragmentManager
-        manager?.let {
-            manager.beginTransaction()
-                .replace(
-                    R.id.nav_main_fragment,
-                    ForgotPasswordFragment.newInstance()
-                )
-                .addToBackStack("")
-                .commitAllowingStateLoss()
-        }
-    }
-
-    private fun goToRegistrationFragment() {
-        val manager = activity?.supportFragmentManager
-        manager?.let {
-            manager.beginTransaction()
-                .replace(
-                    R.id.nav_main_fragment,
-                    RegistrationFragment.newInstance()
-                )
-                .addToBackStack("")
-                .commitAllowingStateLoss()
-        }
-    }
-
-    private fun goToMainUserFragment() {
-        val manager = activity?.supportFragmentManager
-        manager?.let {
-            manager.beginTransaction()
-                .replace(
-                    R.id.nav_main_fragment,
-                    MainUserFragment.newInstance()
-                )
-                .addToBackStack("")
-                .commitAllowingStateLoss()
+            navigate(R.id.mainUserFragment)
         }
     }
 }
