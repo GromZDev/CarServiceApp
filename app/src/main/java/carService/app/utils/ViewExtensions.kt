@@ -3,23 +3,16 @@ package carService.app.utils
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import carService.app.R
-import coil.ImageLoader
-import coil.request.LoadRequest
-import coil.transform.CircleCropTransformation
 import com.google.android.material.snackbar.Snackbar
-import java.io.File
 
 fun Fragment.navigate(resId: Int, bundle: Bundle? = null, bundle2: Bundle? = null) {
     NavHostFragment.findNavController(this).navigate(resId, bundle)
