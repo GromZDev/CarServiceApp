@@ -1,6 +1,5 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,17 +13,18 @@
         android:background="@drawable/logo_400"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/logotype" />
 
     <TextView
         android:id="@+id/app_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/viga_regular"
         android:gravity="center"
         android:text="@string/logo_name"
         android:textColor="@color/app_name_color"
         android:textSize="40sp"
-        android:fontFamily="@font/viga_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo" />
@@ -33,128 +33,103 @@
         android:id="@+id/app_name_bottom_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/viga_regular"
         android:gravity="center"
         android:text="@string/logo_name_bottom"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:fontFamily="@font/viga_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_name_textview" />
 
     <TextView
-        android:id="@+id/login_textview"
+        android:id="@+id/create_account_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/enter_account"
-        android:textColor="@color/white"
-        android:textSize="20sp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/viga_regular"
+        android:gravity="center"
+        android:text="@string/create_account_textView"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_name_bottom_textview" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email_text_input_field"
+        android:id="@+id/nickName_input_field"
         android:layout_width="325dp"
         android:layout_height="52dp"
-        android:background="@drawable/main_button_background"
-        android:hint="@string/email"
-        android:gravity="center"
         android:layout_marginTop="8dp"
+        android:background="@drawable/main_button_background"
+        android:drawableStart="@drawable/ic_person_reg"
+        android:gravity="center"
+        android:hint="@string/nickname"
+        android:paddingStart="8dp"
+        android:paddingEnd="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_textview"/>
+        app:layout_constraintTop_toBottomOf="@id/create_account_textview" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password_text_input_field"
+        android:id="@+id/e_mail_text_input_field"
         android:layout_width="325dp"
         android:layout_height="52dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/main_button_background"
+        android:drawableStart="@drawable/ic_email_reg"
+        android:gravity="center"
+        android:hint="@string/email"
+        android:paddingStart="8dp"
+        android:paddingEnd="230dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nickName_input_field" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/password_input_field_reg"
+        android:layout_width="325dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/main_button_background"
+        android:drawableStart="@drawable/ic_password_reg"
+        android:gravity="center"
         android:hint="@string/password"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_text_input_field"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/google_login_button"
-        android:layout_width="325dp"
-        android:layout_height="52dp"
-        android:background="@drawable/main_button_background"
-        android:drawableStart="@drawable/google_logo"
-        android:paddingStart="100dp"
-        android:paddingEnd="100dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/google"
-        android:textColor="@color/white"
-        android:fontFamily="@font/benton_sans_medium"
-        android:textSize="18sp"
-        android:gravity="center"
+        android:inputType="textPassword"
+        android:paddingStart="8dp"
+        android:paddingEnd="200dp"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_text_input_field"/>
-
-    <TextView
-        android:id="@+id/forgot_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/forgot_your_password"
-        android:textColor="@color/app_name_color"
-        android:textSize="12sp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/benton_sans_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/google_login_button" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/login_button"
-        android:layout_width="140dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        android:fontFamily="@font/benton_sans_bold"
-        android:textSize="18sp"
-        android:textAllCaps="false"
-        android:background="@drawable/login_button_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/forgot_textview"/>
-
-    <TextView
-        android:id="@+id/or_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/or"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/benton_sans_medium"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_button" />
+        app:layout_constraintTop_toBottomOf="@id/e_mail_text_input_field" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/create_account_button"
         android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/create_account"
-        android:textColor="@color/white"
-        android:fontFamily="@font/benton_sans_bold"
-        android:textSize="18sp"
-        android:textAllCaps="false"
+        android:layout_marginTop="54dp"
         android:background="@drawable/login_button_background"
+        android:fontFamily="@font/benton_sans_bold"
+        android:text="@string/create_account_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/or_textview"/>
+        app:layout_constraintTop_toBottomOf="@id/password_input_field_reg" />
+
+    <TextView
+        android:id="@+id/have_an_account_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/benton_sans_medium"
+        android:gravity="center"
+        android:text="@string/have_an_account"
+        android:textColor="@color/app_name_color"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_account_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
