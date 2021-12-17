@@ -9,12 +9,19 @@
         android:id="@+id/loginFragment"
         android:name="carService.app.ui.auth.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login"/>
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_productsFragment"
+            app:destination="@id/mainUserFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/productsFragment"
-        android:name="carService.app.ui.main.products.ProductsFragment"
+        android:id="@+id/mainUserFragment"
+        android:name="carService.app.ui.main.main_screen.MainUserFragment"
         android:label="products_fragment"
-        tools:layout="@layout/products_fragment"  />
+        tools:layout="@layout/main_user_fragment"  />
     <fragment
         android:id="@+id/profileFragment"
         android:name="carService.app.ui.main.profile.ProfileFragment"
@@ -24,7 +31,11 @@
         android:id="@+id/registrationFragment"
         android:name="carService.app.ui.registration.RegistrationFragment"
         android:label="registration_fragment"
-        tools:layout="@layout/registration_fragment" />
+        tools:layout="@layout/registration_fragment" >
+        <action
+            android:id="@+id/action_registrationFragment_to_registrationStep2Fragment"
+            app:destination="@id/registrationStep2Fragment" />
+    </fragment>
     <fragment
         android:id="@+id/servicesFragment"
         android:name="carService.app.ui.main.services.ServicesFragment"
@@ -49,5 +60,9 @@
         android:id="@+id/registrationStep2Fragment"
         android:name="carService.app.ui.registration.RegistrationStep2Fragment"
         android:label="registration_step2_fragment"
-        tools:layout="@layout/registration_step2_fragment" />
+        tools:layout="@layout/registration_step2_fragment" >
+        <action
+            android:id="@+id/action_registrationStep2Fragment_to_productsFragment"
+            app:destination="@id/mainUserFragment" />
+    </fragment>
 </navigation>

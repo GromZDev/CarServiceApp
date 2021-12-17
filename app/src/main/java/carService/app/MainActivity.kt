@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_products -> {
-                    navController.navigate(R.id.productsFragment)
+                    navController.navigate(R.id.mainUserFragment)
                     true
                 }
                 R.id.action_stock -> {
