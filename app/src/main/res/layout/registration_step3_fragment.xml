@@ -24,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/benton_sans_bold"
-        android:text="@string/fill_data_registration_step2"
+        android:text="@string/choose_a_photo_from_phone"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@id/back_button_image"
@@ -44,59 +44,48 @@
         app:layout_constraintStart_toStartOf="@id/fill_account_textview"
         app:layout_constraintTop_toBottomOf="@id/fill_account_textview" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/nickName_input_field"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/gallery_photo_button"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="128dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
-        android:textColorHint="@color/hint_text_color"
         android:background="@drawable/main_button_background"
-        android:hint="@string/your_first_name"
+        android:drawableTop="@drawable/ic_phone_gallery_small"
+        android:gravity="center"
+        android:hint="@string/photo_from_gallery"
         android:paddingStart="20dp"
+        android:paddingTop="20dp"
         android:paddingEnd="20dp"
         android:textColor="@color/reg_form_color"
+        android:textColorHint="@color/hint_text_color"
         app:layout_constraintEnd_toEndOf="@id/fill_account_textview"
         app:layout_constraintStart_toStartOf="@id/fill_account_textview"
         app:layout_constraintTop_toBottomOf="@id/hint_textview" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/e_mail_text_input_field"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/take_a_photo_button"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="128dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/main_button_background"
-        android:hint="@string/your_last_name"
-        android:textColorHint="@color/hint_text_color"
+        android:drawableTop="@drawable/ic_take_a_photo"
+        android:gravity="center"
+        android:hint="@string/take_photo"
         android:paddingStart="20dp"
+        android:paddingTop="20dp"
         android:paddingEnd="20dp"
         android:textColor="@color/reg_form_color"
+        android:textColorHint="@color/hint_text_color"
         app:layout_constraintEnd_toEndOf="@id/fill_account_textview"
         app:layout_constraintStart_toStartOf="@id/fill_account_textview"
-        app:layout_constraintTop_toBottomOf="@id/nickName_input_field" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/password_input_field_reg"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:textColorHint="@color/hint_text_color"
-        android:background="@drawable/main_button_background"
-        android:hint="@string/your_telephone_number"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textColor="@color/reg_form_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/e_mail_text_input_field" />
+        app:layout_constraintTop_toBottomOf="@id/gallery_photo_button" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/create_account_button"
+        android:id="@+id/next_create_account_button"
         android:layout_width="140dp"
         android:layout_height="60dp"
         android:layout_marginBottom="54dp"
@@ -106,8 +95,8 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

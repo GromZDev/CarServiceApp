@@ -7,15 +7,27 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import carService.app.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 
 fun Fragment.navigate(resId: Int, bundle: Bundle? = null, bundle2: Bundle? = null) {
     NavHostFragment.findNavController(this).navigate(resId, bundle)
+}
+
+fun Fragment.hideToolbarAndBottomNav() {
+    /** Скрываем навигацию там, где она не нужна */
+    val navBar: BottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
+    navBar.visibility = View.GONE
+
+    /** Скрываем тулбар там, где он не нужен */
+    val toolBar: Toolbar = requireActivity().findViewById(R.id.toolbar)
+    toolBar.visibility = View.GONE
 }
 
 fun Fragment.navigate(dir: NavDirections) {
