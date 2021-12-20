@@ -98,6 +98,11 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+    //circle image view
+    implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
+    implementation 'io.coil-kt:coil:0.11.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     // Tests
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
