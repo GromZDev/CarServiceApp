@@ -17,6 +17,7 @@ compiler.xml
 /.idea/misc.xml
 misc.xml
 /misc.xml
+.idea/misc.xml
 /.idea/vcs.xml
 /.idea/gradle.xml
 /gradle.xml

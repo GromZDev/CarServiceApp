@@ -19,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/mainUserFragment"
-        android:name="carService.app.ui.main.main_screen.MainUserFragment"
+        android:name="carService.app.ui.main.main_screen.personal_account.MainUserFragment"
         android:label="products_fragment"
-        tools:layout="@layout/main_user_fragment"  />
+        tools:layout="@layout/main_user_fragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="carService.app.ui.main.profile.ProfileFragment"
@@ -31,7 +31,7 @@
         android:id="@+id/registrationFragment"
         android:name="carService.app.ui.registration.RegistrationFragment"
         android:label="registration_fragment"
-        tools:layout="@layout/registration_fragment" >
+        tools:layout="@layout/registration_fragment">
         <action
             android:id="@+id/action_registrationFragment_to_registrationStep2Fragment"
             app:destination="@id/registrationStep2Fragment" />
@@ -60,9 +60,50 @@
         android:id="@+id/registrationStep2Fragment"
         android:name="carService.app.ui.registration.RegistrationStep2Fragment"
         android:label="registration_step2_fragment"
-        tools:layout="@layout/registration_step2_fragment" >
+        tools:layout="@layout/registration_step2_fragment">
         <action
             android:id="@+id/action_registrationStep2Fragment_to_productsFragment"
             app:destination="@id/mainUserFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/registrationStep3Fragment"
+        android:name="carService.app.ui.registration.RegistrationStep3Fragment"
+        android:label="registration_step3_fragment"
+        tools:layout="@layout/registration_step3_fragment">
+        <action
+            android:id="@+id/action_registrationStep3Fragment_to_productsFragment"
+            app:destination="@id/mainUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationStep4LocationFragment"
+        android:name="carService.app.ui.registration.RegistrationStep4LocationFragment"
+        android:label="registration_step4_Location_Fragment"
+        tools:layout="@layout/registration_step4_location_fragment">
+        <action
+            android:id="@+id/action_registrationStep4Location_to_productsFragment"
+            app:destination="@id/registrationIsSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationIsSuccessFragment"
+        android:name="carService.app.ui.registration.RegistrationStepSuccessFragment"
+        android:label="registration_step_Success_Fragment"
+        tools:layout="@layout/registration_success">
+        <action
+            android:id="@+id/action_registrationIsSuccess_to_productsFragment"
+            app:destination="@id/mainUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationStep5RoleFragment"
+        android:name="carService.app.ui.registration.RegistrationStep5RoleFragment"
+        android:label="registration_step_5_Role_Fragment"
+        tools:layout="@layout/registration_step5_role_fragment">
+        <action
+            android:id="@+id/action_registrationStep5Role_to_successFragment"
+            app:destination="@id/registrationIsSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainCompanyPageFragment"
+        android:name="carService.app.ui.main.main_screen.company_account.MainCompanyFragment"
+        android:label="main_Company_Page_Fragment"
+        tools:layout="@layout/main_company_fragment" />
 </navigation>

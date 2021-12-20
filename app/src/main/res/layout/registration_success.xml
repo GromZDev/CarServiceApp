@@ -1,0 +1,64 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_fragment_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_bg">
+
+    <ImageView
+        android:id="@+id/reg_is_success"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/ic_sing_up_success"
+        android:contentDescription="@string/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ready_account_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/benton_sans_bold"
+        android:gravity="center"
+        android:text="@string/congrats_in_registration"
+        android:textColor="@color/app_name_color"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reg_is_success" />
+
+    <TextView
+        android:id="@+id/hint_ready_account_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/benton_sans_bold"
+        android:gravity="center"
+        android:text="@string/account_is_ready"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ready_account_textview" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/go_to_account_button"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="54dp"
+        android:background="@drawable/login_button_background"
+        android:fontFamily="@font/benton_sans_bold"
+        android:text="@string/to_my_account"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

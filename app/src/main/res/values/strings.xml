@@ -9,7 +9,7 @@
     <string name="password">password</string>
     <string name="google">Google</string>
     <string name="enter_account">Войти в аккаунт</string>
-    <string name="login">Login</string>
+    <string name="login">Войти</string>
     <string name="forgot_your_password">Забыли пароль?</string>
     <string name="or">или</string>
     <string name="create_account">Создайте аккаунт</string>
@@ -18,4 +18,33 @@
     <string name="logotype">logotype</string>
     <string name="create_account_text">Создать аккаунт</string>
     <string name="have_an_account">Уже есть учетная запись?</string>
+    <string name="back_button">Back button</string>
+    <string name="fill_data_registration_step2">Сперва введите Ваше имя для продолжения</string>
+    <string name="your_first_name">Введите имя</string>
+    <string name="your_last_name">Введите фамилию</string>
+    <string name="your_telephone_number">Ваш номер телефона +7</string>
+    <string name="hint_text_reg_step2">Эти данные будут отображаться в твоём профиле</string>
+    <string name="next">Далее</string>
+    <string name="choose_a_photo_from_phone">Выберите фотографию для отображения</string>
+    <string name="photo_from_gallery">Взять фото из галереи</string>
+    <string name="take_photo">Сделать фото</string>
+    <string name="set_your_location">Установите Ваше местоположение</string>
+    <string name="location_reg_hint">Выбранное Вами местоположение будет определять подходящие Вам организации</string>
+    <string name="set_location">Установить местоположение</string>
+    <string name="congrats_in_registration">Поздравляем тебя!</string>
+    <string name="account_is_ready">Ваш аккаунт готов к применению</string>
+    <string name="to_my_account">В мой аккаунт</string>
+    <string name="type_of_account">Выберите характер Вашего аккаунта</string>
+    <string name="hint_of_account_type">Тип аккаунта будет определять подходящий Вам функционал. Если выбираете
+    "Личный аккаунт", то можете воспользоваться поиском компаний. Если же "Компания", то Вам будет присвоин тип
+    организации, и Вы сможете предлагать свои услуги или товары другим пользователям</string>
+    <string name="personal_account">Личный аккаунт</string>
+    <string name="company_account">Аккаунт организации</string>
+    <string name="top_tw_main_user_fragment">Найдие Достойный Сервис и Автотовары</string>
+    <string name="companies_near">Компании рядом с вами</string>
+    <string name="company_logo">Company_logo</string>
+    <string name="best_companies_in_your_location">Лучшие компании в Вашем регионе</string>
+    <string name="popular_services_of_companies_tw">Популярные услуги компаний</string>
+    <string name="best_deals_of_companies">Лучшие предложения компаний</string>
+    <string name="my_services_company_main">Мои услуги</string>
 </resources>

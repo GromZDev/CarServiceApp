@@ -2,10 +2,12 @@ package carService.app.ui.auth
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
 import carService.app.databinding.FragmentLoginBinding
+import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,9 +28,7 @@ class LoginFragment : Fragment(R.layout.fragment_login), KoinComponent {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /** Скрываем навигацию там, где она не нужна */
-        val navBar: BottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
-        navBar.visibility = View.GONE
+        hideToolbarAndBottomNav()
 
         binding.forgotTextview.setOnClickListener {
             navigate(R.id.forgotPasswordFragment)
