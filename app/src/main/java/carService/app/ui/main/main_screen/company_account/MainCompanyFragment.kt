@@ -23,7 +23,7 @@ class MainCompanyFragment : Fragment(R.layout.main_company_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navBar: BottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
+        val navBar: BottomNavigationView = requireActivity().findViewById(R.id.bottom_company_navigation)
         navBar.visibility = View.VISIBLE
 
         /** Временные данные для наглядности */

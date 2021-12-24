@@ -36,20 +36,21 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.profileFragment)
                     true
                 }
-                R.id.action_services -> {
-                    navController.navigate(R.id.servicesFragment)
-                    true
-                }
-                R.id.action_products -> {
+                R.id.action_main_screen -> {
                     navController.navigate(R.id.mainUserFragment)
                     true
                 }
-                R.id.action_stock -> {
-                    navController.navigate(R.id.stockFragment)
+                R.id.action_request_services -> {
+                    navController.navigate(R.id.requestServicesFragment)
                     true
                 }
-                R.id.action_settings -> {
-                    navController.navigate(R.id.settingsFragment)
+                R.id.action_person_map -> {
+                    navController.navigate(R.id.personMapFragment)
+                    true
+                }
+
+                R.id.action_more -> {
+                    navController.navigate(R.id.moreMenuFragment)
                     true
                 }
 
