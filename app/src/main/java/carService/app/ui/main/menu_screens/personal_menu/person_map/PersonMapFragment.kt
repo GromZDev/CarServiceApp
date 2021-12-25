@@ -1,4 +1,4 @@
-package carService.app.ui.main.person_map
+package carService.app.ui.main.menu_screens.personal_menu.person_map
 
 import androidx.fragment.app.Fragment
 import carService.app.R

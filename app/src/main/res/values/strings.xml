@@ -62,4 +62,15 @@
     <string name="history_search_tw">История поиска</string>
     <string name="share_with_friends">Поделиться с друзьями</string>
     <string name="share_link">Отправить ссылку на приложение</string>
+    <string name="company_announce_tw">Мои объявления</string>
+    <string name="company_announce_hint_tw">Здесь создаются и отображаются все ваши объявления, которые будут видны нуждающимся в них автовладельцам</string>
+    <string name="adding_an_announcement">Adding an announcement</string>
+    <string name="profile_organisation">Профиль</string>
+    <string name="organisation_announcements">Объявления</string>
+    <string name="clients_announcements">Объявления автовладельцев</string>
+    <string name="hint_find_clients">Тут отображаются все услуги или товары, которые необходимы автовладельцам. Вы можете перейти в понравившееся объявление и предложить свою цену</string>
+    <string name="clients_announcements_company">Клиенты</string>
+    <string name="find_client">Найти</string>
+    <string name="find_your_client_main_tw">Найти своего клиента</string>
+    <string name="find_your_client_hint_tw">Тут вы можете осуществить подбор того клиента по параметрам, который нужен именно вам</string>
 </resources>

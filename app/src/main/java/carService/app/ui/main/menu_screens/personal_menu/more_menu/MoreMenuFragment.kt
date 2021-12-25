@@ -1,11 +1,10 @@
-package carService.app.ui.main.more_menu
+package carService.app.ui.main.menu_screens.personal_menu.more_menu
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
-import carService.app.databinding.FragmentLoginBinding
 import carService.app.databinding.MoreMenuFragmentBinding
 import carService.app.utils.showToast
 

@@ -25,5 +25,7 @@
     <color name="bottom_nav_menu_static">#6C6E6C</color>
     <color name="bottom_nav_menu_text">#1FC57B</color>
 
+    <color name="company_announce_add_fab">#1FC57B</color>
+
 
 </resources>

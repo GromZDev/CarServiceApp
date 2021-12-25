@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="carService.app.ui.main.profile.ProfileFragment"
+        android:name="carService.app.ui.main.menu_screens.personal_menu.profile.ProfileFragment"
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment" />
     <fragment
@@ -54,17 +54,17 @@
     </fragment>
     <fragment
         android:id="@+id/requestServicesFragment"
-        android:name="carService.app.ui.main.request_services.RequestServicesFragment"
+        android:name="carService.app.ui.main.menu_screens.personal_menu.request_services.RequestServicesFragment"
         android:label="request_services_fragment"
         tools:layout="@layout/request_services_fragment" />
     <fragment
         android:id="@+id/moreMenuFragment"
-        android:name="carService.app.ui.main.more_menu.MoreMenuFragment"
+        android:name="carService.app.ui.main.menu_screens.personal_menu.more_menu.MoreMenuFragment"
         android:label="more_menu_fragment"
         tools:layout="@layout/more_menu_fragment" />
     <fragment
         android:id="@+id/personMapFragment"
-        android:name="carService.app.ui.main.person_map.PersonMapFragment"
+        android:name="carService.app.ui.main.menu_screens.personal_menu.person_map.PersonMapFragment"
         android:label="main_user_fragment"
         tools:layout="@layout/person_map_fragment" />
     <fragment
@@ -123,9 +123,47 @@
             android:id="@+id/action_registrationStep5Role_to_successFragment"
             app:destination="@id/registrationIsSuccessFragment" />
     </fragment>
+
+
     <fragment
         android:id="@+id/mainCompanyPageFragment"
         android:name="carService.app.ui.main.main_screen.company_account.MainCompanyFragment"
         android:label="main_Company_Page_Fragment"
-        tools:layout="@layout/main_company_fragment" />
+        tools:layout="@layout/main_company_fragment">
+        <action
+            android:id="@+id/mainCompanyPageFragment_to_companyAnnouncementsFragment"
+            app:destination="@id/companyAnnouncementsFragment" />
+        <action
+            android:id="@+id/mainCompanyPageFragment_to_showClientsAnnouncementsFragment"
+            app:destination="@id/showClientsAnnounceFragment" />
+        <action
+            android:id="@+id/mainCompanyPageFragment_to_findClientsFragment"
+            app:destination="@id/findClientFragment" />
+        <action
+            android:id="@+id/mainCompanyPageFragment_to_moreCompanyMenuFragment"
+            app:destination="@id/moreCompanyMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/companyAnnouncementsFragment"
+        android:name="carService.app.ui.main.menu_screens.company_menu.announcements.CompanyAnnouncementFragment"
+        android:label="company_announcements_fragment"
+        tools:layout="@layout/company_announcement_fragment">
+    </fragment>
+    <fragment
+        android:id="@+id/showClientsAnnounceFragment"
+        android:name="carService.app.ui.main.menu_screens.company_menu.show_clients_announce.ShowClientsAnnounceFragment"
+        android:label="company_show_clients_announce_fragment"
+        tools:layout="@layout/show_clients_announce_fragment">
+    </fragment>
+    <fragment
+        android:id="@+id/findClientFragment"
+        android:name="carService.app.ui.main.menu_screens.company_menu.find_client.FindClientFragment"
+        android:label="company_find_clients_fragment"
+        tools:layout="@layout/find_client_fragment">
+    </fragment>
+    <fragment
+        android:id="@+id/moreCompanyMenuFragment"
+        android:name="carService.app.ui.main.menu_screens.company_menu.more_company_menu.MoreCompanyMenuFragment"
+        android:label="more_company_menu_fragment"
+        tools:layout="@layout/more_company_menu_fragment" />
 </navigation>

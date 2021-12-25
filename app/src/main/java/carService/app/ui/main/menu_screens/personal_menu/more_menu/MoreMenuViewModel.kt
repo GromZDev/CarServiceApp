@@ -1,4 +1,4 @@
-package carService.app.ui.main.more_menu
+package carService.app.ui.main.menu_screens.personal_menu.more_menu
 
 import androidx.lifecycle.ViewModel
 
