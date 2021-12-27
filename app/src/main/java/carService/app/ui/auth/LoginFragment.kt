@@ -109,5 +109,9 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) : Base
         } catch (e: ApiException) {
             Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
         }
+
+        binding.forgotTextview.setOnClickListener {
+            navigate(R.id.forgotPasswordFragment)
+        }
     }
 }

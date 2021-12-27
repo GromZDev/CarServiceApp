@@ -5,18 +5,17 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
-import carService.app.databinding.ForgotPasswordFragmentBinding
-import carService.app.databinding.RegistrationStep3FragmentBinding
+import carService.app.databinding.ForgotPasswordStep3SuccessBinding
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
 
-class ForgotPasswordFragment : Fragment(R.layout.forgot_password_fragment) {
+class ForgotPasswordStep3FragmentSuccess : Fragment(R.layout.forgot_password_step3_success) {
 
     companion object {
-        fun newInstance() = ForgotPasswordFragment()
+        fun newInstance() = ForgotPasswordStep3FragmentSuccess()
     }
 
-    private val binding: ForgotPasswordFragmentBinding by viewBinding()
+    private val binding: ForgotPasswordStep3SuccessBinding by viewBinding()
     private lateinit var viewModel: ForgotPasswordViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,12 +23,9 @@ class ForgotPasswordFragment : Fragment(R.layout.forgot_password_fragment) {
 
         hideToolbarAndBottomNav()
 
-        binding.nextCreateAccountButton.setOnClickListener {
-            navigate(R.id.forgotPasswordStep2Fragment)
-        }
-
-        binding.backButtonImage.setOnClickListener {
+        binding.goToLoginButton.setOnClickListener {
             navigate(R.id.loginFragment)
         }
+
     }
 }

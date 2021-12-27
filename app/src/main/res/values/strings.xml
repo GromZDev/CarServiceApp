@@ -8,7 +8,7 @@
     <string name="email">email</string>
     <string name="password">password</string>
     <string name="google">Google</string>
-    <string name="enter_account">Войти в аккаунт</string>
+    <string name="enter_account_from_reset">Войти в аккаунт</string>
     <string name="login">Войти</string>
     <string name="forgot_your_password">Забыли пароль?</string>
     <string name="or">или</string>
@@ -73,9 +73,22 @@
     <string name="find_client">Найти</string>
     <string name="find_your_client_main_tw">Найти своего клиента</string>
     <string name="find_your_client_hint_tw">Тут вы можете осуществить подбор того клиента по параметрам, который нужен именно вам</string>
+
     <string name="valid_email">Проверьте корректность Вашего email</string>
     <string name="not_empty_email_password">Проверьте введенные данные. Все поля обязательны для заполнения!</string>
     <string name="valid_password">Проверьте длину пароля! Минимальная длина 8 символов</string>
     <string name="access_internet">Проверьте введенные данные. Возможно нет интернета</string>
     <string name="exit_account">Выйти из аккаунта</string>
+
+    <string name="exit_account">Выйти из аккаунта</string>
+    <string name="forgot_password">Забыли свой пароль?</string>
+    <string name="reset_password">Выберите какие контактные данные необходимо использовать для смены пароля:</string>
+    <string name="reset_password_via_sms">Сбросить пароль через смс</string>
+    <string name="create_a_new_password">Придумайте новый пароль для входа</string>
+    <string name="choose_password_hint">Пожалуйста придумайте новый пароль и постарайтесь больше его не терять:</string>
+    <string name="new_pass">Новый пароль</string>
+    <string name="confirm_new_pass">Подтвердите пароль</string>
+    <string name="password_reset_success">Ваш пароль успешно сброшен</string>
+    <string name="enter_account">Войти в аккаунт</string>
+
 </resources>
