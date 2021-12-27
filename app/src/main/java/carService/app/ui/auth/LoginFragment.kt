@@ -41,5 +41,9 @@ class LoginFragment : Fragment(R.layout.fragment_login), KoinComponent {
         binding.loginButton.setOnClickListener {
             navigate(R.id.mainUserFragment)
         }
+
+        binding.forgotTextview.setOnClickListener {
+            navigate(R.id.forgotPasswordFragment)
+        }
     }
 }

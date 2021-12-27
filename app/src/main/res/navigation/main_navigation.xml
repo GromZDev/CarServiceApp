@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_loginFragment_to_mainCompanyFragment"
             app:destination="@id/mainCompanyPageFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainUserFragment"
@@ -71,7 +74,29 @@
         android:id="@+id/forgotPasswordFragment"
         android:name="carService.app.ui.auth.ForgotPasswordFragment"
         android:label="forgot_password_fragment"
-        tools:layout="@layout/forgot_password_fragment" />
+        tools:layout="@layout/forgot_password_fragment">
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_forgotPasswordStep2Fragment"
+            app:destination="@id/forgotPasswordStep2Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordStep2Fragment"
+        android:name="carService.app.ui.auth.ForgotPasswordStep2Fragment"
+        android:label="forgot_password_step2_fragment"
+        tools:layout="@layout/forgot_password_step2_fragment">
+        <action
+            android:id="@+id/action_forgotPasswordStep2Fragment_to_forgotPasswordStep3SuccessFragment"
+            app:destination="@id/forgotPasswordStep3SuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordStep3SuccessFragment"
+        android:name="carService.app.ui.auth.ForgotPasswordStep3FragmentSuccess"
+        android:label="forgot_password_step3_success_fragment"
+        tools:layout="@layout/forgot_password_step3_success">
+        <action
+            android:id="@+id/action_forgotPasswordStep3Fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registrationStep2Fragment"
         android:name="carService.app.ui.registration.RegistrationStep2Fragment"
