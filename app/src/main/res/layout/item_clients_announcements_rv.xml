@@ -1,0 +1,37 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_film_container_rv_vertical"
+    style="@style/ShowClientsAnnouncementsRecyclerItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="4dp">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_client_announce_theme_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/benton_sans_bold"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Шумоизоляция и автозвук" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/item_client_announce_overview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/benton_sans_medium"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintTop_toBottomOf="@+id/item_client_announce_theme_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Это описание заявки клиента. Это описание заявки клиента. Это описание заявки клиента" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package carService.app.ui.main.profile
+package carService.app.ui.main.menu_screens.personal_menu.profile
 
 import androidx.lifecycle.ViewModel
 

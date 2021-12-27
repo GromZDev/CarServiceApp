@@ -25,6 +25,9 @@ fun Fragment.hideToolbarAndBottomNav() {
     val navBar: BottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
     navBar.visibility = View.GONE
 
+    val navBarCompany: BottomNavigationView = requireActivity().findViewById(R.id.bottom_company_navigation)
+    navBarCompany.visibility = View.GONE
+
     /** Скрываем тулбар там, где он не нужен */
     val toolBar: Toolbar = requireActivity().findViewById(R.id.toolbar)
     toolBar.visibility = View.GONE
