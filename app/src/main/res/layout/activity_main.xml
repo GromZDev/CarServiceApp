@@ -1,5 +1,4 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,20 +24,52 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/main_navigation"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="1.00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/main_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/white"
+        android:layout_margin="12dp"
+        android:background="@drawable/bottom_nav_menu_background"
+        android:elevation="4dp"
+        android:padding="4dp"
+        android:fontFamily="@font/benton_sans_medium"
         app:itemIconTint="@drawable/menu_selector"
         app:itemRippleColor="@color/teal_700"
-        app:itemTextColor="@color/black"
+        app:itemTextColor="@color/bottom_nav_menu_text"
+        android:textAlignment="textEnd"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.08"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintWidth_percent="0.98"
         app:menu="@menu/bottom_navigation" />
 
-</LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_company_navigation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="12dp"
+        android:background="@drawable/bottom_nav_menu_background"
+        android:elevation="4dp"
+        android:padding="4dp"
+        android:fontFamily="@font/benton_sans_medium"
+        app:itemIconTint="@drawable/menu_selector"
+        app:itemRippleColor="@color/teal_700"
+        app:itemTextColor="@color/bottom_nav_menu_text"
+        android:textAlignment="textEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.08"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintWidth_percent="0.98"
+        app:menu="@menu/bottom_company_navigation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

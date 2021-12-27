@@ -1,34 +1,33 @@
-<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_main_screen"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/menu_beginning"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_profile"
         android:enabled="true"
-        android:title="Профиль"
-        android:icon="@drawable/ic_profile"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_personal_account"
+        android:title="@string/menu_profile"
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_services"
+        android:id="@+id/action_request_services"
         android:enabled="true"
-        android:title="Услуги"
-        android:icon="@drawable/ic_services"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_request_service"
+        android:title="@string/menu_request"
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_products"
+        android:id="@+id/action_person_map"
         android:enabled="true"
-        android:title="Товары"
-        android:icon="@drawable/ic_products"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_map"
+        android:title="@string/menu_map"
+        app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_stock"
+        android:id="@+id/action_more"
         android:enabled="true"
-        android:title="Акции"
-        android:icon="@drawable/ic_sales"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_settings"
-        android:enabled="true"
-        android:title="Настройки"
-        android:icon="@drawable/ic_settings"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_more_bottom_menu"
+        android:title="@string/menu_more"
+        app:showAsAction="ifRoom" />
 </menu>

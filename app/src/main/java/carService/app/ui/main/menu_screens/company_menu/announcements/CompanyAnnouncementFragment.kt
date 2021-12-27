@@ -1,4 +1,4 @@
-package carService.app.ui.main.main_screen.company_account
+package carService.app.ui.main.menu_screens.company_menu.announcements
 
 import android.os.Bundle
 import android.view.View
@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
-import carService.app.databinding.MainCompanyFragmentBinding
+import carService.app.databinding.CompanyAnnouncementFragmentBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainCompanyFragment : Fragment(R.layout.main_company_fragment) {
+class CompanyAnnouncementFragment : Fragment(R.layout.company_announcement_fragment) {
 
     companion object {
-        const val TAG = "MainCompanyFragment"
-        fun newInstance() = MainCompanyFragment()
+        const val TAG = "CompanyAnnouncementFragment"
+        fun newInstance() = CompanyAnnouncementFragment()
     }
 
-    private val binding: MainCompanyFragmentBinding by viewBinding()
-    private lateinit var viewModel: MainCompanyViewModel
+    private val binding: CompanyAnnouncementFragmentBinding by viewBinding()
+    private lateinit var viewModel: CompanyAnnouncementViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,18 +32,20 @@ class MainCompanyFragment : Fragment(R.layout.main_company_fragment) {
     }
 
     private fun setFakeData() {
-        val allServices: RecyclerView = binding.allCompanyServicesRv
-        allServices.layoutManager = LinearLayoutManager(
+        val allAnnounce: RecyclerView = binding.companyAnnouncementsRv
+        allAnnounce.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.VERTICAL,
             false
         )
-        val nearCompaniesLayoutManager = allServices.layoutManager as LinearLayoutManager
+        val nearCompaniesLayoutManager = allAnnounce.layoutManager as LinearLayoutManager
 
-        val allServicesAdapter = CompanyAllServicesAdapter()
-        allServices.adapter = allServicesAdapter
+        val allServicesAdapter = CompanyAnnouncementsAdapter()
+        allAnnounce.adapter = allServicesAdapter
 
         val allServicesList: List<Any> = arrayListOf("2", "6", "5", "1", "1", "1", "1", "1", "1")
         allServicesAdapter.setAllServices(allServicesList)
     }
+
+
 }
