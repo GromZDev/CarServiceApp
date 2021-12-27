@@ -73,4 +73,5 @@
     <string name="find_client">Найти</string>
     <string name="find_your_client_main_tw">Найти своего клиента</string>
     <string name="find_your_client_hint_tw">Тут вы можете осуществить подбор того клиента по параметрам, который нужен именно вам</string>
+    <string name="exit_account">Выйти из аккаунта</string>
 </resources>
