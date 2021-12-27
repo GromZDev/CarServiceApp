@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.support.annotation.ColorInt
+import androidx.annotation.ColorInt
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast

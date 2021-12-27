@@ -78,7 +78,6 @@
     <string name="not_empty_email_password">Проверьте введенные данные. Все поля обязательны для заполнения!</string>
     <string name="valid_password">Проверьте длину пароля! Минимальная длина 8 символов</string>
     <string name="access_internet">Проверьте введенные данные. Возможно нет интернета</string>
-    <string name="exit_account">Выйти из аккаунта</string>
 
     <string name="exit_account">Выйти из аккаунта</string>
     <string name="forgot_password">Забыли свой пароль?</string>

@@ -64,7 +64,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.3'
 
-    implementation "android.arch.lifecycle:runtime:1.1.1"
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
 
     //ViewBinding
     implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.4.6'
