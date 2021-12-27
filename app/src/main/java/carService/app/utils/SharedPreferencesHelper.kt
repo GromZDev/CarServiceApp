@@ -10,6 +10,7 @@ class SharedPreferencesHelper(ctx: Context) {
     companion object {
         private const val FIRST_OPEN_KEY = "FIRST_OPEN"
         private const val CURRENT_USER_ID = "USER_ID"
+        private const val IS_AUTHED_KEY = "IS_AUTHED"
     }
 
     var userId: String? = null
@@ -25,4 +26,11 @@ class SharedPreferencesHelper(ctx: Context) {
             prefs.edit().putBoolean(FIRST_OPEN_KEY, value).apply()
         }
         get() = prefs.getBoolean(FIRST_OPEN_KEY, true)
+
+    var isAuthed = false
+        set(value) {
+            field = value
+            prefs.edit().putBoolean(IS_AUTHED_KEY, value).apply()
+        }
+        get() = prefs.getBoolean(IS_AUTHED_KEY, false)
 }

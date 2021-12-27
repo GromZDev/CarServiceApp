@@ -40,7 +40,7 @@
     организации, и Вы сможете предлагать свои услуги или товары другим пользователям</string>
     <string name="personal_account">Личный аккаунт</string>
     <string name="company_account">Аккаунт организации</string>
-    <string name="top_tw_main_user_fragment">Найдие Достойный Сервис и Автотовары</string>
+    <string name="top_tw_main_user_fragment">Найдите Достойный Сервис и Автотовары</string>
     <string name="companies_near">Компании рядом с вами</string>
     <string name="company_logo">Company_logo</string>
     <string name="best_companies_in_your_location">Лучшие компании в Вашем регионе</string>
@@ -73,6 +73,13 @@
     <string name="find_client">Найти</string>
     <string name="find_your_client_main_tw">Найти своего клиента</string>
     <string name="find_your_client_hint_tw">Тут вы можете осуществить подбор того клиента по параметрам, который нужен именно вам</string>
+
+    <string name="valid_email">Проверьте корректность Вашего email</string>
+    <string name="not_empty_email_password">Проверьте введенные данные. Все поля обязательны для заполнения!</string>
+    <string name="valid_password">Проверьте длину пароля! Минимальная длина 8 символов</string>
+    <string name="access_internet">Проверьте введенные данные. Возможно нет интернета</string>
+    <string name="exit_account">Выйти из аккаунта</string>
+
     <string name="exit_account">Выйти из аккаунта</string>
     <string name="forgot_password">Забыли свой пароль?</string>
     <string name="reset_password">Выберите какие контактные данные необходимо использовать для смены пароля:</string>
@@ -83,4 +90,5 @@
     <string name="confirm_new_pass">Подтвердите пароль</string>
     <string name="password_reset_success">Ваш пароль успешно сброшен</string>
     <string name="enter_account">Войти в аккаунт</string>
+
 </resources>
