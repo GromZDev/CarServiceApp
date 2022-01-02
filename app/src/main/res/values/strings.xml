@@ -89,5 +89,6 @@
     <string name="confirm_new_pass">Подтвердите пароль</string>
     <string name="password_reset_success">Ваш пароль успешно сброшен</string>
     <string name="enter_account">Войти в аккаунт</string>
+    <string name="needed_password">Обязательно *</string>
 
 </resources>

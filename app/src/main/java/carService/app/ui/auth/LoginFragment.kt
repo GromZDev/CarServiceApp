@@ -22,9 +22,10 @@ import org.koin.core.component.KoinApiExtension
 import timber.log.Timber
 
 @KoinApiExtension
-class LoginFragment(override val layoutId: Int = R.layout.fragment_login) : BaseFragment<FragmentLoginBinding>() {
+class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
+    BaseFragment<FragmentLoginBinding>() {
     companion object {
-        private const val TAG ="LoginFragment"
+        private const val TAG = "LoginFragment"
         fun newInstance() = LoginFragment()
         const val GOOGLE_SIGN_IN = 123
     }
@@ -50,12 +51,12 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) : Base
 
         binding.loginButton.setOnClickListener {
             val email = binding.emailTextInputField.text.toString().trim()
-            val password = binding.passwordTextInputField.text.toString().trim()
+            val password = binding.passwordTextInputFieldInput.text.toString().trim()
             when {
                 !binding.emailTextInputField.validateEmail(email) -> {
                     view?.showsnackBar(getString(R.string.valid_email))
                 }
-                TextUtils.isEmpty(email) || TextUtils.isEmpty(password)  -> {
+                TextUtils.isEmpty(email) || TextUtils.isEmpty(password) -> {
                     view?.showsnackBar(getString(R.string.not_empty_email_password))
                 }
                 password.length < 8 -> {
@@ -66,7 +67,7 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) : Base
 //
 //                }
                 else -> {
-                    vm.loginByEmail(email,password)
+                    vm.loginByEmail(email, password)
                 }
             }
         }
