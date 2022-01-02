@@ -30,7 +30,7 @@ class RegistrationStep4LocationFragment : Fragment(R.layout.registration_step4_l
         }
 
         binding.backButtonImage.setOnClickListener {
-            navigate(R.id.registrationStep3Fragment)
+            navigate(R.id.registrationStep3ConfirmPhotoFragment)
         }
     }
 

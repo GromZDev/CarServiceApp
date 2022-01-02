@@ -112,10 +112,16 @@
         android:label="registration_step3_fragment"
         tools:layout="@layout/registration_step3_fragment">
         <action
-            android:id="@+id/action_registrationStep3Fragment_to_step4"
-            app:destination="@id/registrationStep4LocationFragment" />
+            android:id="@+id/action_registrationStep3Fragment_to_registrationStep3ConfirmFragment"
+            app:destination="@id/registrationStep3ConfirmPhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationStep3ConfirmPhotoFragment"
+        android:name="carService.app.ui.registration.RegistrationStep3ConfirmPhotoFragment"
+        android:label="registration_step3_confirm_photo_fragment"
+        tools:layout="@layout/registration_step3_confirm_photo_fragment">
         <action
-            android:id="@+id/action_registrationStep3Fragment_to_registrationStep4LocationFragment"
+            android:id="@+id/action_registrationStep3ConfirmFragment_to_step4"
             app:destination="@id/registrationStep4LocationFragment" />
     </fragment>
     <fragment
