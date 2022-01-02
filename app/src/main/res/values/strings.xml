@@ -91,5 +91,13 @@
     <string name="enter_account">Войти в аккаунт</string>
     <string name="needed_password">Обязательно *</string>
     <string name="photo_confirm_reg3_fragment">Подтверждение вашего выбранного фото</string>
+    <string name="my_current_location_reg_map_fragment">Моё местоположение:</string>
+    <string name="stage_reg">Этап</string>
+    <string name="stage_1_of_5">1/5</string>
+    <string name="stage_2_of_5">2/5</string>
+    <string name="stage_3_of_5">3/5</string>
+    <string name="stage_4_of_5">4/5</string>
+    <string name="stage_5_of_5">5/5</string>
+    <string name="top_background_splash_screen">Задний фон Splash Screen</string>
 
 </resources>

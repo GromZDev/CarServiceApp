@@ -5,6 +5,15 @@
     android:background="@color/login_bg"
     app:layoutDescription="@xml/activity_splash_screen_scene">
 
+    <ImageView
+        android:id="@+id/image_splash_screen_top"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splash_screen_top" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_view_splash_screen"
         android:layout_width="wrap_content"

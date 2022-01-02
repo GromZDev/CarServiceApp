@@ -1,7 +1,7 @@
-package carService.app.ui.main.stock
+package carService.app.ui.registration
 
 import androidx.lifecycle.ViewModel
 
-class StockViewModel : ViewModel() {
+class MapsViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }
