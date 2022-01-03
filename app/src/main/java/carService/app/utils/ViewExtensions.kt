@@ -4,7 +4,9 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import androidx.annotation.ColorInt
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -15,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import carService.app.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import java.util.regex.Pattern
 
 fun Fragment.navigate(resId: Int, bundle: Bundle? = null, bundle2: Bundle? = null) {
     NavHostFragment.findNavController(this).navigate(resId, bundle)
@@ -74,7 +77,15 @@ fun Fragment.showAlertDialog(body: Int, title: String, message: String) {
 }
 
 fun View.showsnackBar(message: String) {
-    Snackbar.make(this, message, Snackbar.LENGTH_LONG).show()
+    Snackbar
+        .make(this, message, Snackbar.LENGTH_LONG)
+        .withColor(resources.getColor(R.color.alert_snackbar,null))
+        .show()
+}
+
+fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar{
+    this.view.setBackgroundColor(colorInt)
+    return this
 }
 
 fun View.showToast(message: String) {
@@ -92,4 +103,11 @@ fun Activity.showToast(message: String) {
 fun showToast(context: Context, message: String) {
     /* Функция показывает сообщение */
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
+fun EditText.validateEmail(email: String): Boolean {
+    val VALID_EMAIL_ADDRESS_REGEX: Pattern =
+        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
+    val mathcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email)
+    return mathcher.find()
 }

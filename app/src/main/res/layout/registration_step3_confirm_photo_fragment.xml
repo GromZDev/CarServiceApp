@@ -25,7 +25,7 @@
         android:contentDescription="@string/back_button"
         android:fontFamily="@font/benton_sans_bold"
         android:gravity="center"
-        android:text="@string/stage_1_of_5"
+        android:text="@string/stage_3_of_5"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +54,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/benton_sans_bold"
-        android:text="@string/fill_data_registration_step2"
+        android:text="@string/photo_confirm_reg3_fragment"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@id/back_button_image"
@@ -74,81 +74,32 @@
         app:layout_constraintStart_toStartOf="@id/fill_account_textview"
         app:layout_constraintTop_toBottomOf="@id/fill_account_textview" />
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/nickName_input_field"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/you_image_iw"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/main_button_background"
-        android:hint="@string/your_first_name"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textColor="@color/reg_form_color"
-        android:textColorHint="@color/hint_text_color"
-        app:layout_constraintEnd_toEndOf="@id/fill_account_textview"
-        app:layout_constraintStart_toStartOf="@id/fill_account_textview"
-        app:layout_constraintTop_toBottomOf="@id/hint_textview" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/e_mail_text_input_field"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/main_button_background"
-        android:hint="@string/your_last_name"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textColor="@color/reg_form_color"
-        android:textColorHint="@color/hint_text_color"
-        app:layout_constraintEnd_toEndOf="@id/fill_account_textview"
-        app:layout_constraintStart_toStartOf="@id/fill_account_textview"
-        app:layout_constraintTop_toBottomOf="@id/nickName_input_field" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/password_text_input_field_reg"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/main_button_background"
-        android:hint="@string/your_telephone_number"
-        android:textColorHint="@color/hint_text_color"
-        app:counterEnabled="true"
-        app:counterMaxLength="20"
-        app:counterTextColor="@color/white"
-        app:helperText="@string/needed_password"
-        app:helperTextTextColor="@color/white"
+        android:contentDescription="@string/back_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/e_mail_text_input_field"
-        app:prefixText="+7"
-        app:prefixTextColor="@color/reg_form_color">
+        app:layout_constraintTop_toBottomOf="@+id/hint_textview" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_input_field_reg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/main_button_background"
-            android:inputType="number"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:textColor="@color/reg_form_color"
-            android:textColorHint="@color/hint_text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/e_mail_text_input_field" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/close_iw"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/ic_close_iw"
+        android:contentDescription="@string/back_button"
+        app:layout_constraintEnd_toEndOf="@+id/you_image_iw"
+        app:layout_constraintTop_toTopOf="@+id/you_image_iw" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/create_account_button"
+        android:id="@+id/next_create_account_button"
         android:layout_width="325dp"
-        android:layout_height="60dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="54dp"
         android:background="@drawable/login_button_background"
         android:fontFamily="@font/benton_sans_bold"

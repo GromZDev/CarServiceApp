@@ -6,19 +6,19 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
 import carService.app.databinding.RegistrationStep2FragmentBinding
+import carService.app.databinding.RegistrationStep3ConfirmPhotoFragmentBinding
 import carService.app.databinding.RegistrationStep3FragmentBinding
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
 
-class RegistrationStep3Fragment : Fragment(R.layout.registration_step3_fragment) {
+class RegistrationStep3ConfirmPhotoFragment : Fragment(R.layout.registration_step3_confirm_photo_fragment) {
 
     companion object {
-        const val TAG = "RegistrationStep3Fragment"
-        fun newInstance() = RegistrationStep3Fragment()
+        const val TAG = "RegistrationStep3ConfirmPhotoFragment"
+        fun newInstance() = RegistrationStep3ConfirmPhotoFragment()
     }
 
-    private val binding: RegistrationStep3FragmentBinding by viewBinding()
-    private lateinit var viewModel: RegistrationStep3ViewModel
+    private val binding: RegistrationStep3ConfirmPhotoFragmentBinding by viewBinding()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -26,11 +26,11 @@ class RegistrationStep3Fragment : Fragment(R.layout.registration_step3_fragment)
         hideToolbarAndBottomNav()
 
         binding.nextCreateAccountButton.setOnClickListener {
-            navigate(R.id.registrationStep3ConfirmPhotoFragment)
+            navigate(R.id.registrationStep4LocationFragment)
         }
 
         binding.backButtonImage.setOnClickListener {
-            navigate(R.id.registrationStep2Fragment)
+            navigate(R.id.registrationStep3Fragment)
         }
     }
 
