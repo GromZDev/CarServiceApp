@@ -103,7 +103,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.0.0'
-    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.0.0'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
@@ -118,6 +118,9 @@ dependencies {
     implementation "de.hdodenhof:circleimageview:$circleImageViewVersion"
     implementation 'io.coil-kt:coil:0.11.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Google Maps
+    implementation 'com.google.android.gms:play-services-maps:18.0.1'
 
     // Tests
     testImplementation 'junit:junit:4.13.2'

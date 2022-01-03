@@ -112,10 +112,16 @@
         android:label="registration_step3_fragment"
         tools:layout="@layout/registration_step3_fragment">
         <action
-            android:id="@+id/action_registrationStep3Fragment_to_step4"
-            app:destination="@id/registrationStep4LocationFragment" />
+            android:id="@+id/action_registrationStep3Fragment_to_registrationStep3ConfirmFragment"
+            app:destination="@id/registrationStep3ConfirmPhotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationStep3ConfirmPhotoFragment"
+        android:name="carService.app.ui.registration.RegistrationStep3ConfirmPhotoFragment"
+        android:label="registration_step3_confirm_photo_fragment"
+        tools:layout="@layout/registration_step3_confirm_photo_fragment">
         <action
-            android:id="@+id/action_registrationStep3Fragment_to_registrationStep4LocationFragment"
+            android:id="@+id/action_registrationStep3ConfirmFragment_to_step4"
             app:destination="@id/registrationStep4LocationFragment" />
     </fragment>
     <fragment
@@ -126,6 +132,18 @@
         <action
             android:id="@+id/action_registrationStep4Location_to_step5"
             app:destination="@id/registrationStep5RoleFragment" />
+        <action
+            android:id="@+id/action_registrationMap"
+            app:destination="@id/registrationStep4Map" />
+    </fragment>
+    <fragment
+        android:id="@+id/registrationStep4Map"
+        android:name="carService.app.ui.registration.MapsFragment"
+        android:label="registration_step4_Maps_Fragment"
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_MapLocation_to_step4Location"
+            app:destination="@id/registrationStep4LocationFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationIsSuccessFragment"
@@ -172,20 +190,17 @@
         android:id="@+id/companyAnnouncementsFragment"
         android:name="carService.app.ui.main.menu_screens.company_menu.announcements.CompanyAnnouncementFragment"
         android:label="company_announcements_fragment"
-        tools:layout="@layout/company_announcement_fragment">
-    </fragment>
+        tools:layout="@layout/company_announcement_fragment"></fragment>
     <fragment
         android:id="@+id/showClientsAnnounceFragment"
         android:name="carService.app.ui.main.menu_screens.company_menu.show_clients_announce.ShowClientsAnnounceFragment"
         android:label="company_show_clients_announce_fragment"
-        tools:layout="@layout/show_clients_announce_fragment">
-    </fragment>
+        tools:layout="@layout/show_clients_announce_fragment"></fragment>
     <fragment
         android:id="@+id/findClientFragment"
         android:name="carService.app.ui.main.menu_screens.company_menu.find_client.FindClientFragment"
         android:label="company_find_clients_fragment"
-        tools:layout="@layout/find_client_fragment">
-    </fragment>
+        tools:layout="@layout/find_client_fragment"></fragment>
     <fragment
         android:id="@+id/moreCompanyMenuFragment"
         android:name="carService.app.ui.main.menu_screens.company_menu.more_company_menu.MoreCompanyMenuFragment"

@@ -5,7 +5,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
-import carService.app.databinding.RegistrationStep2FragmentBinding
 import carService.app.databinding.RegistrationStep4LocationFragmentBinding
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
@@ -30,7 +29,11 @@ class RegistrationStep4LocationFragment : Fragment(R.layout.registration_step4_l
         }
 
         binding.backButtonImage.setOnClickListener {
-            navigate(R.id.registrationStep3Fragment)
+            navigate(R.id.registrationStep3ConfirmPhotoFragment)
+        }
+
+        binding.getLocationButton.setOnClickListener {
+            navigate(R.id.registrationStep4Map)
         }
     }
 

@@ -1,0 +1,54 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_bg"
+    app:layoutDescription="@xml/activity_splash_screen_scene">
+
+    <ImageView
+        android:id="@+id/image_splash_screen_top"
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splash_screen_top" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_view_splash_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/viga_regular"
+        android:gravity="center"
+        android:text="@string/logo_name"
+        android:textColor="@color/app_name_color"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_view_splash_screen" />
+
+    <TextView
+        android:id="@+id/app_name_bottom_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/viga_regular"
+        android:gravity="center"
+        android:text="@string/logo_name_bottom"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_splash_screen" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/image_view_splash_screen"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_400" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

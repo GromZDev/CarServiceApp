@@ -17,6 +17,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/stage_notice"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:contentDescription="@string/back_button"
+        android:fontFamily="@font/benton_sans_bold"
+        android:gravity="center"
+        android:text="@string/stage_5_of_5"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/stage_tw"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/back_button"
+        android:fontFamily="@font/benton_sans_bold"
+        android:gravity="center"
+        android:text="@string/stage_reg"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/stage_notice"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/location_account_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
