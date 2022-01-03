@@ -1,7 +1,7 @@
 package carService.app.utils
 
 import carService.app.data.model.UserData
-import carService.app.repo.Repository
+import carService.app.repo.personal.Repository
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth

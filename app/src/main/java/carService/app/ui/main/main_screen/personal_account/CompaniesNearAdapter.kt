@@ -1,27 +1,24 @@
 package carService.app.ui.main.main_screen.personal_account
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import carService.app.R
+import carService.app.data.model.UserData
+import carService.app.databinding.ItemCompaniesNearRvBinding
+import carService.app.utils.AppImageView
 
-class CompaniesNearAdapter : RecyclerView.Adapter<CompaniesNearAdapter.CompaniesNearViewHolder>() {
+class CompaniesNearAdapter(
+    val imageLoader: AppImageView
+) : RecyclerView.Adapter<CompaniesNearAdapter.CompaniesNearViewHolder>() {
 
-    private var nearCompaniesList: List<Any> = arrayListOf()
-    private lateinit var fragmentManager: FragmentManager // Нужен для получения контекста ниже для
-    // передачи в транзакцию
+    private var nearCompaniesList: List<UserData> = arrayListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompaniesNearViewHolder {
-        val view = LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_companies_near_rv, parent, false)
-        fragmentManager =
-            (view.context as FragmentActivity).supportFragmentManager // получаю менеджер
-        return CompaniesNearViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CompaniesNearViewHolder(
+        ItemCompaniesNearRvBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
+    )
 
     override fun getItemCount(): Int = nearCompaniesList.size
 
@@ -29,16 +26,28 @@ class CompaniesNearAdapter : RecyclerView.Adapter<CompaniesNearAdapter.Companies
         holder.bind(nearCompaniesList[position])
     }
 
-    fun setNearCompanies(actors: List<Any>) {
-        this.nearCompaniesList = actors
+    fun setNearCompanies(organisationsNear: List<UserData>) {
+        this.nearCompaniesList = organisationsNear
         notifyDataSetChanged()
     }
 
-    inner class CompaniesNearViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CompaniesNearViewHolder(private val vb: ItemCompaniesNearRvBinding) :
+        RecyclerView.ViewHolder(vb.root) {
 
 
-        fun bind(any: Any) {
+        fun bind(organisation: UserData) = with(vb) {
+            if (layoutPosition != RecyclerView.NO_POSITION) {
+                itemCompanyName.text = organisation.name
+                itemCompanyMainService.text = organisation.companyServices?.service1
 
+                imageLoader.useCoilToLoadPhoto(
+                    imageLink = organisation.profileImageUrl,
+                    container = itemCompanyImage,
+                    imageView = itemCompanyImage
+                )
+
+                itemCompanyRating.text = organisation.rating.toString()
+            }
         }
     }
 
