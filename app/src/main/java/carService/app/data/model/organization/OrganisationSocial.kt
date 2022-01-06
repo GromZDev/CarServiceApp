@@ -13,7 +13,7 @@ data class OrganisationSocial(
     var socialVkPath: String? = null,
     var socialYoutube: SocialTYPE? = null,
     var socialYoutubePath: String? = null,
-): Parcelable {
+) : Parcelable {
 
     enum class SocialTYPE {
         INSTAGRAM,
@@ -25,9 +25,13 @@ data class OrganisationSocial(
 
 
 fun getAllOrganisationSocial() =
-    OrganisationSocial(socialInstagram = OrganisationSocial.SocialTYPE.INSTAGRAM,
+    OrganisationSocial(
+        socialInstagram = OrganisationSocial.SocialTYPE.INSTAGRAM,
         socialInstagramPath = "https://www.instagram.com/csfworkshop/",
-    socialYoutube = OrganisationSocial.SocialTYPE.YOUTUBE,
-        socialYoutubePath = "https://www.youtube.com/channel/UCb9meEW1Zd26AFWGeMOiCoA")
+        socialYoutube = OrganisationSocial.SocialTYPE.YOUTUBE,
+        socialYoutubePath = "https://www.youtube.com/channel/UCb9meEW1Zd26AFWGeMOiCoA",
+        socialFacebook = OrganisationSocial.SocialTYPE.FACEBOOK,
+        socialVk = OrganisationSocial.SocialTYPE.VK
+    )
 
 

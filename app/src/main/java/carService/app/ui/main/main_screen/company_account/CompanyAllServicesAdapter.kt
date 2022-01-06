@@ -3,19 +3,19 @@ package carService.app.ui.main.main_screen.company_account
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import carService.app.data.model.organization.OrganisationData
-import carService.app.databinding.ItemCompanyAllServicesMainRvBinding
+import carService.app.data.model.organization.OrganisationServiceList
+import carService.app.databinding.ItemCompanyAllServicesDetailsRvBinding
 import carService.app.utils.AppImageView
 
 class CompanyAllServicesAdapter(
     val imageLoader: AppImageView
 ) : RecyclerView.Adapter<CompanyAllServicesAdapter.CompanyAllServicesViewHolder>() {
 
-    private var allServicesAdapterList: List<OrganisationData> = arrayListOf()
+    private var allServicesAdapterList: List<OrganisationServiceList> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         CompanyAllServicesViewHolder(
-            ItemCompanyAllServicesMainRvBinding.inflate(
+            ItemCompanyAllServicesDetailsRvBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent, false
             )
@@ -27,18 +27,18 @@ class CompanyAllServicesAdapter(
         holder.bind(allServicesAdapterList[position])
     }
 
-    fun setAllServices(allServices: List<OrganisationData>) {
+    fun setAllServices(allServices: List<OrganisationServiceList>) {
         this.allServicesAdapterList = allServices
         notifyDataSetChanged()
     }
 
-    inner class CompanyAllServicesViewHolder(private val vb: ItemCompanyAllServicesMainRvBinding) :
+    inner class CompanyAllServicesViewHolder(private val vb: ItemCompanyAllServicesDetailsRvBinding) :
         RecyclerView.ViewHolder(vb.root) {
 
 
-        fun bind(organisationData: OrganisationData) = with(vb) {
+        fun bind(organisationData: OrganisationServiceList) = with(vb) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                organisationData.allServices?.get(0)?.serviceMainPhoto.let {
+                organisationData.serviceMainPhoto.let {
                     if (it != null) {
                         imageLoader.useCoilToLoadPhoto(
                             imageLink = it,
@@ -48,9 +48,9 @@ class CompanyAllServicesAdapter(
                     }
                 }
 
-                itemServiceName.text = organisationData.allServices?.get(0)?.serviceName
+                itemServiceName.text = organisationData.serviceName
 
-                itemServicePrice.text = organisationData.allServices?.get(0)?.price.toString()
+                itemServicePrice.text = organisationData.price.toString()
             }
         }
     }

@@ -100,4 +100,12 @@
     <string name="stage_5_of_5">5/5</string>
     <string name="top_background_splash_screen">Задний фон Splash Screen</string>
 
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+    <string name="sunday">Воскресенье</string>
+
 </resources>

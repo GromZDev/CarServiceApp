@@ -25,4 +25,8 @@
         <item name="cornerSize">12%</item>
     </style>
 
+    <style name="ItemRounded">
+        <item name="cornerSize">15%</item>
+    </style>
+
 </resources>

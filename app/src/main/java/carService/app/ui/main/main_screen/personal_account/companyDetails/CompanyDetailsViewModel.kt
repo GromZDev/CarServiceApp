@@ -21,7 +21,8 @@ class CompanyDetailsViewModel(
             Thread.sleep(1000)
             liveDataToObserve.postValue(
                 CompanyDetailsAppState.Success(
-                    organisationRepositoryImpl.getAllOrganisationFullMockData()
+                    organisationRepositoryImpl.getAllOrganisationFullMockData(),
+                    organisationRepositoryImpl.getAllOrganisationServiceMockData()
                 )
             )
         }.start()
