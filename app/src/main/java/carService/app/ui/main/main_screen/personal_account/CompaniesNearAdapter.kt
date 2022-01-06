@@ -5,10 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import carService.app.data.model.UserData
 import carService.app.databinding.ItemCompaniesNearRvBinding
+import carService.app.ui.main.main_screen.company_account.MainCompanyFragment
 import carService.app.utils.AppImageView
 
 class CompaniesNearAdapter(
-    val imageLoader: AppImageView
+    val imageLoader: AppImageView,
+    private var onItemViewClickListener: MainCompanyFragment.OnNearRvItemViewClickListener?
 ) : RecyclerView.Adapter<CompaniesNearAdapter.CompaniesNearViewHolder>() {
 
     private var nearCompaniesList: List<UserData> = arrayListOf()
@@ -47,6 +49,10 @@ class CompaniesNearAdapter(
                 )
 
                 itemCompanyRating.text = organisation.rating.toString()
+
+                itemView.setOnClickListener {
+                    onItemViewClickListener?.onNearRvItemViewClick() // Вызываем слушатель нажатия
+                }
             }
         }
     }

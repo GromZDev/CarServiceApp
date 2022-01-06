@@ -10,7 +10,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
 import carService.app.data.model.UserData
 import carService.app.databinding.MainUserFragmentBinding
+import carService.app.ui.main.main_screen.company_account.MainCompanyFragment
 import carService.app.utils.AppImageView
+import carService.app.utils.navigate
 import carService.app.utils.showsnackBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -95,9 +97,22 @@ class MainUserFragment : Fragment(R.layout.main_user_fragment) {
             false
         )
 
-        val nearCompaniesAdapter = CompaniesNearAdapter(AppImageView())
+        val nearCompaniesAdapter = CompaniesNearAdapter(
+            AppImageView(),
+            object : MainCompanyFragment.OnNearRvItemViewClickListener {
+                override fun onNearRvItemViewClick() {
+                    val manager = activity?.supportFragmentManager
+                    manager?.let {
+
+                        manager.beginTransaction()
+                        navigate(R.id.companyDetailsFragment)
+                    }
+                }
+
+            })
         nearCompanies.adapter = nearCompaniesAdapter
         nearCompaniesAdapter.setNearCompanies(appState)
+
     }
 
     private fun setFakeData2() {
