@@ -4,10 +4,10 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import androidx.annotation.ColorInt
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -28,7 +28,8 @@ fun Fragment.hideToolbarAndBottomNav() {
     val navBar: BottomNavigationView = requireActivity().findViewById(R.id.bottom_navigation)
     navBar.visibility = View.GONE
 
-    val navBarCompany: BottomNavigationView = requireActivity().findViewById(R.id.bottom_company_navigation)
+    val navBarCompany: BottomNavigationView =
+        requireActivity().findViewById(R.id.bottom_company_navigation)
     navBarCompany.visibility = View.GONE
 
     /** Скрываем тулбар там, где он не нужен */
@@ -79,11 +80,11 @@ fun Fragment.showAlertDialog(body: Int, title: String, message: String) {
 fun View.showsnackBar(message: String) {
     Snackbar
         .make(this, message, Snackbar.LENGTH_LONG)
-        .withColor(resources.getColor(R.color.alert_snackbar,null))
+        .withColor(resources.getColor(R.color.alert_snackbar, null))
         .show()
 }
 
-fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar{
+fun Snackbar.withColor(@ColorInt colorInt: Int): Snackbar {
     this.view.setBackgroundColor(colorInt)
     return this
 }

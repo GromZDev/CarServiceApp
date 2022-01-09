@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
 import carService.app.databinding.MainCompanyFragmentBinding
+import carService.app.utils.AppImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainCompanyFragment : Fragment(R.layout.main_company_fragment) {
@@ -17,17 +18,22 @@ class MainCompanyFragment : Fragment(R.layout.main_company_fragment) {
         fun newInstance() = MainCompanyFragment()
     }
 
+    interface OnNearRvItemViewClickListener {
+        fun onNearRvItemViewClick()
+    }
+
     private val binding: MainCompanyFragmentBinding by viewBinding()
     private lateinit var viewModel: MainCompanyViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navBar: BottomNavigationView = requireActivity().findViewById(R.id.bottom_company_navigation)
+        val navBar: BottomNavigationView =
+            requireActivity().findViewById(R.id.bottom_company_navigation)
         navBar.visibility = View.VISIBLE
 
         /** Временные данные для наглядности */
-        setFakeData()
+        //  setFakeData()
         /** -------------------------------- */
     }
 
@@ -40,10 +46,10 @@ class MainCompanyFragment : Fragment(R.layout.main_company_fragment) {
         )
         val nearCompaniesLayoutManager = allServices.layoutManager as LinearLayoutManager
 
-        val allServicesAdapter = CompanyAllServicesAdapter()
+        val allServicesAdapter = CompanyAllServicesAdapter(AppImageView())
         allServices.adapter = allServicesAdapter
 
         val allServicesList: List<Any> = arrayListOf("2", "6", "5", "1", "1", "1", "1", "1", "1")
-        allServicesAdapter.setAllServices(allServicesList)
+        //   allServicesAdapter.setAllServices(allServicesList)
     }
 }
