@@ -1,27 +1,25 @@
 package carService.app.ui.main.main_screen.company_account
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import carService.app.R
+import carService.app.data.model.organization.OrganisationServiceList
+import carService.app.databinding.ItemCompanyAllServicesDetailsRvBinding
+import carService.app.utils.AppImageView
 
-class CompanyAllServicesAdapter : RecyclerView.Adapter<CompanyAllServicesAdapter.CompanyAllServicesViewHolder>() {
+class CompanyAllServicesAdapter(
+    val imageLoader: AppImageView
+) : RecyclerView.Adapter<CompanyAllServicesAdapter.CompanyAllServicesViewHolder>() {
 
-    private var allServicesAdapterList: List<Any> = arrayListOf()
-    private lateinit var fragmentManager: FragmentManager // Нужен для получения контекста ниже для
-    // передачи в транзакцию
+    private var allServicesAdapterList: List<OrganisationServiceList> = arrayListOf()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CompanyAllServicesViewHolder {
-        val view = LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_company_all_services_main_rv, parent, false)
-        fragmentManager =
-            (view.context as FragmentActivity).supportFragmentManager // получаю менеджер
-        return CompanyAllServicesViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        CompanyAllServicesViewHolder(
+            ItemCompanyAllServicesDetailsRvBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent, false
+            )
+        )
 
     override fun getItemCount(): Int = allServicesAdapterList.size
 
@@ -29,16 +27,31 @@ class CompanyAllServicesAdapter : RecyclerView.Adapter<CompanyAllServicesAdapter
         holder.bind(allServicesAdapterList[position])
     }
 
-    fun setAllServices(actors: List<Any>) {
-        this.allServicesAdapterList = actors
+    fun setAllServices(allServices: List<OrganisationServiceList>) {
+        this.allServicesAdapterList = allServices
         notifyDataSetChanged()
     }
 
-    inner class CompanyAllServicesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CompanyAllServicesViewHolder(private val vb: ItemCompanyAllServicesDetailsRvBinding) :
+        RecyclerView.ViewHolder(vb.root) {
 
 
-        fun bind(any: Any) {
+        fun bind(organisationData: OrganisationServiceList) = with(vb) {
+            if (layoutPosition != RecyclerView.NO_POSITION) {
+                organisationData.serviceMainPhoto.let {
+                    if (it != null) {
+                        imageLoader.useCoilToLoadPhoto(
+                            imageLink = it,
+                            container = itemServiceImage,
+                            imageView = itemServiceImage
+                        )
+                    }
+                }
 
+                itemServiceName.text = organisationData.serviceName
+
+                itemServicePrice.text = organisationData.price.toString()
+            }
         }
     }
 

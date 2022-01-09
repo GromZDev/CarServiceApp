@@ -1,6 +1,6 @@
 package carService.app.di
 
-import carService.app.repo.UserRepository
+import carService.app.repo.personal.UserRepository
 import carService.app.ui.auth.LoginViewModel
 import carService.app.ui.main.menu_screens.company_menu.more_company_menu.MoreCompanyMenuViewModel
 import carService.app.ui.main.menu_screens.personal_menu.more_menu.MoreMenuViewModel
@@ -17,7 +17,7 @@ import com.google.firebase.storage.FirebaseStorage
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import carService.app.repo.Repository
+import carService.app.repo.personal.Repository
 
 val appModule = module {
 
