@@ -1,5 +1,6 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main_fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -127,7 +128,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/e_mail_text_input_field"
-        app:prefixText="+7"
         app:prefixTextColor="@color/reg_form_color">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -160,4 +160,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <include
+        android:id="@+id/includedLoadingLayout"
+        layout="@layout/loading_layout"
+        android:background="@color/alfa_main_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/main_fragment_root" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

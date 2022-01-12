@@ -1,13 +1,16 @@
 package carService.app.ui.registration
 
 import android.text.TextUtils
+import android.view.View
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.RegistrationFragmentBinding
+import carService.app.utils.SharedPreferencesHelper
 import carService.app.utils.navigate
 import carService.app.utils.showsnackBar
 import carService.app.utils.validateEmail
 import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 
@@ -20,6 +23,11 @@ class RegistrationFragment(override val layoutId: Int = R.layout.registration_fr
         fun newInstance() = RegistrationFragment()
     }
     private val vm by viewModel<RegistrationViewModel>()
+    private val prefs by inject<SharedPreferencesHelper>()
+
+    var name: String = ""
+    var email: String = ""
+    var password: String = ""
 
     override fun initViews() {
 
@@ -33,9 +41,9 @@ class RegistrationFragment(override val layoutId: Int = R.layout.registration_fr
     }
 
     fun register() {
-        val name = binding.nickNameInputField.text.toString().trim()
-        val email = binding.eMailTextInputField.text.toString().trim()
-        val password = binding.passwordInputFieldReg.text.toString().trim()
+        name = binding.nickNameInputField.text.toString().trim()
+        email = binding.eMailTextInputField.text.toString().trim()
+        password = binding.passwordInputFieldReg.text.toString().trim()
         when {
             !binding.eMailTextInputField.validateEmail(email) -> {
                 view?.showsnackBar(getString(R.string.valid_email))
@@ -51,6 +59,7 @@ class RegistrationFragment(override val layoutId: Int = R.layout.registration_fr
 //            }
             else -> {
                 vm.registerByEmail(name,email,password)
+                binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
             }
         }
     }
@@ -59,9 +68,27 @@ class RegistrationFragment(override val layoutId: Int = R.layout.registration_fr
         doInScope {
             vm.newUser.collect {
                 if (it != null) {
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                     navigate(R.id.registrationStep2Fragment)
                 }
-//                else view?.showsnackBar(getString(R.string.access_internet))
+                else if (it == null && name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
+                    view?.showsnackBar(getString(R.string.access_internet))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+            vm.isStateException.collect { isStateException ->
+                if (isStateException != "") {
+                    view?.showsnackBar(getString(R.string.failed_new_user))
+                }
+            }
+        }
+
+        doInScopeResume {
+            vm.isStateException.collect { isStateException ->
+                if (isStateException !="" && !prefs.isAuthed && email.isNotEmpty() && password.isNotEmpty()) {
+                    view?.showsnackBar(getString(R.string.access_internet))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
             }
         }
     }

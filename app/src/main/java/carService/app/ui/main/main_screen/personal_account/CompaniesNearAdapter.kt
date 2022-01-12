@@ -42,11 +42,13 @@ class CompaniesNearAdapter(
                 itemCompanyName.text = organisation.name
                 itemCompanyMainService.text = organisation.companyServices?.service1
 
-                imageLoader.useCoilToLoadPhoto(
-                    imageLink = organisation.profileImageUrl,
-                    container = itemCompanyImage,
-                    imageView = itemCompanyImage
-                )
+                organisation.profileImageUrl?.let {
+                    imageLoader.useCoilToLoadPhoto(
+                        imageLink = it,
+                        container = itemCompanyImage,
+                        imageView = itemCompanyImage
+                    )
+                }
 
                 itemCompanyRating.text = organisation.rating.toString()
 

@@ -13,10 +13,10 @@ data class UserData(
     var phone: String = "",
     val lang: String = "",
     val type: TYPE? = null,
-    var profileImageUrl: String = "",
+    var profileImageUrl: String? = "",
     var location: Location? = null,
     var companyServices: OrganisationServices? = null,
-    var rating: Float? = null
+    var rating: Float? = 0f
 ) : Parcelable {
     enum class TYPE {
         PERSONAL,

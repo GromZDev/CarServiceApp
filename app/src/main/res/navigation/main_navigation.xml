@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -215,4 +215,9 @@
         android:name="carService.app.ui.main.menu_screens.company_menu.more_company_menu.MoreCompanyMenuFragment"
         android:label="more_company_menu_fragment"
         tools:layout="@layout/more_company_menu_fragment" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="carService.app.ui.splash_screen.SplashScreenFragment"
+        android:label="SplashScreenFragment"
+        tools:layout="@layout/activity_splash_screen_start"/>
 </navigation>

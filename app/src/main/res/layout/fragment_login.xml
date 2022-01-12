@@ -103,7 +103,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/email_text_input_field" />
             </com.google.android.material.textfield.TextInputLayout>
-
+            <include
+                android:id="@+id/includedLoadingLayout"
+                layout="@layout/loading_layout"
+                android:background="@color/alfa_main_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/main_fragment_root" />
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/google_login_button"
                 android:layout_width="325dp"
@@ -185,6 +193,6 @@
                 app:layout_constraintTop_toBottomOf="@id/or_textview" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
+
 </layout>

@@ -2,15 +2,13 @@ package carService.app.ui.auth
 
 import android.content.Intent
 import android.text.TextUtils
+import android.view.View
 import android.widget.Toast
 import carService.app.base.BaseFragment
 import carService.app.R
 import carService.app.databinding.FragmentLoginBinding
 import carService.app.di.FireBaseModule
-import carService.app.utils.hideToolbarAndBottomNav
-import carService.app.utils.navigate
-import carService.app.utils.showsnackBar
-import carService.app.utils.validateEmail
+import carService.app.utils.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
@@ -32,7 +30,10 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
 
     private val vm by viewModel<LoginViewModel>()
     private val fbase by inject<FireBaseModule>()
+    private val prefs by inject<SharedPreferencesHelper>()
 
+    var email: String = ""
+    var password: String = ""
     override fun initViews() {
 
         hideToolbarAndBottomNav()
@@ -50,8 +51,8 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
         }
 
         binding.loginButton.setOnClickListener {
-            val email = binding.emailTextInputField.text.toString().trim()
-            val password = binding.passwordTextInputFieldInput.text.toString().trim()
+            email = binding.emailTextInputField.text.toString().trim()
+            password = binding.passwordTextInputFieldInput.text.toString().trim()
             when {
                 !binding.emailTextInputField.validateEmail(email) -> {
                     view?.showsnackBar(getString(R.string.valid_email))
@@ -68,6 +69,7 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
 //                }
                 else -> {
                     vm.loginByEmail(email, password)
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
                 }
             }
         }
@@ -82,9 +84,22 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
         doInScope {
             vm.isLoggedIn.collect { isLoggedIn ->
                 if (isLoggedIn) {
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                     navigate(R.id.mainUserFragment)
                 }
-//                else view?.showsnackBar(getString(R.string.access_internet))
+                else if (!isLoggedIn && email.isNotEmpty() && password.isNotEmpty()) {
+                    view?.showsnackBar(getString(R.string.access_internet))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+        }
+
+        doInScopeResume {
+            vm.isStateException.collect { isStateException ->
+                if (isStateException !="" && !prefs.isAuthed && email.isNotEmpty() && password.isNotEmpty()) {
+                    view?.showsnackBar(getString(R.string.access_internet))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
             }
         }
     }

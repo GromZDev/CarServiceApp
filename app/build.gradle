@@ -64,6 +64,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.4.3'
 
+    //editText formatting
+    implementation "ru.tinkoff.decoro:decoro:1.4.0"
+
     implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
 
     //ViewBinding
