@@ -157,5 +157,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/create_account_button" />
 
+        <include
+            android:id="@+id/includedLoadingLayout"
+            layout="@layout/loading_layout"
+            android:background="@color/alfa_main_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/main_fragment_root" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

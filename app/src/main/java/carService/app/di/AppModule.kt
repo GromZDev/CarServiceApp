@@ -18,7 +18,11 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import carService.app.repo.personal.Repository
+import carService.app.ui.registration.RegistrationStep2ViewModel
+import carService.app.ui.splash_screen.SplashScreenViewModel
+import org.koin.core.component.KoinApiExtension
 
+@OptIn(KoinApiExtension::class)
 val appModule = module {
 
     //API
@@ -50,4 +54,6 @@ val appModule = module {
     viewModel { RegistrationViewModel(androidApplication(), get()) }
     viewModel { MoreCompanyMenuViewModel(androidApplication(), get()) }
     viewModel { MoreMenuViewModel(androidApplication(), get()) }
+    viewModel { SplashScreenViewModel(androidApplication()) }
+    viewModel { RegistrationStep2ViewModel(androidApplication(), get()) }
 }

@@ -77,8 +77,10 @@
     <string name="valid_email">Проверьте корректность Вашего email</string>
     <string name="not_empty_email_password">Проверьте введенные данные. Все поля обязательны для заполнения!</string>
     <string name="valid_password">Проверьте длину пароля! Минимальная длина 8 символов</string>
+    <string name="valid_phone">Проверьте номер телефона!</string>
     <string name="access_internet">Проверьте введенные данные. Возможно нет интернета</string>
-
+    <string name="access_failed">Ошибка обновления данных профиля. Возможно нет интернета</string>
+    <string name="failed_new_user">Аккаунт не создан! Проверьте введенные данные. Возможно нет интернета</string>
     <string name="exit_account">Выйти из аккаунта</string>
     <string name="forgot_password">Забыли свой пароль?</string>
     <string name="reset_password">Выберите какие контактные данные необходимо использовать для смены пароля:</string>

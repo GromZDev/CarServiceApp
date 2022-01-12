@@ -15,25 +15,28 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.MainActivity
 import carService.app.R
 import carService.app.base.BaseActivity
+import carService.app.base.BaseFragment
 import carService.app.databinding.ActivitySplashScreenStartBinding
 import carService.app.ui.auth.LoginViewModel
-import carService.app.utils.replaceFragment
+import carService.app.utils.hideToolbarAndBottomNav
+import carService.app.utils.navigate
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
-class SplashScreenActivity : BaseActivity(R.layout.activity_splash_screen_start) {
+class SplashScreenFragment(override val layoutId: Int = R.layout.activity_splash_screen_start
+) : BaseFragment<ActivitySplashScreenStartBinding>() {
 
-    private val binding: ActivitySplashScreenStartBinding by viewBinding()
     private val vm by viewModel<SplashScreenViewModel>()
-    lateinit var navController: NavController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        animationLogo()
-        if (savedInstanceState == null) {
-            replaceFragment(SplashScreenFragment())
-        }
+    override fun initViews() {
+        super.initViews()
+        hideToolbarAndBottomNav()
+    }
+
+    override fun initViewModel() {
+        super.initViewModel()
+        animationLogo()
     }
 
     private fun animationLogo() {
@@ -64,7 +67,7 @@ class SplashScreenActivity : BaseActivity(R.layout.activity_splash_screen_start)
 
     private fun showComponents() {
         val constraintSet = ConstraintSet()
-        constraintSet.clone(this, R.layout.activity_splash_screen)
+        constraintSet.clone(requireContext(), R.layout.activity_splash_screen)
         val transition = ChangeBounds()
         transition.interpolator = AnticipateOvershootInterpolator(1.5f)
         transition.duration = 3400
@@ -77,13 +80,11 @@ class SplashScreenActivity : BaseActivity(R.layout.activity_splash_screen_start)
     }
 
     fun openLogin() {
-//        navController.navigate(R.id.loginFragment)
-        startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+        navigate(R.id.loginFragment)
     }
 
     fun openMain() {
-        startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
-        finish()
+        navigate(R.id.mainUserFragment)
     }
 
     override fun onResume() {

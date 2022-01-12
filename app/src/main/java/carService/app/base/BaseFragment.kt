@@ -56,6 +56,17 @@ abstract class BaseFragment<Binding: ViewBinding> : Fragment(){
         }
     }
 
+    protected fun doInScopeResume(
+        state: Lifecycle.State = Lifecycle.State.RESUMED,
+        action: suspend () -> Unit
+    ) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(state) {
+                action()
+            }
+        }
+    }
+
     //показывает тост с текстом. Принимает String. Ничего не возвращает.
     fun showMessage (message: String){
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
