@@ -2,29 +2,21 @@ package carService.app.ui.splash_screen
 
 import android.animation.Animator
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.os.Bundle
 import android.transition.ChangeBounds
 import android.transition.TransitionManager
 import android.view.animation.AnticipateOvershootInterpolator
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.lifecycle.flowWithLifecycle
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import by.kirich1409.viewbindingdelegate.viewBinding
-import carService.app.MainActivity
 import carService.app.R
-import carService.app.base.BaseActivity
 import carService.app.base.BaseFragment
 import carService.app.databinding.ActivitySplashScreenStartBinding
-import carService.app.ui.auth.LoginViewModel
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
-class SplashScreenFragment(override val layoutId: Int = R.layout.activity_splash_screen_start
+class SplashScreenFragment(
+    override val layoutId: Int = R.layout.activity_splash_screen_start
 ) : BaseFragment<ActivitySplashScreenStartBinding>() {
 
     private val vm by viewModel<SplashScreenViewModel>()
