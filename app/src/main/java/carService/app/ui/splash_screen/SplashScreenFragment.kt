@@ -9,9 +9,11 @@ import androidx.constraintlayout.widget.ConstraintSet
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.ActivitySplashScreenStartBinding
+import carService.app.utils.SharedPreferencesHelper
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
 import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
@@ -20,6 +22,7 @@ class SplashScreenFragment(
 ) : BaseFragment<ActivitySplashScreenStartBinding>() {
 
     private val vm by viewModel<SplashScreenViewModel>()
+    private val prefs by inject<SharedPreferencesHelper>()
 
     override fun initViews() {
         super.initViews()
@@ -42,11 +45,24 @@ class SplashScreenFragment(
 
                 override fun onAnimationEnd(p0: Animator?) {
                     doInScope {
-                        vm.isLoggedIn.collect { isLoggedIn ->
-                            if (isLoggedIn) {
-                                openMain()
-                            } else {
+                        vm.userData.collect {
+                            if (it == null)  {
+                                prefs.isAuthed = false
+                                prefs.isFirstOpen = true
+                                prefs.isRegistrationStep1 = false
+                                prefs.isRegistrationStep2 = false
+                                prefs.isRegistrationStep3 = false
+                                prefs.isRegistrationStep4 = false
                                 openLogin()
+                            }
+                            else {
+                                vm.isLoggedIn.collect { isLoggedIn ->
+                                    if (isLoggedIn) {
+                                        stepRegistration()
+                                    } else {
+                                        openLogin()
+                                    }
+                                }
                             }
                         }
                     }
@@ -75,12 +91,19 @@ class SplashScreenFragment(
         navigate(R.id.loginFragment)
     }
 
-    fun openMain() {
-        navigate(R.id.mainUserFragment)
-    }
-
     override fun onResume() {
         super.onResume()
         vm.checkAuth()
+        vm.loadUser()
+    }
+
+    fun stepRegistration() {
+        when {
+            !prefs.isRegistrationStep1 -> navigate(R.id.registrationStep2Fragment)
+            !prefs.isRegistrationStep2 -> navigate(R.id.registrationStep3Fragment)
+            !prefs.isRegistrationStep3 -> navigate(R.id.registrationStep4LocationFragment)
+            !prefs.isRegistrationStep4 -> navigate(R.id.registrationStep5RoleFragment)
+            else -> navigate(R.id.mainUserFragment)
+        }
     }
 }

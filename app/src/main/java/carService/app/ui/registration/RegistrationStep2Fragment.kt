@@ -5,10 +5,12 @@ import android.view.View
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.RegistrationStep2FragmentBinding
+import carService.app.utils.SharedPreferencesHelper
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
 import carService.app.utils.showsnackBar
 import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 import ru.tinkoff.decoro.MaskImpl
@@ -27,6 +29,7 @@ class RegistrationStep2Fragment(
     }
 
     private val vm by viewModel<RegistrationStep2ViewModel>()
+    private val prefs by inject<SharedPreferencesHelper>()
 
     var name: String = ""
     var lastName: String = ""
@@ -52,6 +55,7 @@ class RegistrationStep2Fragment(
             vm.newUser.collect {
                 if (it != null) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                    prefs.isRegistrationStep1 = true
                     navigate(R.id.registrationStep3Fragment)
                 } else if (it == null && name.isNotEmpty() && lastName.isNotEmpty() && phone.isNotEmpty()) {
                     view?.showsnackBar(getString(R.string.access_failed))
