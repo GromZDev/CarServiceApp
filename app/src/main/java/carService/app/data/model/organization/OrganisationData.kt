@@ -9,6 +9,7 @@ import kotlinx.parcelize.RawValue
 data class OrganisationData(
     val uid: String? = "",
     var name: String? = "",
+    var lastName: String? = "",
     var nickName: String? = "",
     var tel: OrganisationTelNumbers? = null,
     var email: String = "",
@@ -26,7 +27,7 @@ data class OrganisationData(
 
 fun getFullDataOfAllOrganisations() = mutableListOf(
     OrganisationData(
-        "1", "CSF Workshop", "CSF",
+        "1", "CSF Workshop", "", "CSF",
         OrganisationTelNumbers("+7 999 111 22 33", "+7 495 111 22 33"),
         "csf@carsound-factory.ru", "Описание компании CSF Workshop: шумоизоляция," +
                 "установка автозвука, детейлинг и дополнительное оборудование",

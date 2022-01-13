@@ -52,7 +52,7 @@
     <string name="menu_request">Запрос</string>
     <string name="menu_map">Карта</string>
     <string name="menu_more">Ещё</string>
-    <string name="my_profile_fragment_tw">Мой профиль</string>
+    <string name="my_profile_fragment_tw">Мой профиль:</string>
     <string name="create_request_tw">Создать запрос на услугу</string>
     <string name="hint_request_tw">Здесь Вы можете создать запрос на необходимую услугу. Это увидят компании и сделают вам своё предложение</string>
     <string name="person_map_tw">Компании на карте</string>
@@ -107,5 +107,10 @@
     <string name="friday">Пятница</string>
     <string name="saturday">Суббота</string>
     <string name="sunday">Воскресенье</string>
+    <string name="makePhoto">Добавить фото</string>
+    <string name="my_car">Мой автомобиль</string>
+    <string name="organisation">Организация:</string>
+    <string name="org_photos">Фото организации</string>
+    <string name="address">Адрес</string>
 
 </resources>
