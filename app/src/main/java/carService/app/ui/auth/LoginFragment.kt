@@ -85,7 +85,8 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
             vm.isLoggedIn.collect { isLoggedIn ->
                 if (isLoggedIn) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
-                    navigate(R.id.mainUserFragment)
+//                    navigate(R.id.mainUserFragment)
+                    stepRegistration()
                 }
                 else if (!isLoggedIn && email.isNotEmpty() && password.isNotEmpty()) {
                     view?.showsnackBar(getString(R.string.access_internet))
@@ -122,12 +123,23 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
             val account: GoogleSignInAccount = task.getResult(ApiException::class.java)!!
             Timber.d("firebaseAuthWithGoogle:%s", account.id)
             vm.loginByGoogle(account)
+            stepRegistration()
         } catch (e: ApiException) {
             Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
         }
 
         binding.forgotTextview.setOnClickListener {
             navigate(R.id.forgotPasswordFragment)
+        }
+    }
+
+    fun stepRegistration() {
+        when {
+            !prefs.isRegistrationStep1 -> navigate(R.id.registrationStep2Fragment)
+            !prefs.isRegistrationStep2 -> navigate(R.id.registrationStep3Fragment)
+            !prefs.isRegistrationStep3 -> navigate(R.id.registrationStep4LocationFragment)
+            !prefs.isRegistrationStep4 -> navigate(R.id.registrationStep5RoleFragment)
+            else -> navigate(R.id.mainUserFragment)
         }
     }
 }
