@@ -1,49 +1,236 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/main_bg"
-        tools:context=".ui.main.main_screen.personal_account.MainUserFragment">
+        android:fillViewport="true">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/company_logo_imageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/ic_no_company_logo"
-            android:contentDescription="@string/company_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ItemCompanyLogoRounded" />
-
-        <TextView
-            android:id="@+id/company_services_textview"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/benton_sans_bold"
-            android:text="@string/my_services_company_main"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/company_logo_imageView" />
+            android:background="@color/main_bg"
+            tools:context=".ui.main.main_screen.personal_account.MainUserFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/all_company_services_rv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:clipToPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/company_services_textview" />
+            <TextView
+                android:id="@+id/main_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/organisation"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/company_nickname_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:textColor="@color/profile_name_color"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/main_textview"
+                app:layout_constraintTop_toTopOf="@+id/main_textview"
+                tools:text="CSF Workshop" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/company_imageView"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="24dp"
+                android:contentDescription="@string/company_logo"
+                android:padding="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_textview"
+                app:shapeAppearanceOverlay="@style/CompanyImgItemCircle"
+                app:strokeColor="@color/profile_stroke_color"
+                app:strokeWidth="8dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/make_photo_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/company_announce_add_fab"
+                android:contentDescription="@string/makePhoto"
+                android:src="@drawable/ic_photo_camera"
+                app:elevation="6dp"
+                app:fabCustomSize="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/company_imageView"
+                app:layout_constraintEnd_toEndOf="@+id/company_imageView"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/company_name_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/company_imageView"
+                tools:text="CSF" />
+
+            <TextView
+                android:id="@+id/company_lastname_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/company_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/company_imageView"
+                tools:text="Workshop" />
+
+            <ImageView
+                android:id="@+id/edit_name_and_surname_button_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:background="@drawable/ic_mode_edit"
+                android:backgroundTint="@color/company_announce_add_fab"
+                android:contentDescription="@string/back_button"
+                app:layout_constraintStart_toEndOf="@+id/company_lastname_textview"
+                app:layout_constraintTop_toTopOf="@+id/company_lastname_textview" />
+
+            <TextView
+                android:id="@+id/email_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/benton_sans_book"
+                android:textColor="@color/hint_text_color"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/company_name_textview"
+                tools:text="csf@carsound-factory.ru" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tel_numbers_rv"
+                style="@style/CompaniesTelNumbersRecyclerItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/email_textview"
+                tools:text="csf@carsound-factory.ru" />
+
+            <TextView
+                android:id="@+id/company_services_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/my_services_company_main"
+                android:textColor="@color/profile_name_color"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/tel_numbers_rv" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_service_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="-12dp"
+                android:backgroundTint="@color/company_announce_add_fab"
+                android:contentDescription="@string/adding_an_announcement"
+                android:src="@android:drawable/ic_input_add"
+                app:fabCustomSize="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/company_services_textview"
+                app:layout_constraintStart_toEndOf="@+id/company_services_textview"
+                app:tint="@color/white" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/all_company_services_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/company_services_textview"
+                app:layout_constraintTop_toBottomOf="@+id/company_services_textview" />
+
+            <TextView
+                android:id="@+id/other_organisation_photos_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/org_photos"
+                android:textColor="@color/profile_name_color"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/all_company_services_rv" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_other_photos_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="-12dp"
+                android:backgroundTint="@color/company_announce_add_fab"
+                android:contentDescription="@string/adding_an_announcement"
+                android:src="@android:drawable/ic_input_add"
+                app:fabCustomSize="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/other_organisation_photos_textview"
+                app:layout_constraintStart_toEndOf="@+id/other_organisation_photos_textview"
+                app:tint="@color/white" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/other_organisation_photos_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/company_services_textview"
+                app:layout_constraintTop_toBottomOf="@+id/other_organisation_photos_textview" />
+
+            <TextView
+                android:id="@+id/location_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/address"
+                android:textColor="@color/profile_name_color"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/other_organisation_photos_rv" />
+
+            <ImageView
+                android:id="@+id/edit_address_button_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:background="@drawable/ic_mode_edit"
+                android:backgroundTint="@color/company_announce_add_fab"
+                android:contentDescription="@string/back_button"
+                app:layout_constraintStart_toEndOf="@+id/location_textview"
+                app:layout_constraintTop_toTopOf="@+id/location_textview" />
+
+            <TextView
+                android:id="@+id/organisation_address_textview"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/benton_sans_book"
+                android:textColor="@color/hint_text_color"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/location_textview"
+                app:layout_constraintTop_toBottomOf="@+id/location_textview"
+                tools:text="Тут выводится адрес организации" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

@@ -31,4 +31,7 @@
     <color name="company_announce_add_fab">#1FC57B</color>
     <color name="transparent">#00000000</color>
 
+    <color name="profile_name_color">#1FC57B</color>
+    <color name="profile_stroke_color">#6C6E6C</color>
+
 </resources>
