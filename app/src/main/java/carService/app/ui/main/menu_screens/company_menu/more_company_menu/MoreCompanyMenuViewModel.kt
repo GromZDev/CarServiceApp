@@ -4,14 +4,16 @@ import android.app.Application
 import carService.app.base.BaseViewModel
 import carService.app.utils.FirebaseAuthHelper
 import carService.app.utils.SharedPreferencesHelper
+import org.koin.core.component.inject
 
 class MoreCompanyMenuViewModel(
     app: Application,
-    private val prefs: SharedPreferencesHelper
+    private val prefs: SharedPreferencesHelper,
 ) : BaseViewModel(app) {
-
     fun logout() {
         FirebaseAuthHelper.instance.logout()
         prefs.isAuthed = false
     }
+
+
 }

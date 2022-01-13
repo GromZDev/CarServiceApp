@@ -1,8 +1,10 @@
 package carService.app.utils
 
 import carService.app.data.model.UserData
+import carService.app.di.FireBaseModule
 import carService.app.repo.personal.Repository
 import carService.app.utils.CommonConstants.USER
+import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -12,6 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
+import org.koin.android.ext.android.inject
 import org.koin.core.component.KoinApiExtension
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -25,12 +28,16 @@ class FirebaseAuthHelper : KoinComponent {
     private val auth: FirebaseAuth by lazy { Firebase.auth }
 
     private val repository: Repository by inject()
+    private val fbase by inject<FireBaseModule>()
 
     var currentUser: FirebaseUser? = null
         get() = auth.currentUser
 
     var isAuthorized: Boolean = false
         get() = auth.currentUser != null
+
+    var fireBaseAuth: FirebaseAuth =
+        FirebaseAuth.getInstance()
 
     fun check(hasAuth: (Boolean) -> Unit) {
         auth.addAuthStateListener { fauth -> hasAuth(fauth.currentUser != null) }
@@ -189,6 +196,7 @@ class FirebaseAuthHelper : KoinComponent {
 
     fun logout() {
         auth.signOut()
+        Auth.GoogleSignInApi.signOut(fbase.provideGoogleClient.asGoogleApiClient()).setResultCallback {}
     }
 
     suspend fun loginUserByEmail(email: String, password: String): Result<FirebaseUser?> {
