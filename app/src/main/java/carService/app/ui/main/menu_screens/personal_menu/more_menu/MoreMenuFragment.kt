@@ -1,5 +1,7 @@
 package carService.app.ui.main.menu_screens.personal_menu.more_menu
 
+import android.app.ActivityManager
+import android.content.Context
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.MoreMenuFragmentBinding
@@ -24,7 +26,16 @@ class MoreMenuFragment(
 
         binding.exitAccountTextview.setOnClickListener {
             vm.logout()
+//            clearApplicatione()
             navigate(R.id.loginFragment)
         }
+    }
+
+    /**
+     * Удаляем все Permissions выходим из приложения, full Logout
+     */
+    private fun clearApplicatione() {
+        val manager = requireContext().getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        manager.clearApplicationUserData()
     }
 }
