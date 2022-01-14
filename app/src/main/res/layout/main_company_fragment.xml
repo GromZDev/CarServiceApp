@@ -230,6 +230,67 @@
                 app:layout_constraintTop_toBottomOf="@+id/location_textview"
                 tools:text="Тут выводится адрес организации" />
 
+            <TextView
+                android:id="@+id/working_time_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/working_time"
+                android:textColor="@color/profile_name_color"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/organisation_address_textview" />
+
+            <ImageView
+                android:id="@+id/edit_working_time_button_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:background="@drawable/ic_mode_edit"
+                android:backgroundTint="@color/company_announce_add_fab"
+                android:contentDescription="@string/back_button"
+                app:layout_constraintStart_toEndOf="@+id/working_time_textview"
+                app:layout_constraintTop_toTopOf="@+id/working_time_textview" />
+
+            <TextView
+                android:id="@+id/company_work_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/working_time_textview"
+                tools:text="Понедельник" />
+
+            <TextView
+                android:id="@+id/social_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/social"
+                android:textColor="@color/profile_name_color"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="@+id/working_time_textview"
+                app:layout_constraintTop_toBottomOf="@+id/company_work_time" />
+
+            <ImageView
+                android:id="@+id/edit_social_button_image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:background="@drawable/ic_mode_edit"
+                android:backgroundTint="@color/company_announce_add_fab"
+                android:contentDescription="@string/back_button"
+                app:layout_constraintStart_toEndOf="@+id/social_textview"
+                app:layout_constraintTop_toTopOf="@+id/social_textview" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

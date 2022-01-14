@@ -114,5 +114,7 @@
     <string name="organisation">Организация:</string>
     <string name="org_photos">Фото организации</string>
     <string name="address">Адрес</string>
+    <string name="working_time">Время работы</string>
+    <string name="social">Соцсети</string>
 
 </resources>
