@@ -11,7 +11,7 @@ data class OrganisationData(
     var name: String? = "",
     var lastName: String? = "",
     var nickName: String? = "",
-    var tel: OrganisationTelNumbers? = null,
+    var telephoneNumbers: List<OrganisationTelNumbers>? = null,
     var email: String = "",
     var overview: String? = "",
     var allServices: MutableList<OrganisationServiceList>? = null,
@@ -28,7 +28,7 @@ data class OrganisationData(
 fun getFullDataOfAllOrganisations() = mutableListOf(
     OrganisationData(
         "1", "CSF Workshop", "", "CSF",
-        OrganisationTelNumbers("+7 999 111 22 33", "+7 495 111 22 33"),
+        getOrganisationsTelNumbers(),
         "csf@carsound-factory.ru", "Описание компании CSF Workshop: шумоизоляция," +
                 "установка автозвука, детейлинг и дополнительное оборудование",
         allServices = getFullDataOfAllServices(),

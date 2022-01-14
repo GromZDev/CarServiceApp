@@ -1,13 +1,10 @@
 package carService.app.ui.main.main_screen.personal_account
 
-import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
 import carService.app.data.model.UserData
 import carService.app.databinding.MainUserFragmentBinding
 import carService.app.ui.main.main_screen.company_account.MainCompanyFragment
@@ -15,37 +12,35 @@ import carService.app.utils.AppImageView
 import carService.app.utils.navigate
 import carService.app.utils.showsnackBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
-class MainUserFragment : Fragment(R.layout.main_user_fragment) {
+@KoinApiExtension
+class MainUserFragment(
+    override val layoutId: Int = R.layout.main_user_fragment
+) : BaseFragment<MainUserFragmentBinding>() {
 
     companion object {
         const val TAG = "MainUserFragment"
         fun newInstance() = MainUserFragment()
     }
 
-    private val binding: MainUserFragmentBinding by viewBinding()
-
-    private val viewModel: MainUserViewModel by lazy {
-        ViewModelProvider(this)[MainUserViewModel::class.java]
-    }
+    private val viewModel by viewModel<MainUserViewModel>()
 
     private lateinit var navBar: BottomNavigationView
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /** Скрываем навигацию там, где она не нужна */
+    override fun initViews() {
         navBar = requireActivity().findViewById(R.id.bottom_navigation)
         navBar.visibility = View.VISIBLE
+    }
 
-        /** Временные данные для наглядности */
-        setFakeData2()
-        setFakeData3()
-        /** -------------------------------- */
-
-        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
-        viewModel.getOrganisationMockData()
+    override fun initViewModel() {
+        doInScope {
+            viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+            viewModel.getOrganisationMockData()
+            setFakeData2()
+            setFakeData3()
+        }
     }
 
     private fun renderData(appState: CompaniesNearAppState) {
@@ -84,7 +79,7 @@ class MainUserFragment : Fragment(R.layout.main_user_fragment) {
             }
             is CompaniesNearAppState.Error -> {
                 binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
-                binding.mainFragmentView.showsnackBar("Error")
+                binding.mainFragmentRoot.showsnackBar("Error")
             }
         }
     }
