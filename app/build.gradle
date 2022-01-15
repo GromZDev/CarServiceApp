@@ -123,7 +123,8 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Google Maps
-    implementation 'com.google.android.gms:play-services-maps:18.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
 
     // Tests
     testImplementation 'junit:junit:4.13.2'

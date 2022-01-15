@@ -1,5 +1,6 @@
 package carService.app.ui.registration
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -35,6 +36,9 @@ class RegistrationStep4LocationFragment : Fragment(R.layout.registration_step4_l
         binding.getLocationButton.setOnClickListener {
             navigate(R.id.registrationStep4Map)
         }
+
+        val a = arguments?.getString("Location by Search")
+        binding.myLocationInfo.text = a
     }
 
 }
