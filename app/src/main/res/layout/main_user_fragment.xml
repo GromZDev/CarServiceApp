@@ -1,138 +1,141 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mainFragment_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_layout"
+    <ScrollView
+        android:id="@+id/main_fragment_root"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_bg"
-        tools:context=".ui.main.main_screen.personal_account.MainUserFragment">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/main_textview"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/benton_sans_bold"
-            android:text="@string/top_tw_main_user_fragment"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_input_field"
-            android:layout_width="280dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/main_button_background"
-            android:drawableStart="@drawable/ic_search"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@color/reg_form_color"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_textview" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/do_search_button"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/main_button_background"
-            android:drawableTop="@drawable/ic_do_search_button"
-            android:paddingTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/search_input_field" />
-
-        <TextView
-            android:id="@+id/near_companies_textview"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/benton_sans_bold"
-            android:text="@string/companies_near"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_input_field" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/companies_near_rv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:clipToPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/near_companies_textview" />
-
-        <TextView
-            android:id="@+id/high_rated_companies_textview"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/benton_sans_bold"
-            android:text="@string/best_deals_of_companies"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/companies_near_rv" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/best_companies_rv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:clipToPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/high_rated_companies_textview" />
-
-        <TextView
-            android:id="@+id/popular_services_textview"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/benton_sans_bold"
-            android:text="@string/popular_services_of_companies_tw"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/best_companies_rv" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/popular_services_rv"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_layout"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_marginTop="20dp"
-            android:clipToPadding="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popular_services_textview" />
+            android:layout_height="wrap_content"
+            android:background="@color/main_bg"
+            tools:context=".ui.main.main_screen.personal_account.MainUserFragment">
 
-        <include
-            android:id="@+id/includedLoadingLayout"
-            layout="@layout/loading_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/main_layout" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/main_textview"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/top_tw_main_user_fragment"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_input_field"
+                android:layout_width="280dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/main_button_background"
+                android:drawableStart="@drawable/ic_search"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/reg_form_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_textview" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/do_search_button"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/main_button_background"
+                android:drawableTop="@drawable/ic_do_search_button"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/search_input_field" />
+
+            <TextView
+                android:id="@+id/near_companies_textview"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/companies_near"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/search_input_field" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/companies_near_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/near_companies_textview" />
+
+            <TextView
+                android:id="@+id/high_rated_companies_textview"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/best_deals_of_companies"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/companies_near_rv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/best_companies_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/high_rated_companies_textview" />
+
+            <TextView
+                android:id="@+id/popular_services_textview"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/popular_services_of_companies_tw"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/best_companies_rv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popular_services_rv"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/popular_services_textview" />
+
+            <include
+                android:id="@+id/includedLoadingLayout"
+                layout="@layout/loading_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/main_layout" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</ScrollView>
+    </ScrollView>
+</layout>

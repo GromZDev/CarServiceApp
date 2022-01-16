@@ -1,19 +1,21 @@
 package carService.app.ui.registration
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
 import carService.app.databinding.FragmentMapsBinding
-import carService.app.databinding.RegistrationStep2FragmentBinding
 import carService.app.utils.navigate
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -22,31 +24,35 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.tasks.Task
 import java.io.IOException
+import java.util.*
 
 const val REQUEST_CODE_FOR_MAPS = 723
 
-class MapsFragment : Fragment(R.layout.fragment_maps) {
+class MapsFragment(override val layoutId: Int = R.layout.fragment_maps) :
+    BaseFragment<FragmentMapsBinding>() {
 
     companion object {
         const val TAG = "MapsFragment"
         fun newInstance() = MapsFragment()
     }
 
-    private val binding: FragmentMapsBinding by viewBinding()
     private lateinit var viewModel: MapsViewModel
     private lateinit var thisMap: GoogleMap
 
-    //     callback, он вызовется, когда карта будет готова к отображению и с ней можно будет работать
     private val callback = OnMapReadyCallback { googleMap ->
         thisMap = googleMap
         activateMyLocation(thisMap) // Сетим появление штатной кнопки для показа моего места
 
     }
 
+    private lateinit var client: FusedLocationProviderClient
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        client = activity?.let { it1 -> LocationServices.getFusedLocationProviderClient(it1) }!!
         checkGPSPermission() // Запрашиваем все разрешения
 
         binding.saveLocationButton.setOnClickListener {
@@ -62,8 +68,10 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) ==
                         PackageManager.PERMISSION_GRANTED
+
             googleMap.isMyLocationEnabled = isPermissionGranted
             googleMap.uiSettings.isMyLocationButtonEnabled = isPermissionGranted
+
         }
     }
 
@@ -76,6 +84,8 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
                     getMapData() // Если уже получено разрешение, то получаем контакты далее
 
                     initSearchByAddress() // Это логика поиска при вводе места вручную
+
+                    getMyCurrentLocation()
                 }
                 // Метод для нас, чтобы знали когда необходимы пояснения показывать перед запросом:
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
@@ -107,6 +117,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
+
 
     private fun requestGPSPermission() {
         requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_FOR_MAPS)
@@ -144,13 +155,13 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
     private fun initSearchByAddress() {
         binding.doSearchAddressButton.setOnClickListener {
-            val geoCoder = Geocoder(it.context)
+            val geoCoder = Geocoder(it.context, Locale.getDefault())
             val place = binding.searchAddressInputField.text.toString()
             Thread {
                 try {
                     val addresses = geoCoder.getFromLocationName(place, 1)
                     if (addresses.size > 0) {
-                        goToAddress(addresses, it, place)
+                        goToAddress(addresses, it)
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -161,15 +172,26 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
 
     private fun goToAddress(
         addresses: MutableList<Address>,
-        view: View,
-        searchText: String
+        view: View
     ) {
+
         val location = LatLng(
             addresses[0].latitude,
             addresses[0].longitude
         )
+
+        val geoCoder = Geocoder(context, Locale.getDefault())
+        val myPlaceByLocation: List<Address> =
+            geoCoder.getFromLocation(location.latitude, location.longitude, 1)
+        val myAddress = myPlaceByLocation[0].getAddressLine(0)
+
+        val bundle = Bundle()
+        bundle.putString("Location by Search", myAddress)
+        binding.saveLocationButton.setOnClickListener {
+            navigate(R.id.registrationStep4LocationFragment, bundle)
+        }
         view.post {
-            setMarker(location, searchText)
+            setMarker(location, myAddress)
             thisMap.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     location,
@@ -189,6 +211,42 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
                 .title(searchText)
                 .icon(BitmapDescriptorFactory.defaultMarker())
         )
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getMyCurrentLocation() {
+
+        val task: Task<Location> = client.lastLocation
+        task.addOnSuccessListener { location ->
+            if (location !== null) {
+                val mapFragment =
+                    childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
+                mapFragment?.getMapAsync {
+                    saveMyLocation(location)
+                }
+            }
+        }
+    }
+
+    private fun saveMyLocation(location: Location) {
+        val loc = LatLng(
+            location.latitude,
+            location.longitude
+        )
+        val options: MarkerOptions = MarkerOptions().position(loc)
+            .title("I am here bro!")
+        thisMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 10f))
+        thisMap.addMarker(options)
+
+        val geoCoder = Geocoder(context, Locale.getDefault())
+        val myPlaceByLocation: List<Address> =
+            geoCoder.getFromLocation(location.latitude, location.longitude, 1)
+        val myAddress = myPlaceByLocation[0].getAddressLine(0)
+        val bundle = Bundle()
+        bundle.putString("Location by Search", myAddress)
+        binding.saveLocationButton.setOnClickListener {
+            navigate(R.id.registrationStep4LocationFragment, bundle)
+        }
     }
 
 }

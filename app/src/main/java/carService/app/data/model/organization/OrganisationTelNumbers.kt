@@ -5,9 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class OrganisationTelNumbers(
-    val tel1: String? = null,
-    val tel2: String? = null,
-    val tel3: String? = null,
-    val tel4: String? = null,
-    val tel5: String? = null
-): Parcelable
+    val tel: String? = null,
+) : Parcelable
+
+fun getOrganisationsTelNumbers() = mutableListOf(
+    OrganisationTelNumbers("+7 999 669 31 44"),
+    OrganisationTelNumbers("+7 495 589 22 33")
+)

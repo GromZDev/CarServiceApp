@@ -110,7 +110,11 @@ class CompanyDetailsFragment : Fragment(R.layout.company_details_fragment) {
 
     private fun setAllOrgData(appState: List<OrganisationData>) {
 
-        binding.companyTelTextview.text = ("${appState[0].tel?.tel1}\n${appState[0].tel?.tel2}")
+        if (appState[0].telephoneNumbers?.isNotEmpty() == true) {
+            for (element in appState[0].telephoneNumbers!!) binding.companyTelTextview
+                .append("${element.tel}\n")
+        }
+
         binding.companyNameTextview.text = appState[0].name
         binding.companyRating.text = appState[0].rating.toString()
         binding.companyOverview.text = appState[0].overview
@@ -258,7 +262,6 @@ class CompanyDetailsFragment : Fragment(R.layout.company_details_fragment) {
                 ) {
                     getMapData()
                 } else {
-                    // Поясните пользователю, что экран останется пустым, потому что доступ к контактам не предоставлен
                     context?.let {
                         AlertDialog.Builder(it)
                             .setTitle("Доступ к GPS")
@@ -308,17 +311,21 @@ class CompanyDetailsFragment : Fragment(R.layout.company_details_fragment) {
 
         val name = appState[0].name.toString()
 
-        val drawable = binding.companyLogoImageView.drawable as BitmapDrawable
-        val bitmap = drawable.bitmap
+        try {
+            val drawable = binding.companyLogoImageView.drawable as BitmapDrawable
+            val bitmap = drawable.bitmap
 
-        view?.post {
-            setMarker(location, name, bitmap)
-            thisMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    location,
-                    14f
+            view?.post {
+                setMarker(location, name, bitmap)
+                thisMap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        location,
+                        14f
+                    )
                 )
-            )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -334,7 +341,6 @@ class CompanyDetailsFragment : Fragment(R.layout.company_details_fragment) {
                 .icon(
                     BitmapDescriptorFactory.fromBitmap(bitmap)
                 )
-
         )
     }
 
