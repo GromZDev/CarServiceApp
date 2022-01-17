@@ -1,27 +1,29 @@
 package carService.app.ui.auth
 
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
 import carService.app.databinding.ForgotPasswordFragmentBinding
-import carService.app.databinding.RegistrationStep3FragmentBinding
+import carService.app.utils.CommonConstants.USER
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
+import carService.app.utils.showsnackBar
+import kotlinx.coroutines.flow.collect
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
-class ForgotPasswordFragment : Fragment(R.layout.forgot_password_fragment) {
+@KoinApiExtension
+class ForgotPasswordFragment(override val layoutId: Int = R.layout.forgot_password_fragment) :
+    BaseFragment<ForgotPasswordFragmentBinding>() {
 
     companion object {
         fun newInstance() = ForgotPasswordFragment()
     }
 
-    private val binding: ForgotPasswordFragmentBinding by viewBinding()
-    private lateinit var viewModel: ForgotPasswordViewModel
+    private val vm by viewModel<ForgotPasswordViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    @KoinApiExtension
+    override fun initViews() {
+        super.initViews()
         hideToolbarAndBottomNav()
 
         binding.nextCreateAccountButton.setOnClickListener {
@@ -30,6 +32,37 @@ class ForgotPasswordFragment : Fragment(R.layout.forgot_password_fragment) {
 
         binding.backButtonImage.setOnClickListener {
             navigate(R.id.loginFragment)
+        }
+
+        binding.textShareHint.setOnClickListener {
+
+        }
+
+        binding.resetPasswordEmailHint.setOnClickListener {
+            USER?.let { it1 -> vm.sendPasswordResetEmail(it1.email) }
+        }
+    }
+
+    override fun initViewModel() {
+        doInScope {
+            vm.isSendPasswordResetEmail.collect { isSendPasswordResetEmail ->
+                if (isSendPasswordResetEmail) {
+                   view?.showsnackBar(getString(R.string.approve_sms))
+                    navigate(R.id.forgotPasswordStep2Fragment)
+                }
+            }
+            vm.isStateException.collect { isStateException ->
+                if (isStateException !="") {
+                    view?.showsnackBar(getString(R.string.failed_send_sms))
+                }
+            }
+        }
+        doInScopeResume {
+            vm.isStateException.collect { isStateException ->
+                if (isStateException !="") {
+                    view?.showsnackBar(getString(R.string.failed_send_sms))
+                }
+            }
         }
     }
 }

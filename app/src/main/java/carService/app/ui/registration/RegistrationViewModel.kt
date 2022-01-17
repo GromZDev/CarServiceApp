@@ -44,7 +44,7 @@ class RegistrationViewModel(
                         prefs.isAuthed = false
                     }
                 }
-                delay(1000)
+//                delay(1000)
             } catch (exception: TimeoutCancellationException) {
                 isStateException.value = "1 - " + exception.message
                 prefs.isAuthed = false

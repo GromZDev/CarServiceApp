@@ -4,6 +4,7 @@ import carService.app.repo.personal.UserRepository
 import carService.app.ui.auth.LoginViewModel
 import carService.app.ui.main.menu_screens.company_menu.more_company_menu.MoreCompanyMenuViewModel
 import carService.app.ui.main.menu_screens.personal_menu.more_menu.MoreMenuViewModel
+import carService.app.ui.registration.RegistrationViewModel
 import carService.app.utils.AppImageView
 import carService.app.utils.FirebaseAuthHelper
 import carService.app.utils.SharedPreferencesHelper
@@ -18,7 +19,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import carService.app.repo.personal.Repository
 import carService.app.ui.main.main_screen.personal_account.MainUserViewModel
-import carService.app.ui.registration.*
+import carService.app.ui.registration.RegistrationStep2ViewModel
 import carService.app.ui.splash_screen.SplashScreenViewModel
 import org.koin.core.component.KoinApiExtension
 
@@ -59,4 +60,5 @@ val appModule = module {
     viewModel { MainUserViewModel(androidApplication()) }
     viewModel { RegistrationStep3ConfirmPhotoViewModel(androidApplication(), get()) }
     viewModel { RegistrationStep4LocationViewModel(androidApplication(), get()) }
+    viewModel { ForgotPasswordViewModel(androidApplication()) }
 }

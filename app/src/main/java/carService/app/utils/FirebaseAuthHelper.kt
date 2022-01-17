@@ -234,9 +234,33 @@ class FirebaseAuthHelper : KoinComponent {
         }
     }
 
-
     fun userCommon(userData: UserData): UserData {
         USER = userData
         return USER as UserData
+    }
+
+    suspend fun sendPasswordResetEmail(emailAddress: String): Result<FirebaseUser?> {
+        try {
+            val response = auth
+                .sendPasswordResetEmail(emailAddress)
+                .await()
+            return Result.Success(auth.currentUser)
+        } catch (e: Exception) {
+            return Result.Error(e)
+        }
+    }
+
+    suspend fun updatePassword(newPassword: String): Result<FirebaseUser?> {
+        try {
+            val user = auth.currentUser
+            if (user != null) {
+                user
+                    .updatePassword(newPassword)
+                    .await()
+            }
+            return Result.Success(auth.currentUser)
+        } catch (e: Exception) {
+            return Result.Error(e)
+        }
     }
 }

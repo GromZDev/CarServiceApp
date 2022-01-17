@@ -1,26 +1,26 @@
 package carService.app.ui.auth
 
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
 import carService.app.databinding.ForgotPasswordStep2FragmentBinding
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
+import carService.app.utils.showsnackBar
+import kotlinx.coroutines.flow.collect
+import org.koin.core.component.KoinApiExtension
 
-class ForgotPasswordStep2Fragment : Fragment(R.layout.forgot_password_step2_fragment) {
+@KoinApiExtension
+class ForgotPasswordStep2Fragment(override val layoutId: Int = R.layout.forgot_password_step2_fragment) :
+    BaseFragment<ForgotPasswordStep2FragmentBinding>() {
 
     companion object {
         fun newInstance() = ForgotPasswordStep2Fragment()
     }
 
-    private val binding: ForgotPasswordStep2FragmentBinding by viewBinding()
-    private lateinit var viewModel: ForgotPasswordViewModel
+    private lateinit var vm: ForgotPasswordViewModel
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initViews() {
+        super.initViews()
         hideToolbarAndBottomNav()
 
         binding.nextResetPasswordButton.setOnClickListener {
@@ -29,6 +29,29 @@ class ForgotPasswordStep2Fragment : Fragment(R.layout.forgot_password_step2_frag
 
         binding.backButtonImage.setOnClickListener {
             navigate(R.id.forgotPasswordFragment)
+        }
+    }
+
+    override fun initViewModel() {
+        doInScope {
+            vm.isUpdatePassword.collect { isUpdatePassword ->
+                if (isUpdatePassword) {
+                    view?.showsnackBar(getString(R.string.approve_password))
+                    navigate(R.id.forgotPasswordStep2Fragment)
+                }
+            }
+            vm.isStateException.collect { isStateException ->
+                if (isStateException !="") {
+                    view?.showsnackBar(getString(R.string.failed_update_password))
+                }
+            }
+        }
+        doInScopeResume {
+            vm.isStateException.collect { isStateException ->
+                if (isStateException !="") {
+                    view?.showsnackBar(getString(R.string.failed_update_password))
+                }
+            }
         }
     }
 }
