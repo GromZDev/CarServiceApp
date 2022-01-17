@@ -1,32 +1,47 @@
 package carService.app.ui.registration
 
-import android.net.Uri
-import android.os.Bundle
+import android.location.Address
+import android.text.TextUtils
 import android.view.View
-import androidx.fragment.app.Fragment
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
+import carService.app.data.model.Location
 import carService.app.databinding.RegistrationStep4LocationFragmentBinding
+import carService.app.utils.SharedPreferencesHelper
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
+import carService.app.utils.showsnackBar
+import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
+import android.location.Geocoder
+import java.util.*
 
-class RegistrationStep4LocationFragment : Fragment(R.layout.registration_step4_location_fragment) {
+
+@KoinApiExtension
+class RegistrationStep4LocationFragment(
+    override val layoutId: Int = R.layout.registration_step4_location_fragment
+) :
+    BaseFragment<RegistrationStep4LocationFragmentBinding>() {
 
     companion object {
         const val TAG = "RegistrationStep4LocationFragment"
         fun newInstance() = RegistrationStep4LocationFragment()
     }
 
-    private val binding: RegistrationStep4LocationFragmentBinding by viewBinding()
-    private lateinit var viewModel: RegistrationStep4LocationViewModel
+    private val viewModel by viewModel<RegistrationStep4LocationViewModel>()
+    private val prefs by inject<SharedPreferencesHelper>()
+    private var userLocation: Location? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
+        super.initViews()
 
         hideToolbarAndBottomNav()
 
         binding.successAccountButton.setOnClickListener {
             navigate(R.id.registrationStep5RoleFragment)
+            updateProfile()
         }
 
         binding.backButtonImage.setOnClickListener {
@@ -41,4 +56,62 @@ class RegistrationStep4LocationFragment : Fragment(R.layout.registration_step4_l
         binding.myLocationInfo.text = a
     }
 
+    override fun initViewModel() {
+        super.initViewModel()
+
+        doInScope {
+            viewModel.newUser.collect {
+                if (it != null) {
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                    prefs.isRegistrationStep3 = true
+                    navigate(R.id.registrationStep5RoleFragment)
+                } else if (it == null && userLocation?.latitude?.isNotEmpty() == true &&
+                    userLocation?.longitude?.isNotEmpty() == true
+                ) {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "") {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                }
+            }
+        }
+        doInScopeResume {
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "" && userLocation?.latitude?.isNotEmpty() == true &&
+                    userLocation?.longitude?.isNotEmpty() == true
+                ) {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun updateProfile() {
+
+        val loc = binding.myLocationInfo.text
+
+        val geocoder = Geocoder(context, Locale.getDefault())
+        val addresses: List<Address> = geocoder.getFromLocationName(loc as String?, 1)
+        val address: Address = addresses[0]
+        val longitude: Double = address.longitude
+        val latitude: Double = address.latitude
+        userLocation = Location(latitude.toString(), longitude.toString())
+
+        when {
+            TextUtils.isEmpty(userLocation.toString()) -> {
+                view?.showsnackBar(getString(R.string.not_empty_email_password))
+            }
+
+            else -> {
+                viewModel.updateProfileUser(userLocation ?: Location("0.555", "0.222"))
+                binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
+            }
+        }
+    }
 }
+
+
