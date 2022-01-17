@@ -2,20 +2,23 @@ package carService.app.ui.registration
 
 import android.net.Uri
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
-import androidx.fragment.app.Fragment
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
 import carService.app.databinding.RegistrationStep3ConfirmPhotoFragmentBinding
-import carService.app.utils.hideToolbarAndBottomNav
-import carService.app.utils.navigate
-import carService.app.utils.showToast
+import carService.app.utils.*
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RegistrationStep3ConfirmPhotoFragment :
-    Fragment(R.layout.registration_step3_confirm_photo_fragment) {
+@KoinApiExtension
+class RegistrationStep3ConfirmPhotoFragment(override val layoutId: Int = R.layout.registration_step3_confirm_photo_fragment) :
+    BaseFragment<RegistrationStep3ConfirmPhotoFragmentBinding>() {
 
     companion object {
         const val TAG = "RegistrationStep3ConfirmPhotoFragment"
@@ -27,13 +30,13 @@ class RegistrationStep3ConfirmPhotoFragment :
         }
     }
 
-    private val a = arguments?.getParcelable<Uri>(BUNDLE_EXTRA)
-    //  private lateinit var myUri: Uri
+    private val viewModel by viewModel<RegistrationStep3ConfirmPhotoViewModel>()
+    private val prefs by inject<SharedPreferencesHelper>()
 
-    private val binding: RegistrationStep3ConfirmPhotoFragmentBinding by viewBinding()
+    private var userImage: String = ""
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
+        super.initViews()
 
         hideToolbarAndBottomNav()
 
@@ -48,6 +51,7 @@ class RegistrationStep3ConfirmPhotoFragment :
                 val b = arguments?.getParcelable<Uri>(BUNDLE_EXTRA)
                 val myUri: Uri = b as Uri
                 uploadImageToDatabase(myUri)
+                updateProfile()
             }
             navigate(R.id.registrationStep4LocationFragment)
         }
@@ -55,7 +59,53 @@ class RegistrationStep3ConfirmPhotoFragment :
         binding.backButtonImage.setOnClickListener {
             navigate(R.id.registrationStep3Fragment)
         }
+    }
 
+    override fun initViewModel() {
+        super.initViewModel()
+
+        doInScope {
+            viewModel.newUser.collect {
+                if (it != null) {
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                    prefs.isRegistrationStep2 = true
+                    navigate(R.id.registrationStep4LocationFragment)
+                } else if (it == null && userImage.isNotEmpty()) {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "") {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                }
+            }
+        }
+        doInScopeResume {
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "" && userImage.isNotEmpty()) {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun updateProfile() {
+        val c = arguments?.getParcelable<Uri>(BUNDLE_EXTRA)
+        val myUri: Uri = c as Uri
+        userImage = myUri.toString()
+
+        when {
+            TextUtils.isEmpty(userImage) -> {
+                view?.showsnackBar(getString(R.string.not_empty_email_password))
+            }
+
+            else -> {
+                viewModel.updateProfileUser(userImage)
+                binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun uploadImageToDatabase(imageUri: Uri) {
@@ -67,13 +117,10 @@ class RegistrationStep3ConfirmPhotoFragment :
         val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
 
         storageReference.putFile(imageUri).addOnSuccessListener {
-            showToast("Successfully uploaded!")
+            showToast("Фото успешно загружено!")
 
         }.addOnFailureListener {
-            showToast("Error has occurred! Sorry...")
+            showToast("Ошибка при загрузке фото. Попробуйте еще раз!")
         }
-
-
     }
-
 }

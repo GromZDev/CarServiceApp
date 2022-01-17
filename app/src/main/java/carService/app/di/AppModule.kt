@@ -18,7 +18,6 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import carService.app.repo.personal.Repository
-import carService.app.ui.auth.ForgotPasswordViewModel
 import carService.app.ui.main.main_screen.personal_account.MainUserViewModel
 import carService.app.ui.registration.RegistrationStep2ViewModel
 import carService.app.ui.splash_screen.SplashScreenViewModel
@@ -59,5 +58,7 @@ val appModule = module {
     viewModel { SplashScreenViewModel(androidApplication()) }
     viewModel { RegistrationStep2ViewModel(androidApplication(), get()) }
     viewModel { MainUserViewModel(androidApplication()) }
+    viewModel { RegistrationStep3ConfirmPhotoViewModel(androidApplication(), get()) }
+    viewModel { RegistrationStep4LocationViewModel(androidApplication(), get()) }
     viewModel { ForgotPasswordViewModel(androidApplication()) }
 }
