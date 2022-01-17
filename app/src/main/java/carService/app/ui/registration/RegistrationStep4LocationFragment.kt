@@ -1,6 +1,7 @@
 package carService.app.ui.registration
 
 import android.location.Address
+import android.location.Geocoder
 import android.text.TextUtils
 import android.view.View
 import carService.app.R
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
-import android.location.Geocoder
 import java.util.*
 
 
@@ -92,14 +92,18 @@ class RegistrationStep4LocationFragment(
 
     private fun updateProfile() {
 
-        val loc = binding.myLocationInfo.text
+        userLocation = if (binding.myLocationInfo.text.isEmpty()) {
+            Location(null, null)
+        } else {
+            val loc = binding.myLocationInfo.text
 
-        val geocoder = Geocoder(context, Locale.getDefault())
-        val addresses: List<Address> = geocoder.getFromLocationName(loc as String?, 1)
-        val address: Address = addresses[0]
-        val longitude: Double = address.longitude
-        val latitude: Double = address.latitude
-        userLocation = Location(latitude.toString(), longitude.toString())
+            val geocoder = Geocoder(context, Locale.getDefault())
+            val addresses: List<Address> = geocoder.getFromLocationName(loc as String?, 1)
+            val address: Address = addresses[0]
+            val longitude: Double = address.longitude
+            val latitude: Double = address.latitude
+            Location(latitude.toString(), longitude.toString())
+        }
 
         when {
             TextUtils.isEmpty(userLocation.toString()) -> {

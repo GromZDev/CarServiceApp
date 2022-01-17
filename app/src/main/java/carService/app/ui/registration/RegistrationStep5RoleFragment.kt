@@ -1,42 +1,132 @@
 package carService.app.ui.registration
 
-import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
-import androidx.fragment.app.Fragment
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
+import carService.app.data.model.UserData
 import carService.app.databinding.RegistrationStep5RoleFragmentBinding
+import carService.app.utils.SharedPreferencesHelper
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
+import carService.app.utils.showsnackBar
+import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
-class RegistrationStep5RoleFragment : Fragment(R.layout.registration_step5_role_fragment) {
+@KoinApiExtension
+class RegistrationStep5RoleFragment(
+    override val layoutId: Int = R.layout.registration_step5_role_fragment
+) :
+    BaseFragment<RegistrationStep5RoleFragmentBinding>() {
 
     companion object {
         const val TAG = "RegistrationStep5RoleFragment"
         fun newInstance() = RegistrationStep5RoleFragment()
     }
 
-    private val binding: RegistrationStep5RoleFragmentBinding by viewBinding()
-    private lateinit var viewModel: RegistrationStep5RoleViewModel
+    private val viewModel by viewModel<RegistrationStep5RoleViewModel>()
+    private val prefs by inject<SharedPreferencesHelper>()
+    private var userType: UserData.TYPE? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private var buttonPersonalIsSelected: Boolean = false
+    private var buttonCompanyIsSelected: Boolean = false
+
+    override fun initViews() {
+        super.initViews()
+
 
         hideToolbarAndBottomNav()
 
         binding.nextToSuccessAccountButton.setOnClickListener {
-            navigate(R.id.registrationIsSuccessFragment)
+            if (binding.personalAccountButton.isSelected) {
+                userType = UserData.TYPE.PERSONAL
+                updateProfile()
+            }
+            if (binding.companyAccountButton.isSelected) {
+                userType = UserData.TYPE.ORGANISATION
+                updateProfile()
+            }
         }
 
         binding.backButtonImage.setOnClickListener {
             navigate(R.id.registrationStep4LocationFragment)
         }
 
-        /** Временно для наглядности: если выбираем аккаунт компании,
-         * то после регистрации нужно попасть сюда */
         binding.companyAccountButton.setOnClickListener {
-            navigate(R.id.mainCompanyPageFragment)
+            binding.companyAccountButton.isSelected = !binding.companyAccountButton.isSelected
+            if (binding.companyAccountButton.isSelected) {
+                buttonCompanyIsSelected = true
+            }
+            buttonCompanyIsSelected = false
+        }
+
+        binding.personalAccountButton.setOnClickListener {
+            binding.personalAccountButton.isSelected = !binding.personalAccountButton.isSelected
+            if (binding.personalAccountButton.isSelected) {
+                buttonPersonalIsSelected = true
+            }
+            buttonPersonalIsSelected = false
+
+
         }
     }
 
+    override fun initViewModel() {
+        super.initViewModel()
+
+        doInScope {
+            viewModel.newUser.collect {
+                if (it != null) {
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                    prefs.isRegistrationStep3 = true
+                    navigate(R.id.action_registrationStep5Role_to_successFragment)
+                } else if (it == null && userType?.name?.isNotEmpty() == true
+                ) {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "") {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                }
+            }
+        }
+        doInScopeResume {
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "" && userType?.name?.isNotEmpty() == true
+                ) {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+        }
+
+
+    }
+
+    private fun updateProfile() {
+
+        if (binding.personalAccountButton.isSelected) {
+            userType = UserData.TYPE.PERSONAL
+            navigate(R.id.registrationIsSuccessFragment)
+        }
+        if (binding.companyAccountButton.isSelected) {
+            userType = UserData.TYPE.ORGANISATION
+            navigate(R.id.mainCompanyPageFragment)
+        }
+
+        when {
+            TextUtils.isEmpty(userType?.name) -> {
+                view?.showsnackBar(getString(R.string.not_empty_email_password))
+            }
+
+            else -> {
+                userType?.let { viewModel.updateProfileUser(it) }
+                binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
+            }
+        }
+    }
 }
