@@ -8,6 +8,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import carService.app.R
@@ -34,11 +35,14 @@ class MapsFragment(override val layoutId: Int = R.layout.fragment_maps) :
     BaseFragment<FragmentMapsBinding>() {
 
     companion object {
+        var PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION
+        )
         const val TAG = "MapsFragment"
         fun newInstance() = MapsFragment()
     }
 
-    private lateinit var viewModel: MapsViewModel
+    // private lateinit var viewModel: MapsViewModel
     private lateinit var thisMap: GoogleMap
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -46,6 +50,20 @@ class MapsFragment(override val layoutId: Int = R.layout.fragment_maps) :
         activateMyLocation(thisMap) // Сетим появление штатной кнопки для показа моего места
 
     }
+
+    private val permReqLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val granted = permissions.entries.all {
+                it.value
+            }
+            if (granted) {
+                getMyCurrentLocation()
+                getMapData()
+                initSearchByAddress()
+            } else {
+                checkGPSPermission()
+            }
+        }
 
     private lateinit var client: FusedLocationProviderClient
 
@@ -81,11 +99,10 @@ class MapsFragment(override val layoutId: Int = R.layout.fragment_maps) :
                 ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) ==
                         PackageManager.PERMISSION_GRANTED -> {
 
-                    getMapData() // Если уже получено разрешение, то получаем контакты далее
-
-                    initSearchByAddress() // Это логика поиска при вводе места вручную
-
                     getMyCurrentLocation()
+                    getMapData()
+                    initSearchByAddress()
+
                 }
                 // Метод для нас, чтобы знали когда необходимы пояснения показывать перед запросом:
                 shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
@@ -96,61 +113,23 @@ class MapsFragment(override val layoutId: Int = R.layout.fragment_maps) :
                                     "использование Вашего местоположения"
                         )
                         .setPositiveButton("Предоставить доступ") { _, _ ->
-                            requestGPSPermission()
+                            permReqLauncher.launch(PERMISSIONS)
                         }
                         .setNegativeButton("Спасибо, не надо") { dialog, _ -> dialog.dismiss() }
                         .create()
                         .show()
                 }
                 else -> {
-
-                    requestGPSPermission() // Если разрешения нет и объяснение отображать не нужно, то
-                    // запрашиваем разрешение
+                    permReqLauncher.launch(PERMISSIONS)
                 }
             }
         }
     }
 
     private fun getMapData() {
-
         // находим нужный нам фрагмент, приводим его к типу SupportMapFragment и подготавливаем карту
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
-    }
-
-
-    private fun requestGPSPermission() {
-        requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_CODE_FOR_MAPS)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
-    ) {
-        when (requestCode) {
-            REQUEST_CODE_FOR_MAPS -> {
-                // Проверяем, дано ли пользователем разрешение по нашему запросу
-                if ((grantResults.isNotEmpty() &&
-                            grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                ) {
-                    getMapData()
-                } else {
-                    // Поясните пользователю, что экран останется пустым, потому что доступ к контактам не предоставлен
-                    context?.let {
-                        AlertDialog.Builder(it)
-                            .setTitle("Доступ к GPS")
-                            .setMessage(
-                                "Внимание! Для просмотра данных на карте необходимо разрешение на " +
-                                        "использование Вашего местоположения"
-                            )
-                            .setNegativeButton("Закрыть") { dialog, _ -> dialog.dismiss() }
-                            .create()
-                            .show()
-                    }
-                }
-                return
-            }
-        }
     }
 
     private fun initSearchByAddress() {
@@ -215,7 +194,6 @@ class MapsFragment(override val layoutId: Int = R.layout.fragment_maps) :
 
     @SuppressLint("MissingPermission")
     private fun getMyCurrentLocation() {
-
         val task: Task<Location> = client.lastLocation
         task.addOnSuccessListener { location ->
             if (location !== null) {

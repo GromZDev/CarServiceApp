@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
@@ -75,6 +76,31 @@ fun Fragment.showAlertDialog(body: Int, title: String, message: String) {
             dialog.cancel()
         }
         .show()
+}
+
+fun Fragment.showAlertDialogPermission(
+    permission: String,
+    name: String,
+    requestCode: Int,
+    message: String,
+    title: String
+) {
+    val builder = AlertDialog.Builder(context)
+
+    builder.apply {
+        setMessage(message)
+        setTitle(title)
+        setPositiveButton(R.string.ok) { _, _ ->
+            activity?.let {
+                ActivityCompat.requestPermissions(
+                    it,
+                    arrayOf(permission), requestCode
+                )
+            }
+        }
+    }
+    val dialog = builder.create()
+    dialog.show()
 }
 
 fun View.showsnackBar(message: String) {
