@@ -78,12 +78,18 @@ fun Fragment.showAlertDialog(body: Int, title: String, message: String) {
         .show()
 }
 
-fun Fragment.showAlertDialogPermission(permission: String, name: String, requestCode: Int, message: String, title: String) {
+fun Fragment.showAlertDialogPermission(
+    permission: String,
+    name: String,
+    requestCode: Int,
+    message: String,
+    title: String
+) {
     val builder = AlertDialog.Builder(context)
 
     builder.apply {
-        setMessage("Необходимо разрешение $name для доступа к фото")
-        setTitle("Разрешение")
+        setMessage(message)
+        setTitle(title)
         setPositiveButton(R.string.ok) { _, _ ->
             activity?.let {
                 ActivityCompat.requestPermissions(
