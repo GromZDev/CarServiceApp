@@ -7,6 +7,8 @@ import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
 import carService.app.utils.showsnackBar
 import kotlinx.coroutines.flow.collect
+import org.koin.androidx.viewmodel.compat.ViewModelCompat.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 
 @KoinApiExtension
@@ -17,7 +19,7 @@ class ForgotPasswordStep2Fragment(override val layoutId: Int = R.layout.forgot_p
         fun newInstance() = ForgotPasswordStep2Fragment()
     }
 
-    private lateinit var vm: ForgotPasswordViewModel
+    private val vm by viewModel<ForgotPasswordViewModel>()
 
     override fun initViews() {
         super.initViews()

@@ -12,7 +12,7 @@ data class UserData(
     var email: String = "",
     var phone: String = "",
     val lang: String = "",
-    val type: TYPE? = null,
+    var type: TYPE? = null,
     var profileImageUrl: String? = "",
     var location: Location? = null,
     var companyServices: OrganisationServices? = null,
