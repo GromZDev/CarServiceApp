@@ -3,7 +3,6 @@ package carService.app.ui.registration
 import android.app.Application
 import android.util.Log
 import carService.app.base.BaseViewModel
-import carService.app.data.model.Location
 import carService.app.data.model.UserData
 import carService.app.utils.CommonConstants
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,19 +14,19 @@ import kotlinx.coroutines.tasks.await
 import org.koin.core.component.KoinApiExtension
 
 @KoinApiExtension
-class RegistrationStep4LocationViewModel(
+class RegistrationStep3ConfirmPhotoViewModel(
     app: Application,
     private val fireStore: FirebaseFirestore
 ) : BaseViewModel(app) {
     val newUser: MutableStateFlow<UserData?> = MutableStateFlow(null)
     val isStateException = MutableStateFlow("")
 
-    fun updateProfileUser(userLocation: Location) {
+    fun updateProfileUser(userImage: String) {
         modelScope.launch {
             try {
-                CommonConstants.USER?.location = userLocation
+                CommonConstants.USER?.profileImageUrl = userImage
 
-                updateUserProfileStepLocation()
+                updateUserProfileStepPhoto()
                 delay(1000)
             } catch (exception: TimeoutCancellationException) {
                 isStateException.value = "1 - " + exception.message
@@ -40,7 +39,7 @@ class RegistrationStep4LocationViewModel(
         }
     }
 
-    private fun updateUserProfileStepLocation() {
+    private fun updateUserProfileStepPhoto() {
         modelScope.launch {
             val user = UserData(
                 uid = CommonConstants.USER?.uid.toString(),
@@ -52,12 +51,12 @@ class RegistrationStep4LocationViewModel(
                 lang = CommonConstants.USER?.lang.toString(),
                 type = null,
                 profileImageUrl = CommonConstants.USER?.profileImageUrl.toString(),
-                location = CommonConstants.USER?.location,
+                location = null,
                 companyServices = null,
                 rating = 0f
             )
 
-            Log.d("RegistrationStep4Location", user.toString())
+            Log.d("RegistrationStep3ConfirmPhoto", user.toString())
             val collection = fireStore.collection("users")
             val document = collection.document(user.uid)
             document
@@ -67,6 +66,4 @@ class RegistrationStep4LocationViewModel(
                 .await()
         }
     }
-
-
 }
