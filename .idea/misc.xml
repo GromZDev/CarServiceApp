@@ -12,7 +12,9 @@
         <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/activity_splash_screen_start.xml" value="0.18802083333333333" />
         <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/company_announcement_fragment.xml" value="0.26510416666666664" />
         <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/find_client_fragment.xml" value="0.26510416666666664" />
-        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/forgot_password_fragment.xml" value="0.128125" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/forgot_password_fragment.xml" value="0.292259083728278" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/forgot_password_step2_fragment.xml" value="0.25" />
+        <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/forgot_password_step3_success.xml" value="0.25677083333333334" />
         <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/fragment_maps.xml" value="0.33" />
         <entry key="..\:/GeekBrains/AndroidDeveloper/TeamWork/CarServiceApp/app/src/main/res/layout/item_clients_announcements_rv.xml" value="0.26510416666666664" />

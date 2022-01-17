@@ -80,11 +80,16 @@
     <string name="valid_phone">Проверьте номер телефона!</string>
     <string name="access_internet">Проверьте введенные данные. Возможно нет интернета</string>
     <string name="access_failed">Ошибка обновления данных профиля. Возможно нет интернета</string>
+    <string name="approve_sms">Вам отправлено смс!</string>
+    <string name="approve_password">Ваш пароль изменен!</string>
+    <string name="failed_update_password">При смене пароля произошла ошибка! Попробуйте позже! Возможно нет интернета!</string>
+    <string name="failed_send_sms">Вам не отправлено смс. Проверьте Ваш email!</string>
     <string name="failed_new_user">Аккаунт не создан! Проверьте введенные данные. Возможно нет интернета</string>
     <string name="exit_account">Выйти из аккаунта</string>
     <string name="forgot_password">Забыли свой пароль?</string>
     <string name="reset_password">Выберите какие контактные данные необходимо использовать для смены пароля:</string>
     <string name="reset_password_via_sms">Сбросить пароль через смс</string>
+    <string name="reset_password_via_email">Сбросить пароль через email</string>
     <string name="create_a_new_password">Придумайте новый пароль для входа</string>
     <string name="choose_password_hint">Пожалуйста придумайте новый пароль и постарайтесь больше его не терять:</string>
     <string name="new_pass">Новый пароль</string>
