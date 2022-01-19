@@ -86,22 +86,31 @@
         tools:layout="@layout/forgot_password_fragment">
         <action
             android:id="@+id/action_forgotPasswordFragment_to_forgotPasswordStep2Fragment"
-            app:destination="@id/forgotPasswordStep2Fragment" />
+            app:destination="@id/forgotPasswordStepEnterEmail" />
     </fragment>
     <fragment
-        android:id="@+id/forgotPasswordStep2Fragment"
-        android:name="carService.app.ui.auth.ForgotPasswordStep2Fragment"
+        android:id="@+id/forgotPasswordStep3Passwords"
+        android:name="carService.app.ui.auth.ForgotPasswordStep3Fragment"
         android:label="forgot_password_step2_fragment"
-        tools:layout="@layout/forgot_password_step2_fragment">
+        tools:layout="@layout/forgot_password_step3_fragment">
         <action
             android:id="@+id/action_forgotPasswordStep2Fragment_to_forgotPasswordStep3SuccessFragment"
-            app:destination="@id/forgotPasswordStep3SuccessFragment" />
+            app:destination="@id/forgotPasswordStep4SuccessFragment" />
     </fragment>
     <fragment
-        android:id="@+id/forgotPasswordStep3SuccessFragment"
-        android:name="carService.app.ui.auth.ForgotPasswordStep3FragmentSuccess"
+        android:id="@+id/forgotPasswordStepEnterEmail"
+        android:name="carService.app.ui.auth.ForgotPasswordStep2EnterEmailFragment"
+        android:label="forgot_password_step_enter_email"
+        tools:layout="@layout/forgot_password_enter_email_fragment">
+        <action
+            android:id="@+id/action_forgotPasswordStep2Fragment_to_forgotPasswordStep3SuccessFragment"
+            app:destination="@+id/forgotPasswordStep3Passwords" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordStep4SuccessFragment"
+        android:name="carService.app.ui.auth.ForgotPasswordStep4FragmentSuccess"
         android:label="forgot_password_step3_success_fragment"
-        tools:layout="@layout/forgot_password_step3_success">
+        tools:layout="@layout/forgot_password_step4_success">
         <action
             android:id="@+id/action_forgotPasswordStep3Fragment_to_loginFragment"
             app:destination="@id/loginFragment" />
