@@ -80,7 +80,7 @@
     <string name="valid_phone">Проверьте номер телефона!</string>
     <string name="access_internet">Проверьте введенные данные. Возможно нет интернета</string>
     <string name="access_failed">Ошибка обновления данных профиля. Возможно нет интернета</string>
-    <string name="approve_sms">Вам отправлено смс!</string>
+    <string name="approve_by_email">Вам отправлена ссылка на Email для восстановления пароля!</string>
     <string name="approve_password">Ваш пароль изменен!</string>
     <string name="failed_update_password">При смене пароля произошла ошибка! Попробуйте позже! Возможно нет интернета!</string>
     <string name="failed_send_sms">Вам не отправлено смс. Проверьте Ваш email!</string>
@@ -124,5 +124,9 @@
     <string name="save_my_location">Сохранить моё местоположение</string>
     <string name="my_tel_number_profile">Мой номер телефона</string>
     <string name="my_address_profile">Мой адрес</string>
+    <string name="main_forgot_pass_email_tw">Введите Ваш Email для восстановления пароля</string>
+    <string name="main_forgot_email_hint">На указанную электронную почту придет ссылка для восстановления доступа к аккаунту</string>
+    <string name="enter_email_reset_password">Введите вашу почту</string>
+    <string name="reset_password_button">Сбросить пароль</string>
 
 </resources>
