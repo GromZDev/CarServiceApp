@@ -122,5 +122,7 @@
     <string name="working_time">Время работы</string>
     <string name="social">Соцсети</string>
     <string name="save_my_location">Сохранить моё местоположение</string>
+    <string name="my_tel_number_profile">Мой номер телефона</string>
+    <string name="my_address_profile">Мой адрес</string>
 
 </resources>
