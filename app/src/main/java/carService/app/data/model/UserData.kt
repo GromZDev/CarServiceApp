@@ -10,7 +10,7 @@ data class UserData(
     var lastName: String = "",
     var nickName: String = "",
     var email: String = "",
-    var phone: String = "",
+    var phone: String? = "",
     val lang: String = "",
     var type: TYPE? = null,
     var profileImageUrl: String? = "",
