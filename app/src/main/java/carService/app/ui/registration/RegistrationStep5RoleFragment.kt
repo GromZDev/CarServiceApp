@@ -80,7 +80,7 @@ class RegistrationStep5RoleFragment(
             viewModel.newUser.collect {
                 if (it != null) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
-                    prefs.isRegistrationStep3 = true
+                    prefs.isRegistrationStep4 = true
                     navigate(R.id.action_registrationStep5Role_to_successFragment)
                 } else if (it == null && userType?.name?.isNotEmpty() == true
                 ) {
@@ -111,11 +111,9 @@ class RegistrationStep5RoleFragment(
 
         if (binding.personalAccountButton.isSelected) {
             userType = UserData.TYPE.PERSONAL
-            navigate(R.id.registrationIsSuccessFragment)
         }
         if (binding.companyAccountButton.isSelected) {
             userType = UserData.TYPE.ORGANISATION
-            navigate(R.id.mainCompanyPageFragment)
         }
 
         when {

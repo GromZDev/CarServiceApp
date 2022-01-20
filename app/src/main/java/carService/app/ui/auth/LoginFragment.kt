@@ -63,10 +63,6 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
                 password.length < 8 -> {
                     view?.showsnackBar(getString(R.string.valid_password))
                 }
-//                !vm.isLoggedIn.value -> {
-//                    view?.showsnackBar("Ошибка. Возможно у Вас еще нет аккаунта!")
-//
-//                }
                 else -> {
                     vm.loginByEmail(email, password)
                     binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
@@ -82,11 +78,16 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
 
     override fun initViewModel() {
         doInScope {
+            vm.stateInitial.collect {stateInitial->
+                if (stateInitial) {
+                    checkProfile()
+                }
+            }
             vm.isLoggedIn.collect { isLoggedIn ->
                 if (isLoggedIn) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
-//                    navigate(R.id.mainUserFragment)
-                    stepRegistration()
+                    checkProfile()
+//                    stepRegistration()
                 }
                 else if (!isLoggedIn && email.isNotEmpty() && password.isNotEmpty()) {
                     view?.showsnackBar(getString(R.string.access_internet))
@@ -96,6 +97,16 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
         }
 
         doInScopeResume {
+            vm.stateInitial.collect {stateInitial->
+                if (stateInitial) {
+                    checkProfile()
+                }
+            }
+            vm.isLoggedIn.collect { isLoggedIn ->
+                if (isLoggedIn) {
+                    checkProfile()
+                }
+            }
             vm.isStateException.collect { isStateException ->
                 if (isStateException !="" && !prefs.isAuthed && email.isNotEmpty() && password.isNotEmpty()) {
                     view?.showsnackBar(getString(R.string.access_internet))
@@ -103,6 +114,24 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
                 }
             }
         }
+    }
+
+    private fun checkProfile() {
+        CommonConstants.USER?.let {
+            if (it.name != "" && it.lastName != "" && it.phone != "") {
+                prefs.isRegistrationStep1 = true
+                if (it.profileImageUrl != "") {
+                    prefs.isRegistrationStep2 = true
+                    if (it.location != null) {
+                        prefs.isRegistrationStep3 = true
+                        if (it.type != null) {
+                            prefs.isRegistrationStep4 = true
+                        }
+                    }
+                }
+            }
+        }
+        if (CommonConstants.USER?.uid != "")  stepRegistration()
     }
 
     private fun signIn() {
@@ -123,7 +152,7 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
             val account: GoogleSignInAccount = task.getResult(ApiException::class.java)!!
             Timber.d("firebaseAuthWithGoogle:%s", account.id)
             vm.loginByGoogle(account)
-            stepRegistration()
+            if (prefs.isInitial)  stepRegistration()
         } catch (e: ApiException) {
             Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
         }

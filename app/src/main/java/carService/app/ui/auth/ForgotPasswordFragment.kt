@@ -28,7 +28,7 @@ class ForgotPasswordFragment(override val layoutId: Int = R.layout.forgot_passwo
         }
 
         binding.textShareHint.setOnClickListener {
-
+            navigate(R.id.forgotPasswordStep3Passwords)
         }
 
         binding.resetViaEmailButton.setOnClickListener {

@@ -75,4 +75,6 @@ abstract class BaseFragment<Binding: ViewBinding> : Fragment(){
     override fun onDestroy() {
         super.onDestroy()
     }
+
+
 }
