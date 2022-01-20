@@ -259,14 +259,8 @@ class FirebaseAuthHelper : KoinComponent {
     private suspend fun googleProfile(response: AuthResult) {
         val currentUser = response.user
         if (currentUser != null) {
-
-
-
             repository.createUser(userFromDB(response, currentUser))
             userCommon(userFromDB(response, currentUser))
-
-
-
         }
     }
 
@@ -279,9 +273,7 @@ class FirebaseAuthHelper : KoinComponent {
             db.collection("users").document(it)
                 .get()
                 .addOnSuccessListener { link ->
-
                     val user = link.toObject<UserData?>()
-
                     newUser =
                         currentUser.let { rrr ->
                             user?.let {
@@ -295,7 +287,6 @@ class FirebaseAuthHelper : KoinComponent {
                                 )
                             }!!
                         }
-
                 }
         }
         return newUser

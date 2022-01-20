@@ -53,7 +53,6 @@ class RegistrationStep3ConfirmPhotoFragment(override val layoutId: Int = R.layou
                 uploadImageToDatabase(myUri)
                 updateProfile()
             }
-            navigate(R.id.registrationStep4LocationFragment)
         }
 
         binding.backButtonImage.setOnClickListener {
