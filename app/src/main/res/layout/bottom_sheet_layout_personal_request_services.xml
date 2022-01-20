@@ -1,0 +1,110 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_container"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    android:background="@color/bottom_sheet_request_services_bg"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="100dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <View
+        android:id="@+id/bottom_sheet_line"
+        style="@style/My_Bottom_Sheet_Line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/top_textview"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/benton_sans_bold"
+        android:text="@string/bottom_sheet_service_top_tw"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/theme_et"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/main_button_background"
+        android:drawableStart="@drawable/ic_email_reg"
+        android:gravity="center"
+        android:hint="@string/bottom_sheet_service_name"
+        android:inputType="text"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textAllCaps="false"
+        android:textColor="@color/reg_form_color"
+        android:textColorHint="@color/hint_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_textview" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/overview_et"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/main_button_background"
+        android:drawableStart="@drawable/ic_email_reg"
+        android:gravity="center"
+        android:hint="@string/bottom_sheet_service_overview"
+        android:inputType="text"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textAllCaps="false"
+        android:textColor="@color/reg_form_color"
+        android:textColorHint="@color/hint_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/theme_et" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/price_et"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/main_button_background"
+        android:drawableStart="@drawable/ic_email_reg"
+        android:gravity="center"
+        android:hint="@string/bottom_sheet_service_price"
+        android:inputType="number"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textAllCaps="false"
+        android:textColor="@color/reg_form_color"
+        android:textColorHint="@color/hint_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/overview_et" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_button"
+        android:layout_width="325dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button_background"
+        android:fontFamily="@font/benton_sans_bold"
+        android:text="@string/bottom_sheet_service_create_request_button"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_et" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
