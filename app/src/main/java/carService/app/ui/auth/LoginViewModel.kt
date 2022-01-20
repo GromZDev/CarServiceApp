@@ -30,8 +30,8 @@ class LoginViewModel(
 
     fun loginByEmail(email: String, password: String) {
         modelScope.launch {
-//            withTimeout(timeout) {
-//                try {
+            withTimeout(timeout) {
+                try {
                     val result = FirebaseAuthHelper.instance.loginUserByEmail(email, password)
                     when (result) {
                         is Result.Success<*> -> {
@@ -52,18 +52,18 @@ class LoginViewModel(
                             isLoggedIn.value = false
                         }
                     }
-//                    delay(1000)
-//                } catch (exception: TimeoutCancellationException) {
-//                    isStateException.value = "1 - " + exception.message
-//                    prefs.isAuthed = false
-//                    isLoggedIn.value = false
-//
-//                } catch (exception: Exception) {
-//                    isStateException.value = "2 - " + exception.message
-//                    prefs.isAuthed = false
-//                    isLoggedIn.value = false
-//                }
-//            }
+                    delay(1000)
+                } catch (exception: TimeoutCancellationException) {
+                    isStateException.value = "1 - " + exception.message
+                    prefs.isAuthed = false
+                    isLoggedIn.value = false
+
+                } catch (exception: Exception) {
+                    isStateException.value = "2 - " + exception.message
+                    prefs.isAuthed = false
+                    isLoggedIn.value = false
+                }
+            }
         }
     }
 

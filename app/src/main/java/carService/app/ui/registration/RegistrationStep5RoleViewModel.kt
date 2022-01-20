@@ -5,6 +5,9 @@ import android.util.Log
 import carService.app.base.BaseViewModel
 import carService.app.data.model.UserData
 import carService.app.utils.CommonConstants
+import carService.app.utils.FirebaseConstants.Companion.ORGANIZATION_ACCOUNT
+import carService.app.utils.FirebaseConstants.Companion.PERSONAL_ACCOUNT
+import carService.app.utils.FirebaseConstants.Companion.USERS
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
@@ -57,7 +60,29 @@ class RegistrationStep5RoleViewModel(
             )
 
             Log.d("RegistrationStep5Role", user.toString())
-            val collection = fireStore.collection("users")
+            updateProfile(user)
+            createNodeAccount(user)
+        }
+    }
+
+    private fun updateProfile(user: UserData){
+        modelScope.launch {
+            val collection = fireStore.collection(USERS)
+            val document = collection.document(user.uid)
+            document
+                .set(user)
+                .addOnSuccessListener { newUser.value = user }
+                .addOnFailureListener { newUser.value = null }
+                .await()
+        }
+    }
+
+    private fun createNodeAccount(user: UserData){
+        modelScope.launch {
+          var account: String = ""
+            if (user.type == UserData.TYPE.PERSONAL) account = PERSONAL_ACCOUNT
+            else if (user.type == UserData.TYPE.ORGANISATION)  account = ORGANIZATION_ACCOUNT
+            val collection = fireStore.collection(account)
             val document = collection.document(user.uid)
             document
                 .set(user)

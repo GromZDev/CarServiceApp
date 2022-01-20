@@ -25,6 +25,7 @@
     <string name="your_telephone_number">Ваш номер телефона +7</string>
     <string name="hint_text_reg_step2">Эти данные будут отображаться в твоём профиле</string>
     <string name="next">Далее</string>
+    <string name="reset_password_manual">Сменить пароль</string>
     <string name="choose_a_photo_from_phone">Выберите фотографию для отображения</string>
     <string name="photo_from_gallery">Взять фото из галереи</string>
     <string name="take_photo">Сделать фото</string>
@@ -77,6 +78,7 @@
     <string name="valid_email">Проверьте корректность Вашего email</string>
     <string name="not_empty_email_password">Проверьте введенные данные. Все поля обязательны для заполнения!</string>
     <string name="valid_password">Проверьте длину пароля! Минимальная длина 8 символов</string>
+    <string name="failed_confirm_password">Пароли не совпадают! Проверьте</string>
     <string name="valid_phone">Проверьте номер телефона!</string>
     <string name="access_internet">Проверьте введенные данные. Возможно нет интернета</string>
     <string name="access_failed">Ошибка обновления данных профиля. Возможно нет интернета</string>
@@ -89,6 +91,7 @@
     <string name="forgot_password">Забыли свой пароль?</string>
     <string name="reset_password">Выберите какие контактные данные необходимо использовать для смены пароля:</string>
     <string name="reset_password_via_sms">Сбросить пароль через смс</string>
+    <string name="reset_password_via_manual">Изменить пароль</string>
     <string name="reset_password_via_email">Сбросить пароль через email</string>
     <string name="create_a_new_password">Придумайте новый пароль для входа</string>
     <string name="choose_password_hint">Пожалуйста придумайте новый пароль и постарайтесь больше его не терять:</string>
