@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 import org.koin.android.ext.android.inject
@@ -29,6 +31,8 @@ class FirebaseAuthHelper : KoinComponent {
 
     private val repository: Repository by inject()
     private val fbase by inject<FireBaseModule>()
+
+    private lateinit var db: FirebaseFirestore
 
     var currentUser: FirebaseUser? = null
         get() = auth.currentUser
@@ -56,6 +60,36 @@ class FirebaseAuthHelper : KoinComponent {
         }
         return null
     }
+
+//    fun getUser(): UserData? {
+//        var userInitial = UserData()
+//        db = FirebaseFirestore.getInstance()
+//        auth.currentUser?.uid?.let { db.collection("users").document(it)
+//            .get()
+//            .addOnSuccessListener { link ->
+//                val nUser = link.toObject<UserData>()
+//                val user = auth.currentUser
+//                if (user != null) {
+//                    if (nUser != null) {
+//                        userInitial = UserData(
+//                            uid = user.uid,
+//                            nickName = user.displayName.orEmpty(),
+//                            email = user.email.orEmpty(),
+//                            lastName = nUser.lastName,
+//                            location = nUser.location,
+//                            phone = nUser.phone,
+//                            profileImageUrl = nUser.profileImageUrl
+//
+//                        )
+//                    }
+//                    userCommon(userInitial)
+//
+//                }
+//
+//            }
+//        }
+//        return userInitial
+//    }
 
     suspend fun signInWithEmail(email: String, password: String): Result<FirebaseUser?> {
         try {
@@ -225,13 +259,46 @@ class FirebaseAuthHelper : KoinComponent {
     private suspend fun googleProfile(response: AuthResult) {
         val currentUser = response.user
         if (currentUser != null) {
-            val newUser =
-                currentUser.let {
-                    UserData(uid = it.uid, nickName = it.displayName.toString(), email = it.email.toString())
-                }
-                repository.createUser(newUser)
-                userCommon(newUser)
+
+
+
+            repository.createUser(userFromDB(response, currentUser))
+            userCommon(userFromDB(response, currentUser))
+
+
+
         }
+    }
+
+    private fun userFromDB(
+        response: AuthResult,
+        currentUser: FirebaseUser
+    ) : UserData {
+        var newUser = UserData()
+        response.user!!.uid.let {
+            db.collection("users").document(it)
+                .get()
+                .addOnSuccessListener { link ->
+
+                    val user = link.toObject<UserData?>()
+
+                    newUser =
+                        currentUser.let { rrr ->
+                            user?.let {
+                                UserData(
+                                    uid = rrr.uid,
+                                    nickName = rrr.displayName.toString(),
+                                    email = rrr.email.toString(),
+                                    phone = rrr.phoneNumber,
+                                    location = user.location,
+                                    profileImageUrl = user.profileImageUrl
+                                )
+                            }!!
+                        }
+
+                }
+        }
+        return newUser
     }
 
     fun userCommon(userData: UserData): UserData {
