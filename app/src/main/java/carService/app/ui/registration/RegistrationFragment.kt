@@ -5,10 +5,7 @@ import android.view.View
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.RegistrationFragmentBinding
-import carService.app.utils.SharedPreferencesHelper
-import carService.app.utils.navigate
-import carService.app.utils.showsnackBar
-import carService.app.utils.validateEmail
+import carService.app.utils.*
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -68,6 +65,7 @@ class RegistrationFragment(override val layoutId: Int = R.layout.registration_fr
         doInScope {
             vm.newUser.collect {
                 if (it != null) {
+//                    prefs.isFirstOpen = false
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                     navigate(R.id.registrationStep2Fragment)
                 }

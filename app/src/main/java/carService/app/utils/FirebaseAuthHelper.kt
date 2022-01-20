@@ -4,6 +4,7 @@ import carService.app.data.model.UserData
 import carService.app.di.FireBaseModule
 import carService.app.repo.personal.Repository
 import carService.app.utils.CommonConstants.USER
+import carService.app.utils.FirebaseConstants.Companion.USERS
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.AuthResult
@@ -32,7 +33,10 @@ class FirebaseAuthHelper : KoinComponent {
     private val repository: Repository by inject()
     private val fbase by inject<FireBaseModule>()
 
-    private lateinit var db: FirebaseFirestore
+//    private lateinit var db: FirebaseFirestore
+
+    val db by inject<FirebaseFirestore>()
+    val prefs by inject<SharedPreferencesHelper>()
 
     var currentUser: FirebaseUser? = null
         get() = auth.currentUser
@@ -55,41 +59,21 @@ class FirebaseAuthHelper : KoinComponent {
                 nickName = user.displayName.orEmpty(),
                 email = user.email.orEmpty()
             )
-            userCommon(userInitial)
+            initialUser(user.uid){}
+//            userCommon(userInitial)
             return userInitial
         }
         return null
     }
 
-//    fun getUser(): UserData? {
-//        var userInitial = UserData()
-//        db = FirebaseFirestore.getInstance()
-//        auth.currentUser?.uid?.let { db.collection("users").document(it)
-//            .get()
-//            .addOnSuccessListener { link ->
-//                val nUser = link.toObject<UserData>()
-//                val user = auth.currentUser
-//                if (user != null) {
-//                    if (nUser != null) {
-//                        userInitial = UserData(
-//                            uid = user.uid,
-//                            nickName = user.displayName.orEmpty(),
-//                            email = user.email.orEmpty(),
-//                            lastName = nUser.lastName,
-//                            location = nUser.location,
-//                            phone = nUser.phone,
-//                            profileImageUrl = nUser.profileImageUrl
-//
-//                        )
-//                    }
-//                    userCommon(userInitial)
-//
-//                }
-//
-//            }
-//        }
-//        return userInitial
-//    }
+    inline fun initialUser(uid: String, crossinline function: () -> Unit) {
+        /* Функция высшего порядка, инициализирует пользователя */
+        val user = db.collection(USERS).document(uid)
+        user.get().addOnSuccessListener { documentSnapshot ->
+            CommonConstants.USER = documentSnapshot.toObject<UserData>()
+            function()
+        }
+    }
 
     suspend fun signInWithEmail(email: String, password: String): Result<FirebaseUser?> {
         try {
@@ -235,7 +219,10 @@ class FirebaseAuthHelper : KoinComponent {
 
     suspend fun loginUserByEmail(email: String, password: String): Result<FirebaseUser?> {
         try {
-            val response = auth.signInWithEmailAndPassword(email, password).await()
+            val response = auth
+                .signInWithEmailAndPassword(email, password)
+                .await()
+            userFromDB(response.user)
             return Result.Success(auth.currentUser)
         } catch (e: Exception) {
             return Result.Error(e)
@@ -256,40 +243,49 @@ class FirebaseAuthHelper : KoinComponent {
         }
     }
 
-    private suspend fun googleProfile(response: AuthResult) {
+    suspend fun googleProfile(response: AuthResult) {
         val currentUser = response.user
-        if (currentUser != null) {
-            repository.createUser(userFromDB(response, currentUser))
-            userCommon(userFromDB(response, currentUser))
-        }
+        userFromDB(currentUser)
+        if (currentUser != null && prefs.isFirstOpen) {
+            val newUser =
+                currentUser.let {
+                    UserData(uid = it.uid, nickName = it.displayName.toString(), email = it.email.toString())
+                }
+            repository.createUser(newUser)
+            userCommon(newUser)
+            prefs.isFirstOpen = false
+        } else { }
     }
 
-    private fun userFromDB(
-        response: AuthResult,
-        currentUser: FirebaseUser
-    ) : UserData {
-        var newUser = UserData()
-        response.user!!.uid.let {
-            db.collection("users").document(it)
+    suspend fun userFromDB(currentUser: FirebaseUser?) {
+        if (currentUser != null) {
+            db.collection(USERS).document(currentUser.uid)
                 .get()
                 .addOnSuccessListener { link ->
+                    prefs.isFirstOpen = false
+                    prefs.isInitial = true
                     val user = link.toObject<UserData?>()
-                    newUser =
-                        currentUser.let { rrr ->
-                            user?.let {
-                                UserData(
-                                    uid = rrr.uid,
-                                    nickName = rrr.displayName.toString(),
-                                    email = rrr.email.toString(),
-                                    phone = rrr.phoneNumber,
-                                    location = user.location,
-                                    profileImageUrl = user.profileImageUrl
-                                )
-                            }!!
+                    USER = user
+                    user?.let {
+                        if (it.name != "" && it.lastName != "" && it.phone != "") {
+                            prefs.isRegistrationStep1 = true
+                            if (it.profileImageUrl != "") {
+                                prefs.isRegistrationStep2 = true
+                                if (it.location != null) {
+                                    prefs.isRegistrationStep3 = true
+                                    if (it.type != null) {
+                                        prefs.isRegistrationStep4 = true
+                                    }
+                                }
+                            }
                         }
+                    }
                 }
+                .addOnFailureListener {
+                    prefs.isFirstOpen = true
+                }
+                .await()
         }
-        return newUser
     }
 
     fun userCommon(userData: UserData): UserData {
