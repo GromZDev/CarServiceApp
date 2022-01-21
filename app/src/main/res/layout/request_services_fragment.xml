@@ -69,11 +69,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:tint="@color/white" />
 
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/includedBottomSheetLayoutServiceRequest"
         layout="@layout/bottom_sheet_layout_personal_request_services" />
+
+    <include
+        android:id="@+id/includedLoadingLayout"
+        layout="@layout/loading_layout"
+        android:background="@color/alfa_main_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

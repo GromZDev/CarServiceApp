@@ -1,16 +1,22 @@
 package carService.app.ui.main.menu_screens.personal_menu.request_services
 
-import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import carService.app.R
 import carService.app.base.BaseFragment
+import carService.app.data.model.personal.PersonalServicesRequests
 import carService.app.databinding.RequestServicesFragmentBinding
+import carService.app.utils.showToast
+import carService.app.utils.showsnackBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.coroutines.flow.collect
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
+@KoinApiExtension
 class RequestServicesFragment(override val layoutId: Int = R.layout.request_services_fragment) :
     BaseFragment<RequestServicesFragmentBinding>() {
 
@@ -19,13 +25,14 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         fun newInstance() = RequestServicesFragment()
     }
 
-    private lateinit var viewModel: RequestServicesViewModel
+    private val viewModel by viewModel<RequestServicesViewModel>()
     private lateinit var navBar: BottomNavigationView
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private var userRequest: PersonalServicesRequests = PersonalServicesRequests("", "", -900, "")
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
+    override fun initViews() {
+        super.initViews()
         setBottomSheetBehavior(binding.includedBottomSheetLayoutServiceRequest.bottomSheetContainer)
         navBar = requireActivity().findViewById(R.id.bottom_navigation)
         navBar.visibility = View.VISIBLE
@@ -33,7 +40,6 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         binding.addMyCarButton.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             binding.constraintContainer.alpha = 0.2f
-            receiveData()
         }
 
         val userServicesRequests: RecyclerView = binding.requestServicesRv
@@ -48,8 +54,40 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
 
         binding.includedBottomSheetLayoutServiceRequest.addButton.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            receiveData()
         }
 
+    }
+
+    override fun initViewModel() {
+        super.initViewModel()
+
+        doInScope {
+            viewModel.newRequest.collect {
+                if (it != null) {
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                    showToast("Запрос на услугу успешно создан!")
+                } else if (it == null && userRequest.data?.isNotEmpty() == true) {
+                    showToast("Запрос не создан, что-то пошло не так (")
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "") {
+                    showToast("Запрос не создан, что-то пошло не так (")
+                }
+            }
+        }
+        doInScopeResume {
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "" && userRequest.data?.isNotEmpty() == true && userRequest.overview?.isNotEmpty() == true
+                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true
+                ) {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun setBottomSheetBehavior(bottomSheet: ConstraintLayout) {
@@ -81,8 +119,13 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
     }
 
     private fun receiveData() {
-        val theme = binding.includedBottomSheetLayoutServiceRequest.themeEt.toString().trim()
-        val overview = binding.includedBottomSheetLayoutServiceRequest.overviewEt.toString().trim()
-        val price = binding.includedBottomSheetLayoutServiceRequest.priceEt
+        val theme = binding.includedBottomSheetLayoutServiceRequest.themeEt.text?.toString()?.trim()
+        val overview =
+            binding.includedBottomSheetLayoutServiceRequest.overviewEt.text?.toString()?.trim()
+        val price = binding.includedBottomSheetLayoutServiceRequest.priceEt.text.toString()
+
+        if (theme?.isNotEmpty() == true && overview?.isNotEmpty() == true) {
+            viewModel.updateProfileUser(theme, overview, price)
+        }
     }
 }

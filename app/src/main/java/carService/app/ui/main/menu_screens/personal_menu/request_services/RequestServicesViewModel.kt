@@ -1,7 +1,81 @@
 package carService.app.ui.main.menu_screens.personal_menu.request_services
 
-import androidx.lifecycle.ViewModel
+import android.annotation.SuppressLint
+import android.app.Application
+import android.util.Log
+import carService.app.base.BaseViewModel
+import carService.app.data.model.UserData
+import carService.app.data.model.personal.PersonalServicesRequests
+import carService.app.utils.CommonConstants
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.TimeoutCancellationException
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import org.koin.core.component.KoinApiExtension
+import java.text.SimpleDateFormat
+import java.util.*
 
-class RequestServicesViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+@KoinApiExtension
+class RequestServicesViewModel(
+    app: Application,
+    private val fireStore: FirebaseFirestore
+) : BaseViewModel(app) {
+    val newRequest: MutableStateFlow<List<PersonalServicesRequests>?> = MutableStateFlow(null)
+    val isStateException = MutableStateFlow("")
+
+    @SuppressLint("SimpleDateFormat")
+    fun updateProfileUser(serviceTheme: String, serviceOverview: String, servicePrice: String) {
+        modelScope.launch {
+            try {
+                val calendar = Calendar.getInstance()
+                val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+                val date = dateFormat.format(calendar.time)
+                val request = PersonalServicesRequests(
+                    serviceTheme,
+                    serviceOverview,
+                    servicePrice.toInt(),
+                    date
+                )
+                CommonConstants.USER?.personalServices = listOf(request)
+
+                updateUserProfileRequests()
+                delay(1000)
+            } catch (exception: TimeoutCancellationException) {
+                isStateException.value = "1 - " + exception.message
+                newRequest.value = null
+
+            } catch (exception: Exception) {
+                isStateException.value = "2 - " + exception.message
+                newRequest.value = null
+            }
+        }
+    }
+
+    private fun updateUserProfileRequests() {
+        modelScope.launch {
+            val user = UserData(
+                uid = CommonConstants.USER?.uid.toString(),
+                personalServices = CommonConstants.USER?.personalServices
+            )
+
+            val service = user.personalServices?.get(0)?.let {
+                PersonalServicesRequests(
+                    user.personalServices!![0].theme, user.personalServices!![0].overview,
+                    user.personalServices!![0].price, it.data
+                )
+            }
+            Log.d("RequestServicesFragment", user.toString())
+            val collection = fireStore.collection("personalAccount")
+            val document = collection.document(user.uid)
+            document
+                .update("personalServices", FieldValue.arrayUnion(service))
+                .addOnSuccessListener { newRequest.value = user.personalServices }
+                .addOnFailureListener { newRequest.value = null }
+                .await()
+        }
+    }
+
 }

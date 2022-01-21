@@ -18,7 +18,6 @@ data class UserData(
     var location: Location? = null,
     var companyServices: OrganisationServices? = null,
     var personalServices: List<PersonalServicesRequests>? = null,
-    //= mutableListOf(PersonalServicesRequests("", "", 0, Date(1111))),
     var rating: Float? = 0f
 ) : Parcelable {
     enum class TYPE {
