@@ -58,7 +58,8 @@ class RegistrationStep3Fragment(
         hideToolbarAndBottomNav()
 
         binding.nextCreateAccountButton.setOnClickListener {
-            navigate(R.id.registrationStep3ConfirmPhotoFragment, null)
+//            navigate(R.id.registrationStep3ConfirmPhotoFragment, null)
+            navigate(R.id.registrationStep4LocationFragment, null)
         }
 
         binding.backButtonImage.setOnClickListener {
