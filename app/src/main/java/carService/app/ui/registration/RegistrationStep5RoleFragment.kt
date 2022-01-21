@@ -40,14 +40,17 @@ class RegistrationStep5RoleFragment(
         hideToolbarAndBottomNav()
 
         binding.nextToSuccessAccountButton.setOnClickListener {
-            if (binding.personalAccountButton.isSelected) {
-                userType = UserData.TYPE.PERSONAL
-                updateProfile()
-            }
-            if (binding.companyAccountButton.isSelected) {
-                userType = UserData.TYPE.ORGANISATION
-                updateProfile()
-            }
+           when {
+               binding.personalAccountButton.isSelected ->{
+                   userType = UserData.TYPE.PERSONAL
+                   updateProfile()
+               }
+               binding.companyAccountButton.isSelected ->{
+                   userType = UserData.TYPE.ORGANISATION
+                   updateProfile()
+               }
+               else -> navigate(R.id.action_registrationStep5Role_to_successFragment)
+           }
         }
 
         binding.backButtonImage.setOnClickListener {

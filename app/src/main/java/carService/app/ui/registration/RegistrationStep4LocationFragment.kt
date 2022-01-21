@@ -40,7 +40,8 @@ class RegistrationStep4LocationFragment(
         hideToolbarAndBottomNav()
 
         binding.successAccountButton.setOnClickListener {
-            updateProfile()
+//            updateProfile()
+            navigate(R.id.registrationStep5RoleFragment)
         }
 
         binding.backButtonImage.setOnClickListener {

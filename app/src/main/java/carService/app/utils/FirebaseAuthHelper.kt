@@ -262,8 +262,6 @@ class FirebaseAuthHelper : KoinComponent {
             db.collection(USERS).document(currentUser.uid)
                 .get()
                 .addOnSuccessListener { link ->
-                    prefs.isFirstOpen = false
-                    prefs.isInitial = true
                     val user = link.toObject<UserData?>()
                     USER = user
                     user?.let {
@@ -279,6 +277,8 @@ class FirebaseAuthHelper : KoinComponent {
                                 }
                             }
                         }
+                        prefs.isFirstOpen = false
+                        prefs.isInitial = true
                     }
                 }
                 .addOnFailureListener {
