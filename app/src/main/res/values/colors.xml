@@ -35,4 +35,7 @@
     <color name="profile_name_color">#1FC57B</color>
     <color name="profile_stroke_color">#6C6E6C</color>
 
+    <color name="bottom_sheet_request_services_bg">#5E5E5E</color>
+    <color name="bottom_sheet_line_background">#662D3139</color>
+
 </resources>

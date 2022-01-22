@@ -1,6 +1,7 @@
 package carService.app.data.model
 
 import android.os.Parcelable
+import carService.app.data.model.personal.PersonalServicesRequests
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -16,6 +17,7 @@ data class UserData(
     var profileImageUrl: String? = "",
     var location: Location? = null,
     var companyServices: OrganisationServices? = null,
+    var personalServices: List<PersonalServicesRequests>? = null,
     var rating: Float? = 0f
 ) : Parcelable {
     enum class TYPE {
@@ -26,115 +28,125 @@ data class UserData(
 
 fun getAllOrganisations() = mutableListOf(
     UserData(
-        "111",
-        "CSF Workshop",
-        "CSF",
-        "CSF",
-        "CSF@carsound-factory.ru",
-        "+7 (995)782-68-50",
-        "RUS",
+        uid = "111",
+        name = "CSF Workshop",
+        lastName = "CSF",
+        nickName = "CSF",
+        email = "CSF@carsound-factory.ru",
+        phone = "+7 (995)782-68-50",
+        lang = "RUS",
         UserData.TYPE.ORGANISATION,
-        "http://www.carsound-factory.ru/images/intec.png",
-        Location("55.852236", "37.389728"),
-        OrganisationServices(service1 = "Установка автозвука", service2 = "Шумоизоляция"),
-        9.3f
+        profileImageUrl = "http://www.carsound-factory.ru/images/intec.png",
+        location = Location("55.852236", "37.389728"),
+        companyServices = OrganisationServices(
+            service1 = "Установка автозвука",
+            service2 = "Шумоизоляция"
+        ),
+        rating = 9.3f,
+        personalServices = null
     ),
     UserData(
-        "112",
-        "CarCustom",
-        "Каркастом",
-        "Каркастом",
-        "info@carcustom.ru",
-        "+7 (917) 561-18-21",
-        "RUS",
+        uid = "112",
+        name = "CarCustom",
+        lastName = "Каркастом",
+        nickName = "Каркастом",
+        email = "info@carcustom.ru",
+        phone = "+7 (917) 561-18-21",
+        lang = "RUS",
         UserData.TYPE.ORGANISATION,
-        "https://carcustom.ru/wp-content/uploads/2019/12/carcustom-logo2.png",
-        Location("55.852022", "37.389449"),
-        OrganisationServices(service1 = "Автозвук", service2 = "Полировка"),
-        8.5f
+        profileImageUrl = "https://carcustom.ru/wp-content/uploads/2019/12/carcustom-logo2.png",
+        location = Location("55.852022", "37.389449"),
+        companyServices = OrganisationServices(service1 = "Автозвук", service2 = "Полировка"),
+        rating = 8.5f
     ),
     UserData(
-        "113",
-        "ZF-EXPERT",
-        "ZF",
-        "Зет Эф Эксперт",
-        "info@zf-expert.ru",
-        "8 (495) 723-88-66",
-        "RUS",
+        uid = "113",
+        name = "ZF-EXPERT",
+        lastName = "ZF",
+        nickName = "Зет Эф Эксперт",
+        email = "info@zf-expert.ru",
+        phone = "8 (495) 723-88-66",
+        lang = "RUS",
         UserData.TYPE.ORGANISATION,
-        "http://zf-expert.ru/sites/default/files/Logo.png",
-        Location("55.860857", "37.579138"),
-        OrganisationServices(service1 = "Детейлинг", service2 = "Кузовной ремонт"),
-        7.2f
+        profileImageUrl = "http://zf-expert.ru/sites/default/files/Logo.png",
+        location = Location("55.860857", "37.579138"),
+        companyServices = OrganisationServices(
+            service1 = "Детейлинг",
+            service2 = "Кузовной ремонт"
+        ),
+        rating = 7.2f
     ),
     UserData(
-        "114",
-        "АГС",
-        "АГС",
-        "АГС",
-        "support@agscenter.ru",
-        "+7 (499) 110-61-68",
-        "RUS",
+        uid = "114",
+        name = "АГС",
+        lastName = "АГС",
+        nickName = "АГС",
+        email = "support@agscenter.ru",
+        phone = "+7 (499) 110-61-68",
+        lang = "RUS",
         UserData.TYPE.ORGANISATION,
-        "https://www.agscenter.ru/template/img/logo.png",
-        Location("55.78740336", "37.50765033"),
-        OrganisationServices(service1 = "Ремонт авто", service2 = "Генераторы"),
-        8.6f
+        profileImageUrl = "https://www.agscenter.ru/template/img/logo.png",
+        location = Location("55.78740336", "37.50765033"),
+        companyServices = OrganisationServices(service1 = "Ремонт авто", service2 = "Генераторы"),
+        rating = 8.6f
     ),
     UserData(
-        "115",
-        "BY Tuning",
-        "Tuning",
-        "BY Tuning",
-        "info@by-tuning.ru",
-        "+7 (903) 589-02-50",
-        "RUS",
+        uid = "115",
+        name = "BY Tuning",
+        lastName = "Tuning",
+        nickName = "BY Tuning",
+        email = "info@by-tuning.ru",
+        phone = "+7 (903) 589-02-50",
+        lang = "RUS",
         UserData.TYPE.ORGANISATION,
-        "https://by-tuning.ru/images/logo-new4.png",
-        Location("55.791396", "37.618509"),
-        OrganisationServices(service1 = "Тюнинг выхлопа", service2 = "Турбины"),
-        9.0f
+        profileImageUrl = "https://by-tuning.ru/images/logo-new4.png",
+        location = Location("55.791396", "37.618509"),
+        companyServices = OrganisationServices(service1 = "Тюнинг выхлопа", service2 = "Турбины"),
+        rating = 9.0f
     ),
     UserData(
-        "116",
-        "Колесный центр",
-        "Шина",
-        "Шиншина",
-        "89154963000@mail.ru",
-        "+7 (915) 496-3000",
-        "RUS",
+        uid = "116",
+        name = "Колесный центр",
+        lastName = "Шина",
+        nickName = "Шиншина",
+        email = "89154963000@mail.ru",
+        phone = "+7 (915) 496-3000",
+        lang = "RUS",
         UserData.TYPE.ORGANISATION,
-        "https://shina-vsem.ru/i/header_logo.png",
-        Location("56.068259", "37.390471"),
-        OrganisationServices(service1 = "Шиномонтаж", service2 = "Перебортовка"),
-        8.8f
+        profileImageUrl = "https://shina-vsem.ru/i/header_logo.png",
+        location = Location("56.068259", "37.390471"),
+        companyServices = OrganisationServices(service1 = "Шиномонтаж", service2 = "Перебортовка"),
+        rating = 8.8f
     ),
     UserData(
-        "117",
-        "CHECK",
-        "Двигатель",
-        "Запчасти",
-        "info@check.com.ru",
-        "+7 (927) 223-7123",
-        "RUS",
+        uid = "117",
+        name = "CHECK",
+        lastName = "Двигатель",
+        nickName = "Запчасти",
+        email = "info@check.com.ru",
+        phone = "+7 (927) 223-7123",
+        lang = "RUS",
         UserData.TYPE.ORGANISATION,
-        "http://check64.ru/images/logo.png?crc=4165143253",
-        Location("51.542931", "46.029391"),
-        OrganisationServices(service1 = "Запчасти", service2 = "Масла и жидкости"),
-        7.1f
+        profileImageUrl = "http://check64.ru/images/logo.png?crc=4165143253",
+        location = Location("51.542931", "46.029391"),
+        companyServices = OrganisationServices(
+            service1 = "Запчасти",
+            service2 = "Масла и жидкости"
+        ),
+        rating = 7.1f
     ),
     UserData(
-        "118",
-        "Time",
-        "Мойка",
-        "Моя",
-        "2866006@mail.ru",
-        "+7 (343) 286-60-06",
-        "RUS",
+        uid = "118",
+        name = "Time",
+        lastName = "Мойка",
+        nickName = "Моя",
+        email = "2866006@mail.ru",
+        phone = "+7 (343) 286-60-06",
+        lang = "RUS",
         UserData.TYPE.ORGANISATION,
-        "https://gryazi96.net/bitrix/templates/carwash_responsive/img/logo.png",
-        Location("56.844628", "60.632425"),
-        OrganisationServices(service1 = "Автомойка", service2 = "Полировка фар"),
-        7.7f
+        profileImageUrl = "https://gryazi96.net/bitrix/templates/carwash_responsive/img/logo.png",
+        location = Location("56.844628", "60.632425"),
+        companyServices = OrganisationServices(service1 = "Автомойка", service2 = "Полировка фар"),
+        rating = 7.7f
     )
 )

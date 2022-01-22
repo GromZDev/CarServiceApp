@@ -7,6 +7,7 @@ import carService.app.ui.auth.LoginViewModel
 import carService.app.ui.main.main_screen.personal_account.MainUserViewModel
 import carService.app.ui.main.menu_screens.company_menu.more_company_menu.MoreCompanyMenuViewModel
 import carService.app.ui.main.menu_screens.personal_menu.more_menu.MoreMenuViewModel
+import carService.app.ui.main.menu_screens.personal_menu.request_services.RequestServicesViewModel
 import carService.app.ui.registration.*
 import carService.app.ui.splash_screen.SplashScreenViewModel
 import carService.app.utils.AppImageView
@@ -62,4 +63,5 @@ val appModule = module {
     viewModel { RegistrationStep4LocationViewModel(androidApplication(), get()) }
     viewModel { ForgotPasswordViewModel(androidApplication()) }
     viewModel { RegistrationStep5RoleViewModel(androidApplication(), get()) }
+    viewModel { RequestServicesViewModel(androidApplication(), get()) }
 }

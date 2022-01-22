@@ -131,5 +131,12 @@
     <string name="main_forgot_email_hint">На указанную электронную почту придет ссылка для восстановления доступа к аккаунту</string>
     <string name="enter_email_reset_password">Введите вашу почту</string>
     <string name="reset_password_button">Сбросить пароль</string>
+    <string name="approximate_price">Примерная цена:</string>
+    <string name="bottom_sheet_service_name">Название услуги</string>
+    <string name="bottom_sheet_service_overview">Описание услуги</string>
+    <string name="bottom_sheet_service_price">Желаемая стоимость</string>
+    <string name="bottom_sheet_service_create_request_button">Создать запрос</string>
+    <string name="bottom_sheet_service_top_tw">Для того, чтобы компании увидели Ваш запрос, введите следующие данные</string>
+    <string name="add_person_services_request">Добавить запрос</string>
 
 </resources>
