@@ -1,8 +1,8 @@
 package carService.app.ui.main.menu_screens.personal_menu.request_services
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import carService.app.data.model.personal.PersonalServicesRequests
 import carService.app.databinding.ItemPersonalServiceRequestsRvBinding
@@ -10,8 +10,7 @@ import carService.app.databinding.ItemPersonalServiceRequestsRvBinding
 class RequestPersonalServicesAdapter :
     RecyclerView.Adapter<RequestPersonalServicesAdapter.RequestPersonalServicesAdapterViewHolder>() {
 
-    private var allRequestsList: List<PersonalServicesRequests> = arrayListOf()
-    private lateinit var fragmentManager: FragmentManager
+    private var allRequestsList: MutableList<PersonalServicesRequests> = arrayListOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -30,9 +29,15 @@ class RequestPersonalServicesAdapter :
         holder.bind(allRequestsList[position])
     }
 
-    fun setAllRequests(requests: List<PersonalServicesRequests>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun setAllRequests(requests: MutableList<PersonalServicesRequests>) {
         this.allRequestsList = requests
         notifyDataSetChanged()
+    }
+
+    fun appendItem(request: PersonalServicesRequests) {
+        allRequestsList.add(request)
+        notifyItemInserted(itemCount - 1) // С анимацией добавления
     }
 
     inner class RequestPersonalServicesAdapterViewHolder(
@@ -42,8 +47,12 @@ class RequestPersonalServicesAdapter :
 
 
         fun bind(data: PersonalServicesRequests) = with(vb) {
-
+            vb.itemPersonalServiceRequestsThemeName.text = data.theme
+            vb.itemPersonalServiceRequestOverview.text = data.overview
+            vb.itemPersonalServiceRequestPrice.text = data.price.toString()
+            vb.itemPersonalServiceRequestDate.text = data.data
         }
+
     }
 
 }

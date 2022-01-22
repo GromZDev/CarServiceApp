@@ -9,6 +9,7 @@ import carService.app.data.model.personal.PersonalServicesRequests
 import carService.app.utils.CommonConstants
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,13 +22,21 @@ import java.util.*
 @KoinApiExtension
 class RequestServicesViewModel(
     app: Application,
-    private val fireStore: FirebaseFirestore
+    private var fireStore: FirebaseFirestore
 ) : BaseViewModel(app) {
     val newRequest: MutableStateFlow<List<PersonalServicesRequests>?> = MutableStateFlow(null)
+    val servicePersonalRequest: MutableStateFlow<List<PersonalServicesRequests>?> =
+        MutableStateFlow(null)
     val isStateException = MutableStateFlow("")
+    private val isStateException2 = MutableStateFlow("")
 
     @SuppressLint("SimpleDateFormat")
-    fun updateProfileUser(serviceTheme: String, serviceOverview: String, servicePrice: String) {
+    fun updateProfileUser(
+        serviceTheme: String,
+        serviceOverview: String,
+        servicePrice: String,
+        adapter: RequestPersonalServicesAdapter
+    ) {
         modelScope.launch {
             try {
                 val calendar = Calendar.getInstance()
@@ -41,7 +50,7 @@ class RequestServicesViewModel(
                 )
                 CommonConstants.USER?.personalServices = listOf(request)
 
-                updateUserProfileRequests()
+                updateUserProfileRequests(adapter)
                 delay(1000)
             } catch (exception: TimeoutCancellationException) {
                 isStateException.value = "1 - " + exception.message
@@ -54,7 +63,7 @@ class RequestServicesViewModel(
         }
     }
 
-    private fun updateUserProfileRequests() {
+    private fun updateUserProfileRequests(adapter: RequestPersonalServicesAdapter) {
         modelScope.launch {
             val user = UserData(
                 uid = CommonConstants.USER?.uid.toString(),
@@ -72,10 +81,49 @@ class RequestServicesViewModel(
             val document = collection.document(user.uid)
             document
                 .update("personalServices", FieldValue.arrayUnion(service))
-                .addOnSuccessListener { newRequest.value = user.personalServices }
+                .addOnSuccessListener {
+                    newRequest.value = user.personalServices
+                    if (service != null) {
+                        adapter.appendItem(service)
+                    }
+                }
                 .addOnFailureListener { newRequest.value = null }
                 .await()
         }
     }
 
+    fun getUserServiceRequests(uid: String, adapter: RequestPersonalServicesAdapter) {
+        modelScope.launch {
+            try {
+                if (uid.isNotEmpty()) {
+                    eventChangeListener(uid, adapter)
+                    delay(1000)
+                }
+            } catch (exception: TimeoutCancellationException) {
+                isStateException2.value = "1 - " + exception.message
+                servicePersonalRequest.value = null
+
+            } catch (exception: Exception) {
+                isStateException2.value = "2 - " + exception.message
+                servicePersonalRequest.value = null
+            }
+        }
+    }
+
+    private fun eventChangeListener(currentUser: String, adapter: RequestPersonalServicesAdapter) {
+        modelScope.launch {
+            fireStore = FirebaseFirestore.getInstance()
+            fireStore.collection("personalAccount").document(currentUser)
+                .get()
+                .addOnSuccessListener { link ->
+                    val user = link.toObject<UserData>()
+                    servicePersonalRequest.value = user?.personalServices!!
+                    adapter.setAllRequests(user.personalServices!! as MutableList<PersonalServicesRequests>)
+                }
+                .addOnFailureListener {
+                    servicePersonalRequest.value = null
+                }
+                .await()
+        }
+    }
 }
