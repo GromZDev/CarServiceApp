@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import carService.app.R
 import carService.app.data.model.personal.PersonalServicesRequests
 import carService.app.databinding.ItemPersonalServiceRequestsRvBinding
 
 class RequestPersonalServicesAdapter :
-    RecyclerView.Adapter<RequestPersonalServicesAdapter.RequestPersonalServicesAdapterViewHolder>() {
+    RecyclerView.Adapter<RequestPersonalServicesAdapter.RequestPersonalServicesAdapterViewHolder>(),
+    ItemTouchHelperAdapter {
 
     private var allRequestsList: MutableList<PersonalServicesRequests> = arrayListOf()
 
@@ -20,7 +22,6 @@ class RequestPersonalServicesAdapter :
             LayoutInflater.from(parent.context),
             parent, false
         )
-
     )
 
     override fun getItemCount(): Int = allRequestsList.size
@@ -43,8 +44,7 @@ class RequestPersonalServicesAdapter :
     inner class RequestPersonalServicesAdapterViewHolder(
         private val vb: ItemPersonalServiceRequestsRvBinding
     ) :
-        RecyclerView.ViewHolder(vb.root) {
-
+        RecyclerView.ViewHolder(vb.root), ItemTouchHelperViewHolder {
 
         fun bind(data: PersonalServicesRequests) = with(vb) {
             vb.itemPersonalServiceRequestsThemeName.text = data.theme
@@ -53,6 +53,21 @@ class RequestPersonalServicesAdapter :
             vb.itemPersonalServiceRequestDate.text = data.data
         }
 
+        override fun onItemSelected() {
+            itemView.setBackgroundResource(R.drawable.item_personal_service_requests_recycler_remove_background)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundResource(R.drawable.item_near_companies_recycler_background)
+        }
     }
 
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemDismiss(position: Int) {
+        allRequestsList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 }

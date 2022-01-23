@@ -2,6 +2,7 @@ package carService.app.ui.main.menu_screens.personal_menu.request_services
 
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import carService.app.R
@@ -38,7 +39,6 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
     private lateinit var recyclerView: RecyclerView
     private val auth: FirebaseAuth by lazy { Firebase.auth }
 
-
     override fun initViews() {
         super.initViews()
         setBottomSheetBehavior(binding.includedBottomSheetLayoutServiceRequest.bottomSheetContainer)
@@ -56,6 +56,20 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         userServices = arrayListOf()
         userServicesRequestsDataAdapter = RequestPersonalServicesAdapter()
         recyclerView.adapter = userServicesRequestsDataAdapter
+        /** ======= Сетим ItemTouchHelper в наш ресайклер для смахивания и таскания ======== */
+//        ItemTouchHelper(ItemTouchHelperCallback(userServicesRequestsDataAdapter))
+//            .attachToRecyclerView(binding.requestServicesRv)
+
+        val swipeToDelete = object : ItemTouchHelperCallback(userServicesRequestsDataAdapter) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+                //        viewModel.delete()
+                userServicesRequestsDataAdapter.onItemDismiss(viewHolder.adapterPosition)
+                showToast("DELETED!!!!!")
+            }
+        }
+        val itemTH = ItemTouchHelper(swipeToDelete)
+        itemTH.attachToRecyclerView(recyclerView)
+        /** ================================================================================ */
 
 
         binding.addMyCarButton.setOnClickListener {
@@ -69,7 +83,6 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             receiveData()
         }
-
     }
 
     override fun initViewModel() {
@@ -172,12 +185,9 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
     }
 
     private fun eventChangeListener() {
-
         val currentUser = auth.currentUser?.uid.toString()
         viewModel.getUserServiceRequests(currentUser, userServicesRequestsDataAdapter)
         binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
     }
-
-
 }
 
