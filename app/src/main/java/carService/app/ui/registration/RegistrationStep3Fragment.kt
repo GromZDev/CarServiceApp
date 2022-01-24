@@ -56,6 +56,15 @@ class RegistrationStep3Fragment(
         super.initViews()
 
         hideToolbarAndBottomNav()
+        binding.nextCreateAccountButton.isEnabled = false
+        binding.switchButton.setOnCheckedChangeListener { _, visibility ->
+            if (visibility) {
+                binding.nextCreateAccountButton.isEnabled = true
+            } else if (!visibility) {
+                binding.nextCreateAccountButton.isEnabled = false
+            }
+        }
+
 
         binding.nextCreateAccountButton.setOnClickListener {
 //            navigate(R.id.registrationStep3ConfirmPhotoFragment, null)

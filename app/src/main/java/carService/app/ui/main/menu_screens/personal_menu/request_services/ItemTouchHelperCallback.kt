@@ -2,6 +2,7 @@ package carService.app.ui.main.menu_screens.personal_menu.request_services
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import carService.app.utils.ItemTouchHelperViewHolder
 
 open class ItemTouchHelperCallback (private val adapter: RequestPersonalServicesAdapter) :
     ItemTouchHelper.Callback() {

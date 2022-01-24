@@ -2,6 +2,7 @@ package carService.app.ui.main.menu_screens.personal_menu.request_services
 
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -44,7 +45,6 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         setBottomSheetBehavior(binding.includedBottomSheetLayoutServiceRequest.bottomSheetContainer)
         navBar = requireActivity().findViewById(R.id.bottom_navigation)
         navBar.visibility = View.VISIBLE
-
 
         recyclerView = binding.requestServicesRv
         recyclerView.layoutManager = LinearLayoutManager(
@@ -89,6 +89,9 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         super.initViewModel()
         doInScope {
             viewModel.newRequest.collect {
+//                if (recyclerView.isEmpty()){
+//                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+//                }
                 if (it != null) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                     showToast("Запрос на услугу успешно создан!")
@@ -103,14 +106,14 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
             viewModel.isStateException.collect { isStateException ->
                 if (isStateException != "") {
                     showToast("Запрос не создан, что-то пошло не так (")
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 }
             }
         }
         doInScopeResume {
             viewModel.isStateException.collect { isStateException ->
                 if (isStateException != "" && userRequest.data?.isNotEmpty() == true && userRequest.overview?.isNotEmpty() == true
-                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true
-                ) {
+                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true) {
                     view?.showsnackBar(getString(R.string.access_failed))
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 }

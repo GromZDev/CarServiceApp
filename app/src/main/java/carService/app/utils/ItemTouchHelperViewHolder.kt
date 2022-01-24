@@ -1,4 +1,4 @@
-package carService.app.ui.main.menu_screens.personal_menu.request_services
+package carService.app.utils
 
 interface ItemTouchHelperViewHolder {
     fun onItemSelected()

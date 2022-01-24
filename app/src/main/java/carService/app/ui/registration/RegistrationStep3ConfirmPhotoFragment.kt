@@ -58,6 +58,10 @@ class RegistrationStep3ConfirmPhotoFragment(override val layoutId: Int = R.layou
         binding.backButtonImage.setOnClickListener {
             navigate(R.id.registrationStep3Fragment)
         }
+
+        binding.closeIw.setOnClickListener {
+            navigate(R.id.registrationStep3Fragment)
+        }
     }
 
     override fun initViewModel() {
