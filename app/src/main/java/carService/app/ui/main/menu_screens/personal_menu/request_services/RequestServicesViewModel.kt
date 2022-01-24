@@ -77,7 +77,7 @@ class RequestServicesViewModel(
                 )
             }
             Log.d("RequestServicesFragment", user.toString())
-            val collection = fireStore.collection("personalAccount")
+            val collection = fireStore.collection("users")
             val document = collection.document(user.uid)
             document
                 .update("personalServices", FieldValue.arrayUnion(service))
@@ -113,12 +113,15 @@ class RequestServicesViewModel(
     private fun eventChangeListener(currentUser: String, adapter: RequestPersonalServicesAdapter) {
         modelScope.launch {
             fireStore = FirebaseFirestore.getInstance()
-            fireStore.collection("personalAccount").document(currentUser)
+            fireStore.collection("users").document(currentUser)
                 .get()
                 .addOnSuccessListener { link ->
                     val user = link.toObject<UserData>()
-                    servicePersonalRequest.value = user?.personalServices!!
-                    adapter.setAllRequests(user.personalServices!! as MutableList<PersonalServicesRequests>)
+                    if (user?.personalServices !== null) {
+                        servicePersonalRequest.value = user?.personalServices!!
+                        adapter.setAllRequests(user.personalServices!! as MutableList<PersonalServicesRequests>)
+                    }
+
                 }
                 .addOnFailureListener {
                     servicePersonalRequest.value = null

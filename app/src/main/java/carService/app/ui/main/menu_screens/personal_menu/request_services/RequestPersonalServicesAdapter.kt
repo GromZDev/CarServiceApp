@@ -7,12 +7,19 @@ import androidx.recyclerview.widget.RecyclerView
 import carService.app.R
 import carService.app.data.model.personal.PersonalServicesRequests
 import carService.app.databinding.ItemPersonalServiceRequestsRvBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 
 class RequestPersonalServicesAdapter :
     RecyclerView.Adapter<RequestPersonalServicesAdapter.RequestPersonalServicesAdapterViewHolder>(),
     ItemTouchHelperAdapter {
 
     private var allRequestsList: MutableList<PersonalServicesRequests> = arrayListOf()
+    private val auth: FirebaseAuth by lazy { Firebase.auth }
+    private val fireStore: FirebaseFirestore by lazy { FirebaseFirestore.getInstance() }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -62,12 +69,25 @@ class RequestPersonalServicesAdapter :
         }
     }
 
-    override fun onItemMove(fromPosition: Int, toPosition: Int) {
-        TODO("Not yet implemented")
-    }
+    override fun onItemMove(fromPosition: Int, toPosition: Int) {}
 
     override fun onItemDismiss(position: Int) {
-        allRequestsList.removeAt(position)
-        notifyItemRemoved(position)
+
+        val updates = hashMapOf<String, Any>(
+            "personalServices" to FieldValue.arrayRemove(allRequestsList[position])
+        )
+
+        val docRef = fireStore.collection("users")
+            .document(auth.currentUser?.uid.toString())
+        docRef.update(updates)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    allRequestsList.removeAt(position)
+                    notifyItemRemoved(position)
+                } else {
+                    return@addOnCompleteListener
+                }
+            }
     }
+
 }

@@ -62,7 +62,7 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
 
         val swipeToDelete = object : ItemTouchHelperCallback(userServicesRequestsDataAdapter) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
-                //        viewModel.delete()
+
                 userServicesRequestsDataAdapter.onItemDismiss(viewHolder.adapterPosition)
                 showToast("DELETED!!!!!")
             }
@@ -92,6 +92,9 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
                 if (it != null) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                     showToast("Запрос на услугу успешно создан!")
+                    binding.includedBottomSheetLayoutServiceRequest.themeEt.text?.clear()
+                    binding.includedBottomSheetLayoutServiceRequest.overviewEt.text?.clear()
+                    binding.includedBottomSheetLayoutServiceRequest.priceEt.text?.clear()
                 } else if (it == null && userRequest.data?.isNotEmpty() == true) {
                     showToast("Запрос не создан, что-то пошло не так (")
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
