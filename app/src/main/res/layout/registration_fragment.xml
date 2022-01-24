@@ -84,6 +84,7 @@
             android:drawableStart="@drawable/ic_email_reg"
             android:gravity="center"
             android:hint="@string/email"
+            android:inputType="textEmailAddress"
             android:paddingStart="12dp"
             android:paddingEnd="40dp"
             android:textColor="@color/reg_form_color"

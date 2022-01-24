@@ -1,5 +1,7 @@
 package carService.app.ui.auth
 
+import android.text.Editable
+import android.view.View
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.ForgotPasswordEnterEmailFragmentBinding
@@ -26,6 +28,7 @@ class ForgotPasswordStep2EnterEmailFragment(override val layoutId: Int = R.layou
         super.initViews()
         hideToolbarAndBottomNav()
 
+        binding.nextButton.isEnabled = false
         binding.nextButton.setOnClickListener {
             navigate(R.id.forgotPasswordStep4SuccessFragment)
         }
@@ -37,7 +40,7 @@ class ForgotPasswordStep2EnterEmailFragment(override val layoutId: Int = R.layou
         binding.doResetPasswordButton.setOnClickListener {
             vm.sendPasswordResetEmail(binding.emailInputFieldOne.text.toString().trim())
               USER?.let { it1 -> vm.sendPasswordResetEmail(it1.email) }
-            navigate(R.id.forgotPasswordStep3Passwords)
+            navigate(R.id.forgotPasswordStep4SuccessFragment)
         }
     }
 
@@ -46,7 +49,8 @@ class ForgotPasswordStep2EnterEmailFragment(override val layoutId: Int = R.layou
             vm.isSendPasswordResetEmail.collect { isSendPasswordResetEmail ->
                 if (isSendPasswordResetEmail) {
                     view?.showsnackBar(getString(R.string.approve_by_email))
-                    navigate(R.id.forgotPasswordStep3Passwords)
+                  //  navigate(R.id.forgotPasswordStep3Passwords)
+                    binding.nextButton.isEnabled = true
                 }
             }
             vm.isStateException.collect { isStateException ->

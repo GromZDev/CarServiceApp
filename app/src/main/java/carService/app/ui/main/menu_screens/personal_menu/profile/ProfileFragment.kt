@@ -39,12 +39,16 @@ class ProfileFragment(override val layoutId: Int = R.layout.profile_fragment) :
     }
 
     private fun getData(uid: String) {
+        binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
         db.collection("users").document(uid)
             .get()
             .addOnSuccessListener { link ->
                 val imageLoader = AppImageView()
                 val user = link.toObject<UserData>()
 
+                if (user != null) {
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
                 binding.nicknameTextview.text = user?.nickName
 
                 user?.profileImageUrl?.let {
@@ -74,6 +78,7 @@ class ProfileFragment(override val layoutId: Int = R.layout.profile_fragment) :
             }
             .addOnFailureListener {
                 showToast("Error Fetching Data!")
+                binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
             }
     }
 

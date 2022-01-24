@@ -34,8 +34,6 @@ class RegistrationStep3Fragment(
         fun newInstance() = RegistrationStep3Fragment()
     }
 
-    // private lateinit var viewModel: RegistrationStep3ViewModel
-
     private var imageUri: Uri? = null
 
     private val getActionPhotoFromStorage =
@@ -67,7 +65,6 @@ class RegistrationStep3Fragment(
 
 
         binding.nextCreateAccountButton.setOnClickListener {
-//            navigate(R.id.registrationStep3ConfirmPhotoFragment, null)
             navigate(R.id.registrationStep4LocationFragment, null)
         }
 
@@ -89,13 +86,15 @@ class RegistrationStep3Fragment(
     }
 
     private fun selectPhotoFromStorage() {
-        doInScope {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        try {
             getActionPhotoFromStorage.launch(intent)
+        } catch (e: ActivityNotFoundException) {
+            e.printStackTrace()
         }
+
     }
 
     private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {

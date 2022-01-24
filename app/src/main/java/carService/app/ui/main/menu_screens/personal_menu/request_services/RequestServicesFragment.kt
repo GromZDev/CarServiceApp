@@ -46,6 +46,8 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         navBar = requireActivity().findViewById(R.id.bottom_navigation)
         navBar.visibility = View.VISIBLE
 
+      //  binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+
         recyclerView = binding.requestServicesRv
         recyclerView.layoutManager = LinearLayoutManager(
             context,
@@ -89,7 +91,8 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         super.initViewModel()
         doInScope {
             viewModel.newRequest.collect {
-//                if (recyclerView.isEmpty()){
+//                if (userServicesRequestsDataAdapter.itemCount < 0
+//                    || userServices.isEmpty()){
 //                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
 //                }
                 if (it != null) {
@@ -126,6 +129,8 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 } else if (it == null && userServices.isNotEmpty()) {
                     showToast("что-то пошло не так (")
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                } else if (it == null || userServices.isEmpty() ) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 }
             }

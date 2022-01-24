@@ -85,7 +85,7 @@
     <string name="approve_by_email">Вам отправлена ссылка на Email для восстановления пароля!</string>
     <string name="approve_password">Ваш пароль изменен!</string>
     <string name="failed_update_password">При смене пароля произошла ошибка! Попробуйте позже! Возможно нет интернета!</string>
-    <string name="failed_send_sms">Вам не отправлено смс. Проверьте Ваш email!</string>
+    <string name="failed_send_sms">Вам отправлено сообщение на почту. Проверьте Ваш email!</string>
     <string name="failed_new_user">Аккаунт не создан! Проверьте введенные данные. Возможно нет интернета</string>
     <string name="exit_account">Выйти из аккаунта</string>
     <string name="forgot_password">Забыли свой пароль?</string>
