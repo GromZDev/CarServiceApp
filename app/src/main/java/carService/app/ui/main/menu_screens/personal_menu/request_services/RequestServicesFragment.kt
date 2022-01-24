@@ -2,6 +2,8 @@ package carService.app.ui.main.menu_screens.personal_menu.request_services
 
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isEmpty
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import carService.app.R
@@ -12,6 +14,9 @@ import carService.app.utils.showToast
 import carService.app.utils.showsnackBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
@@ -30,6 +35,10 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private var userRequest: PersonalServicesRequests = PersonalServicesRequests("", "", -900, "")
 
+    private lateinit var userServices: MutableList<PersonalServicesRequests>
+    private lateinit var userServicesRequestsDataAdapter: RequestPersonalServicesAdapter
+    private lateinit var recyclerView: RecyclerView
+    private val auth: FirebaseAuth by lazy { Firebase.auth }
 
     override fun initViews() {
         super.initViews()
@@ -37,36 +46,58 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         navBar = requireActivity().findViewById(R.id.bottom_navigation)
         navBar.visibility = View.VISIBLE
 
+        recyclerView = binding.requestServicesRv
+        recyclerView.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+        recyclerView.setHasFixedSize(true)
+        userServices = arrayListOf()
+        userServicesRequestsDataAdapter = RequestPersonalServicesAdapter()
+        recyclerView.adapter = userServicesRequestsDataAdapter
+        /** ======= Сетим ItemTouchHelper в наш ресайклер для смахивания и таскания ======== */
+//        ItemTouchHelper(ItemTouchHelperCallback(userServicesRequestsDataAdapter))
+//            .attachToRecyclerView(binding.requestServicesRv)
+
+        val swipeToDelete = object : ItemTouchHelperCallback(userServicesRequestsDataAdapter) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+
+                userServicesRequestsDataAdapter.onItemDismiss(viewHolder.adapterPosition)
+                showToast("DELETED!!!!!")
+            }
+        }
+        val itemTH = ItemTouchHelper(swipeToDelete)
+        itemTH.attachToRecyclerView(recyclerView)
+        /** ================================================================================ */
+
+
         binding.addMyCarButton.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             binding.constraintContainer.alpha = 0.2f
         }
 
-        val userServicesRequests: RecyclerView = binding.requestServicesRv
-        userServicesRequests.layoutManager = LinearLayoutManager(
-            context,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-
-        val userServicesRequestsDataAdapter = RequestPersonalServicesAdapter()
-        userServicesRequests.adapter = userServicesRequestsDataAdapter
+        eventChangeListener()
 
         binding.includedBottomSheetLayoutServiceRequest.addButton.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             receiveData()
         }
-
     }
 
     override fun initViewModel() {
         super.initViewModel()
-
         doInScope {
             viewModel.newRequest.collect {
+//                if (recyclerView.isEmpty()){
+//                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+//                }
                 if (it != null) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                     showToast("Запрос на услугу успешно создан!")
+                    binding.includedBottomSheetLayoutServiceRequest.themeEt.text?.clear()
+                    binding.includedBottomSheetLayoutServiceRequest.overviewEt.text?.clear()
+                    binding.includedBottomSheetLayoutServiceRequest.priceEt.text?.clear()
                 } else if (it == null && userRequest.data?.isNotEmpty() == true) {
                     showToast("Запрос не создан, что-то пошло не так (")
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
@@ -75,13 +106,39 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
             viewModel.isStateException.collect { isStateException ->
                 if (isStateException != "") {
                     showToast("Запрос не создан, что-то пошло не так (")
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 }
             }
         }
         doInScopeResume {
             viewModel.isStateException.collect { isStateException ->
                 if (isStateException != "" && userRequest.data?.isNotEmpty() == true && userRequest.overview?.isNotEmpty() == true
-                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true
+                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true) {
+                    view?.showsnackBar(getString(R.string.access_failed))
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+        }
+
+        doInScope {
+            viewModel.servicePersonalRequest.collect {
+                if (it != null) {
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                } else if (it == null && userServices.isNotEmpty()) {
+                    showToast("что-то пошло не так (")
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "") {
+                    showToast("то-то пошло не так (")
+                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                }
+            }
+        }
+        doInScopeResume {
+            viewModel.isStateException.collect { isStateException ->
+                if (isStateException != "" && userServices.isNotEmpty()
                 ) {
                     view?.showsnackBar(getString(R.string.access_failed))
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
@@ -123,9 +180,20 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         val overview =
             binding.includedBottomSheetLayoutServiceRequest.overviewEt.text?.toString()?.trim()
         val price = binding.includedBottomSheetLayoutServiceRequest.priceEt.text.toString()
-
-        if (theme?.isNotEmpty() == true && overview?.isNotEmpty() == true) {
-            viewModel.updateProfileUser(theme, overview, price)
+        if (theme.isNullOrEmpty() || overview.isNullOrEmpty() || price.isEmpty()) {
+            showToast("Какое-то поле не заполнено")
         }
+        if (theme?.isNotEmpty() == true && overview?.isNotEmpty() == true && price.isNotEmpty()) {
+            viewModel.updateProfileUser(theme, overview, price, userServicesRequestsDataAdapter)
+            binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
+        }
+
+    }
+
+    private fun eventChangeListener() {
+        val currentUser = auth.currentUser?.uid.toString()
+        viewModel.getUserServiceRequests(currentUser, userServicesRequestsDataAdapter)
+        binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
     }
 }
+

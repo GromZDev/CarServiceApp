@@ -116,6 +116,32 @@
             app:layout_constraintStart_toStartOf="@id/fill_account_textview"
             app:layout_constraintTop_toBottomOf="@id/gallery_photo_button" />
 
+        <TextView
+            android:id="@+id/take_later_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/benton_sans_bold"
+            android:text="@string/set_later"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@id/back_button_image"
+            app:layout_constraintTop_toBottomOf="@+id/take_a_photo_button" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_button"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:thumb="@drawable/switch_thumb"
+            app:track="@drawable/switch_track"
+            app:showText="true"
+            android:textOn="@string/yes"
+            android:textOff=""
+            app:layout_constraintStart_toEndOf="@+id/take_later_textview"
+            app:layout_constraintTop_toTopOf="@+id/take_later_textview"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/next_create_account_button"
             android:layout_width="325dp"

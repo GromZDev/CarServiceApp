@@ -36,10 +36,20 @@ class RegistrationStep5RoleFragment(
     override fun initViews() {
         super.initViews()
 
-
         hideToolbarAndBottomNav()
+        binding.nextToSuccessAccountButton.isEnabled = false
+
+        if (binding.personalAccountButton.isSelected) {
+            binding.nextToSuccessAccountButton.isEnabled = true
+        } else if (binding.companyAccountButton.isSelected) {
+            binding.nextToSuccessAccountButton.isEnabled = true
+        }
 
         binding.nextToSuccessAccountButton.setOnClickListener {
+            if (binding.personalAccountButton.isSelected && binding.companyAccountButton.isSelected ) {
+                showMessage("Необходимо выбрать только один вариант!")
+                return@setOnClickListener
+            }
            when {
                binding.personalAccountButton.isSelected ->{
                    userType = UserData.TYPE.PERSONAL
@@ -61,6 +71,7 @@ class RegistrationStep5RoleFragment(
             binding.companyAccountButton.isSelected = !binding.companyAccountButton.isSelected
             if (binding.companyAccountButton.isSelected) {
                 buttonCompanyIsSelected = true
+                binding.nextToSuccessAccountButton.isEnabled = true
             }
             buttonCompanyIsSelected = false
         }
@@ -69,10 +80,9 @@ class RegistrationStep5RoleFragment(
             binding.personalAccountButton.isSelected = !binding.personalAccountButton.isSelected
             if (binding.personalAccountButton.isSelected) {
                 buttonPersonalIsSelected = true
+                binding.nextToSuccessAccountButton.isEnabled = true
             }
             buttonPersonalIsSelected = false
-
-
         }
     }
 
@@ -106,8 +116,6 @@ class RegistrationStep5RoleFragment(
                 }
             }
         }
-
-
     }
 
     private fun updateProfile() {

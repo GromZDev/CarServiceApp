@@ -39,8 +39,18 @@ class RegistrationStep4LocationFragment(
 
         hideToolbarAndBottomNav()
 
+        binding.myLocationTextview.visibility = View.GONE
+        binding.successAccountButton.isEnabled = false
+        binding.switchButton.setOnCheckedChangeListener { _, visibility ->
+            if (visibility) {
+                binding.successAccountButton.isEnabled = true
+            } else if (!visibility) {
+                binding.successAccountButton.isEnabled = false
+            }
+
+        }
         binding.successAccountButton.setOnClickListener {
-//            updateProfile()
+            updateProfile()
             navigate(R.id.registrationStep5RoleFragment)
         }
 
@@ -53,7 +63,13 @@ class RegistrationStep4LocationFragment(
         }
 
         val a = arguments?.getString("Location by Search")
-        binding.myLocationInfo.text = a
+        if (a != null) {
+            binding.myLocationInfo.text = a
+            binding.switchButton.visibility = View.GONE
+            binding.takeLaterTextview.visibility = View.GONE
+            binding.successAccountButton.isEnabled = true
+        }
+
     }
 
     override fun initViewModel() {
@@ -63,6 +79,7 @@ class RegistrationStep4LocationFragment(
             viewModel.newUser.collect {
                 if (it != null) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                    binding.myLocationTextview.visibility = View.VISIBLE
                     prefs.isRegistrationStep3 = true
                     navigate(R.id.registrationStep5RoleFragment)
                 } else if (it == null && userLocation?.latitude?.isNotEmpty() == true &&
@@ -111,7 +128,7 @@ class RegistrationStep4LocationFragment(
             }
 
             else -> {
-                viewModel.updateProfileUser(userLocation ?: Location("0.555", "0.222"))
+                viewModel.updateProfileUser(userLocation ?: Location("0.000", "0.000"))
                 binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
             }
         }

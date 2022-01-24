@@ -2,90 +2,96 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/main_fragment_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_container"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_fragment_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/main_bg"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/main_textview"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/benton_sans_bold"
-            android:text="@string/create_request_tw"
-            android:textColor="@color/white"
-            android:textSize="24sp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/main_bg"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_textview"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/create_request_tw"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/hint_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_book"
+                android:text="@string/hint_request_tw"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@id/main_textview"
+                app:layout_constraintTop_toBottomOf="@id/main_textview" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/request_services_rv"
+                style="@style/CompaniesTelNumbersRecyclerItem"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/hint_textview"
+                app:layout_constraintBottom_toTopOf="@+id/void_textview"
+                tools:text="csf@carsound-factory.ru" />
+
+            <TextView
+                android:id="@+id/void_textview"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/main_textview" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_my_car_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:backgroundTint="@color/company_announce_add_fab"
+                android:contentDescription="@string/add_person_services_request"
+                android:src="@android:drawable/ic_input_add"
+                app:fabCustomSize="60dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <include
+            android:id="@+id/includedBottomSheetLayoutServiceRequest"
+            layout="@layout/bottom_sheet_layout_personal_request_services" />
+
+        <include
+            android:id="@+id/includedLoadingLayout"
+            layout="@layout/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/alfa_main_bg"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/hint_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
-            android:fontFamily="@font/benton_sans_book"
-            android:text="@string/hint_request_tw"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="@id/main_textview"
-            app:layout_constraintTop_toBottomOf="@id/main_textview" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/request_services_rv"
-            style="@style/CompaniesTelNumbersRecyclerItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintBottom_toBottomOf="@id/add_my_car_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hint_textview"
-            tools:text="csf@carsound-factory.ru" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_my_car_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/company_announce_add_fab"
-            android:contentDescription="@string/add_person_services_request"
-            android:src="@android:drawable/ic_input_add"
-            app:fabCustomSize="60dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:tint="@color/white" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        android:id="@+id/includedBottomSheetLayoutServiceRequest"
-        layout="@layout/bottom_sheet_layout_personal_request_services" />
-
-    <include
-        android:id="@+id/includedLoadingLayout"
-        layout="@layout/loading_layout"
-        android:background="@color/alfa_main_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

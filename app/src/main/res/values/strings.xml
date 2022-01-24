@@ -138,5 +138,7 @@
     <string name="bottom_sheet_service_create_request_button">Создать запрос</string>
     <string name="bottom_sheet_service_top_tw">Для того, чтобы компании увидели Ваш запрос, введите следующие данные</string>
     <string name="add_person_services_request">Добавить запрос</string>
+    <string name="set_later">Установить позже</string>
+    <string name="yes">Да</string>
 
 </resources>

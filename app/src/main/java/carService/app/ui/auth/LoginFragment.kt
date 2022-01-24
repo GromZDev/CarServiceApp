@@ -162,12 +162,12 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
         }
     }
 
-    fun stepRegistration() {
+    private fun stepRegistration() {
         when {
             !prefs.isRegistrationStep1 -> navigate(R.id.registrationStep2Fragment)
-//            !prefs.isRegistrationStep2 -> navigate(R.id.registrationStep3Fragment)
-//            !prefs.isRegistrationStep3 -> navigate(R.id.registrationStep4LocationFragment)
-//            !prefs.isRegistrationStep4 -> navigate(R.id.registrationStep5RoleFragment)
+            !prefs.isRegistrationStep2 -> navigate(R.id.registrationStep3Fragment)
+            !prefs.isRegistrationStep3 -> navigate(R.id.registrationStep4LocationFragment)
+            !prefs.isRegistrationStep4 -> navigate(R.id.registrationStep5RoleFragment)
             else -> navigate(R.id.mainUserFragment)
         }
     }

@@ -39,7 +39,7 @@ class ProfileFragment(override val layoutId: Int = R.layout.profile_fragment) :
     }
 
     private fun getData(uid: String) {
-        db.collection("personalAccount").document(uid)
+        db.collection("users").document(uid)
             .get()
             .addOnSuccessListener { link ->
                 val imageLoader = AppImageView()
