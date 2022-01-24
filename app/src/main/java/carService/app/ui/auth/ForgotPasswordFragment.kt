@@ -1,5 +1,6 @@
 package carService.app.ui.auth
 
+import android.view.View
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.ForgotPasswordFragmentBinding
@@ -22,6 +23,7 @@ class ForgotPasswordFragment(override val layoutId: Int = R.layout.forgot_passwo
 //        binding.nextCreateAccountButton.setOnClickListener {
 //          //  navigate(R.id.forgotPasswordStep2Fragment)
 //        }
+        binding.resetViaSmsButton.visibility = View.GONE
 
         binding.backButtonImage.setOnClickListener {
             navigate(R.id.loginFragment)
@@ -34,6 +36,8 @@ class ForgotPasswordFragment(override val layoutId: Int = R.layout.forgot_passwo
         binding.resetViaEmailButton.setOnClickListener {
             navigate(R.id.forgotPasswordStepEnterEmail)
         }
+
+
     }
 
 //    override fun initViewModel() {

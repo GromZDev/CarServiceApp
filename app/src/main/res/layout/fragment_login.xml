@@ -72,6 +72,7 @@
                 android:background="@drawable/main_button_background"
                 android:hint="@string/email"
                 android:paddingStart="16dp"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/reg_form_color"
                 android:textColorHint="@color/hint_text_color"
                 app:layout_constraintEnd_toEndOf="parent"
