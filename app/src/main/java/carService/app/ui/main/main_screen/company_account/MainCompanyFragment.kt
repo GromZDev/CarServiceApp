@@ -1,17 +1,18 @@
 package carService.app.ui.main.main_screen.company_account
 
-import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
 import carService.app.databinding.MainCompanyFragmentBinding
 import carService.app.utils.AppImageView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainCompanyFragment : Fragment(R.layout.main_company_fragment) {
+class MainCompanyFragment(
+    override val layoutId: Int = R.layout.main_company_fragment
+)  :
+    BaseFragment<MainCompanyFragmentBinding>() {
 
     companion object {
         const val TAG = "MainCompanyFragment"
@@ -22,11 +23,10 @@ class MainCompanyFragment : Fragment(R.layout.main_company_fragment) {
         fun onNearRvItemViewClick()
     }
 
-    private val binding: MainCompanyFragmentBinding by viewBinding()
     private lateinit var viewModel: MainCompanyViewModel
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
+        super.initViews()
 
         val navBar: BottomNavigationView =
             requireActivity().findViewById(R.id.bottom_company_navigation)

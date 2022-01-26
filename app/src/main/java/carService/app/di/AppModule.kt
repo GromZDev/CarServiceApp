@@ -62,6 +62,6 @@ val appModule = module {
     viewModel { RegistrationStep3ConfirmPhotoViewModel(androidApplication(), get()) }
     viewModel { RegistrationStep4LocationViewModel(androidApplication(), get()) }
     viewModel { ForgotPasswordViewModel(androidApplication()) }
-    viewModel { RegistrationStep5RoleViewModel(androidApplication(), get()) }
+    viewModel { RegistrationStep5RoleViewModel(androidApplication(), get(), get()) }
     viewModel { RequestServicesViewModel(androidApplication(), get()) }
 }

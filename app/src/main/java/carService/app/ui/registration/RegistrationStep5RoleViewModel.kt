@@ -8,10 +8,12 @@ import carService.app.utils.CommonConstants
 import carService.app.utils.FirebaseConstants.Companion.ORGANIZATION_ACCOUNT
 import carService.app.utils.FirebaseConstants.Companion.PERSONAL_ACCOUNT
 import carService.app.utils.FirebaseConstants.Companion.USERS
+import carService.app.utils.SharedPreferencesHelper
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.koin.core.component.KoinApiExtension
@@ -19,9 +21,12 @@ import org.koin.core.component.KoinApiExtension
 @KoinApiExtension
 class RegistrationStep5RoleViewModel(
     app: Application,
-    private val fireStore: FirebaseFirestore
+    private val fireStore: FirebaseFirestore,
+    private val prefs: SharedPreferencesHelper,
 ) : BaseViewModel(app) {
     val newUser: MutableStateFlow<UserData?> = MutableStateFlow(null)
+    val typeAccount : MutableStateFlow<String> = MutableStateFlow("")
+
     val isStateException = MutableStateFlow("")
 
     fun updateProfileUser(userRole: UserData.TYPE) {
@@ -82,6 +87,8 @@ class RegistrationStep5RoleViewModel(
           var account: String = ""
             if (user.type == UserData.TYPE.PERSONAL) account = PERSONAL_ACCOUNT
             else if (user.type == UserData.TYPE.ORGANISATION)  account = ORGANIZATION_ACCOUNT
+            typeAccount.value =account
+            prefs.typeAccount = typeAccount.value
             val collection = fireStore.collection(account)
             val document = collection.document(user.uid)
             document

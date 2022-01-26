@@ -16,6 +16,7 @@ class SharedPreferencesHelper(ctx: Context) {
         private const val IS_REGISTRATION_STEP_2 = "IS_REGISTRATION_STEP_2"
         private const val IS_REGISTRATION_STEP_3 = "IS_REGISTRATION_STEP_3"
         private const val IS_REGISTRATION_STEP_4 = "IS_REGISTRATION_STEP_4"
+        private const val TYPE_ACCOUNT = "TYPE_ACCOUNT"
     }
 
     var userId: String? = null
@@ -73,4 +74,11 @@ class SharedPreferencesHelper(ctx: Context) {
             prefs.edit().putBoolean(IS_REGISTRATION_STEP_4, value).apply()
         }
         get() = prefs.getBoolean(IS_REGISTRATION_STEP_4, false)
+
+    var typeAccount: String? = null
+        set(value) {
+            field = value
+            prefs.edit().putString(TYPE_ACCOUNT, value).apply()
+        }
+        get() = prefs.getString(TYPE_ACCOUNT, null)
 }
