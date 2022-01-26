@@ -277,6 +277,10 @@ class FirebaseAuthHelper : KoinComponent {
                                 }
                             }
                         }
+                        if (it.type == UserData.TYPE.PERSONAL)  prefs.typeAccount =
+                            FirebaseConstants.PERSONAL_ACCOUNT
+                        else if (it.type == UserData.TYPE.ORGANISATION)  prefs.typeAccount =
+                            FirebaseConstants.ORGANIZATION_ACCOUNT
                         prefs.isFirstOpen = false
                         prefs.isInitial = true
                     }
