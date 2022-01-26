@@ -141,4 +141,9 @@
     <string name="set_later">Установить позже</string>
     <string name="yes">Да</string>
 
+    <string name="share_app_url">https://play.google.com/store/apps</string>
+    <string name="share_app_title">Я выбираю TRIC App! Качай, не стесняйся!</string>
+    <string name="share_app_body">Поделиться TRIC App: </string>
+    <string name="share_app_success">Вы успешно поделились нашим приложением, спасибо!</string>
+
 </resources>
