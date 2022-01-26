@@ -9,6 +9,9 @@ import androidx.constraintlayout.widget.ConstraintSet
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.ActivitySplashScreenStartBinding
+import carService.app.utils.FirebaseConstants
+import carService.app.utils.FirebaseConstants.Companion.ORGANIZATION_ACCOUNT
+import carService.app.utils.FirebaseConstants.Companion.PERSONAL_ACCOUNT
 import carService.app.utils.SharedPreferencesHelper
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
@@ -103,6 +106,9 @@ class SplashScreenFragment(
 //            !prefs.isRegistrationStep2 -> navigate(R.id.registrationStep3Fragment)
 //            !prefs.isRegistrationStep3 -> navigate(R.id.registrationStep4LocationFragment)
 //            !prefs.isRegistrationStep4 -> navigate(R.id.registrationStep5RoleFragment)
+            prefs.typeAccount == PERSONAL_ACCOUNT -> navigate(R.id.mainUserFragment)
+            prefs.typeAccount == ORGANIZATION_ACCOUNT -> navigate(R.id.mainCompanyPageFragment)
+            // возможно другое действие
             else -> navigate(R.id.mainUserFragment)
         }
     }

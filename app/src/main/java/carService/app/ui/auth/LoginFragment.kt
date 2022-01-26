@@ -168,6 +168,9 @@ class LoginFragment(override val layoutId: Int = R.layout.fragment_login) :
             !prefs.isRegistrationStep2 -> navigate(R.id.registrationStep3Fragment)
             !prefs.isRegistrationStep3 -> navigate(R.id.registrationStep4LocationFragment)
             !prefs.isRegistrationStep4 -> navigate(R.id.registrationStep5RoleFragment)
+            prefs.typeAccount == FirebaseConstants.PERSONAL_ACCOUNT -> navigate(R.id.mainUserFragment)
+            prefs.typeAccount == FirebaseConstants.ORGANIZATION_ACCOUNT -> navigate(R.id.mainCompanyPageFragment)
+            // возможно другое действие
             else -> navigate(R.id.mainUserFragment)
         }
     }

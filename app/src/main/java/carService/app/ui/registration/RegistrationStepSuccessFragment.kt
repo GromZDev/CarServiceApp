@@ -1,32 +1,46 @@
 package carService.app.ui.registration
 
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import by.kirich1409.viewbindingdelegate.viewBinding
 import carService.app.R
+import carService.app.base.BaseFragment
 import carService.app.databinding.RegistrationSuccessBinding
+import carService.app.utils.FirebaseConstants.Companion.ORGANIZATION_ACCOUNT
+import carService.app.utils.FirebaseConstants.Companion.PERSONAL_ACCOUNT
+import carService.app.utils.SharedPreferencesHelper
 import carService.app.utils.hideToolbarAndBottomNav
 import carService.app.utils.navigate
+import kotlinx.coroutines.flow.collect
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.component.KoinApiExtension
 
-class RegistrationStepSuccessFragment : Fragment(R.layout.registration_success) {
+@KoinApiExtension
+class RegistrationStepSuccessFragment(
+    override val layoutId: Int = R.layout.registration_success
+)  :
+    BaseFragment<RegistrationSuccessBinding>() {
 
     companion object {
         const val TAG = "RegistrationStepSuccessFragment"
         fun newInstance() = RegistrationStepSuccessFragment()
     }
+    private val vm by viewModel<RegistrationStep5RoleViewModel>()
+    private val prefs by inject<SharedPreferencesHelper>()
 
-    private val binding: RegistrationSuccessBinding by viewBinding()
-    private lateinit var viewModel: RegistrationStepSuccessViewModel
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initViews() {
+        super.initViews()
         hideToolbarAndBottomNav()
-
         binding.goToAccountButton.setOnClickListener {
-            navigate(R.id.mainUserFragment)
+            goToAccount()
         }
     }
 
+    private fun goToAccount() {
+                when(prefs.typeAccount) {
+                    PERSONAL_ACCOUNT -> navigate(R.id.mainUserFragment)
+                    ORGANIZATION_ACCOUNT -> navigate(R.id.mainCompanyPageFragment)
+                    // возможно другое действие
+                    else -> navigate(R.id.mainUserFragment)
+                }
+
+    }
 }

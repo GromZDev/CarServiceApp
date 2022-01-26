@@ -85,7 +85,8 @@ class RegistrationStep4LocationFragment(
                 } else if (it == null && userLocation?.latitude?.isNotEmpty() == true &&
                     userLocation?.longitude?.isNotEmpty() == true
                 ) {
-                    view?.showsnackBar(getString(R.string.access_failed))
+                    navigate(R.id.registrationStep5RoleFragment)
+//                    view?.showsnackBar(getString(R.string.access_failed))
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 }
             }
