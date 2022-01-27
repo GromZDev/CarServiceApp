@@ -1,30 +1,35 @@
 package carService.app.ui.main.menu_screens.company_menu.announcements
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import carService.app.R
+import carService.app.data.model.organization.announcements.OrganisationAnnouncements
+import carService.app.databinding.ItemCompanyAllServicesMainRvBinding
+import carService.app.utils.AppImageView
+import carService.app.utils.ItemTouchHelperViewHolder
+import org.koin.core.component.KoinApiExtension
 
-class CompanyAnnouncementsAdapter :
+@KoinApiExtension
+class CompanyAnnouncementsAdapter(
+    val imageLoader: AppImageView
+) :
     RecyclerView.Adapter<CompanyAnnouncementsAdapter.CompanyAnnouncementsViewHolder>() {
 
-    private var allAnnounceAdapterList: List<Any> = arrayListOf()
-    private lateinit var fragmentManager: FragmentManager // Нужен для получения контекста ниже для
-    // передачи в транзакцию
+    private var allAnnounceAdapterList: MutableList<OrganisationAnnouncements> = arrayListOf()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CompanyAnnouncementsViewHolder {
-        val view = LayoutInflater
-            .from(parent.context)
-            .inflate(R.layout.item_company_all_services_main_rv, parent, false)
-        fragmentManager =
-            (view.context as FragmentActivity).supportFragmentManager // получаю менеджер
-        return CompanyAnnouncementsViewHolder(view)
+    ) = CompanyAnnouncementsViewHolder(
+        ItemCompanyAllServicesMainRvBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent, false
+        )
+    )
+
+    fun appendItem(request: OrganisationAnnouncements) {
+        allAnnounceAdapterList.add(request)
+        notifyItemInserted(itemCount - 1) // С анимацией добавления
     }
 
     override fun getItemCount(): Int = allAnnounceAdapterList.size
@@ -33,16 +38,38 @@ class CompanyAnnouncementsAdapter :
         holder.bind(allAnnounceAdapterList[position])
     }
 
-    fun setAllServices(actors: List<Any>) {
-        this.allAnnounceAdapterList = actors
+    fun setAllServices(announce: MutableList<OrganisationAnnouncements>) {
+        this.allAnnounceAdapterList = announce
         notifyDataSetChanged()
     }
 
-    inner class CompanyAnnouncementsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class CompanyAnnouncementsViewHolder(
+        private val vb: ItemCompanyAllServicesMainRvBinding
+    ) : RecyclerView.ViewHolder(vb.root),
+        ItemTouchHelperViewHolder {
 
 
-        fun bind(any: Any) {
+        fun bind(data: OrganisationAnnouncements) = with(vb) {
+            vb.itemServiceName.text = data.serviceName ?: ""
+            vb.itemServicePrice.text = data.price.toString()
 
+            data.servicePhoto?.let {
+                imageLoader.useCoilToLoadPhoto(
+                    imageLink = it,
+                    container = itemServiceImage,
+                    imageView = itemServiceImage
+                )
+            }
+
+
+        }
+
+        override fun onItemSelected() {
+            TODO("Not yet implemented")
+        }
+
+        override fun onItemClear() {
+            TODO("Not yet implemented")
         }
     }
 

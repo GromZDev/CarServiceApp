@@ -3,7 +3,10 @@ package carService.app.ui.registration
 import android.app.Application
 import android.util.Log
 import carService.app.base.BaseViewModel
+import carService.app.data.model.OrganisationServices
 import carService.app.data.model.UserData
+import carService.app.data.model.organization.announcements.Announcement
+import carService.app.data.model.organization.announcements.OrganisationAnnouncements
 import carService.app.utils.CommonConstants
 import carService.app.utils.FirebaseConstants.Companion.ORGANIZATION_ACCOUNT
 import carService.app.utils.FirebaseConstants.Companion.PERSONAL_ACCOUNT
@@ -96,6 +99,27 @@ class RegistrationStep5RoleViewModel(
                 .addOnSuccessListener { newUser.value = user }
                 .addOnFailureListener { newUser.value = null }
                 .await()
+            createNode(user)
+        }
+    }
+
+    private fun createNode(user: UserData){
+        modelScope.launch {
+            val org = Announcement(
+                orgAnnouncements = null
+            )
+
+        if (user.type == UserData.TYPE.ORGANISATION) {
+            val collection = fireStore.collection("organisationAnnouncement")
+            val document = collection.document(user.uid)
+            document
+                .set(
+                    org
+                )
+                .addOnSuccessListener { }
+                .addOnFailureListener { }
+                .await()
+        }
         }
     }
 }
