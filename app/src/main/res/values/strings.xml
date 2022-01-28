@@ -145,5 +145,7 @@
     <string name="share_app_title">Я выбираю TRIC App! Качай, не стесняйся!</string>
     <string name="share_app_body">Поделиться TRIC App: </string>
     <string name="share_app_success">Вы успешно поделились нашим приложением, спасибо!</string>
+    <string name="org_announcement_cost">Стоимость:</string>
+    <string name="org_announcement_id">Id:</string>
 
 </resources>

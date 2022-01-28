@@ -19,6 +19,7 @@ import org.koin.core.component.KoinApiExtension
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 @KoinApiExtension
 class CompanyAnnouncementViewModel(
     app: Application,
@@ -30,7 +31,6 @@ class CompanyAnnouncementViewModel(
     val isStateException = MutableStateFlow("")
     val isStateException2 = MutableStateFlow("")
 
-    @SuppressLint("SimpleDateFormat")
     fun updateOrganisationServiceList(
         serviceTheme: String,
         serviceOverview: String,
@@ -41,24 +41,30 @@ class CompanyAnnouncementViewModel(
     ) {
         modelScope.launch {
             try {
-                val calendar = Calendar.getInstance()
-                val dateFormat = SimpleDateFormat("dd-MM-yyyy")
-                val date = dateFormat.format(calendar.time)
-
-                val request = OrganisationAnnouncements(
-                    uid = uid,
-                    id = 10,
-                    serviceName = serviceTheme,
-                    servicePhoto = imageUri.toString(),
-                    price = servicePrice.toInt(),
-                    serviceOverview = serviceOverview,
-                    data = date
+                val request = setDataOfAnnouncement(
+                    serviceTheme,
+                    uid,
+                    imageUri,
+                    servicePrice,
+                    serviceOverview
                 )
-              //  newService.value = listOf(request)
 
-             //   CommonConstants.ORG?.orgAnnouncements = listOf(request)
+                if (uid.isNotEmpty()) {
+                    val formatter = SimpleDateFormat("dd_MM_yyy_HH_mm_ss", Locale.getDefault())
+                    val now = Date()
+                    val fileName = formatter.format(now)
+                    val storageReference =
+                        FirebaseStorage.getInstance().getReference(
+                            "images/organisation/organisationAnnouncement/$uid/$fileName"
+                        )
 
-                updateOrgServiceToDB(adapter, request)
+                    imageUri.let {
+                        storageReference.putFile(it).addOnSuccessListener {
+                            updateOrgServiceToDB(adapter, request, fileName)
+                        }.addOnFailureListener {
+                        }
+                    }
+                }
                 delay(1000)
             } catch (exception: TimeoutCancellationException) {
                 isStateException.value = "1 - " + exception.message
@@ -68,29 +74,40 @@ class CompanyAnnouncementViewModel(
                 isStateException.value = "2 - " + exception.message
                 newService.value = null
             }
-
-
-            if (uid.isNotEmpty()) {
-                val formatter = SimpleDateFormat("dd_MM_yyy_HH_mm_ss", Locale.getDefault())
-                val now = Date()
-                val fileName = formatter.format(now)
-                val storageReference =
-                    FirebaseStorage.getInstance().getReference(
-                        "images/organisation/organisationAnnouncement/$uid/$fileName")
-
-                imageUri.let {
-                    storageReference.putFile(it).addOnSuccessListener {
-
-                    }.addOnFailureListener {
-                    }
-                }
-            }
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun setDataOfAnnouncement(
+        serviceTheme: String,
+        uid: String,
+        imageUri: Uri,
+        servicePrice: String,
+        serviceOverview: String
+    ): OrganisationAnnouncements {
+        val calendar = Calendar.getInstance()
+        val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+        val date = dateFormat.format(calendar.time)
+
+        val start = System.currentTimeMillis()
+        val random = (1000..1000000).random()
+        val announceId = (start / random) + serviceTheme.length
+
+        return OrganisationAnnouncements(
+            uid = uid,
+            id = announceId,
+            serviceName = serviceTheme,
+            servicePhoto = imageUri.toString(),
+            price = servicePrice.toInt(),
+            serviceOverview = serviceOverview,
+            data = date
+        )
     }
 
     private fun updateOrgServiceToDB(
         adapter: CompanyAnnouncementsAdapter,
-        data: OrganisationAnnouncements
+        data: OrganisationAnnouncements,
+        imageName: String
     ) {
         modelScope.launch {
             val user = OrganisationAnnouncements(
@@ -100,9 +117,9 @@ class CompanyAnnouncementViewModel(
                 data.servicePhoto,
                 data.price,
                 data.serviceOverview,
-                data.data
+                data.data,
+                fileName = imageName
             )
-
 
             val collection = fireStore.collection("organisationAnnouncement")
             val document = collection.document(user.uid)
@@ -117,7 +134,7 @@ class CompanyAnnouncementViewModel(
         }
     }
 
-    fun gerAnnouncementsData(uid: String, adapter: CompanyAnnouncementsAdapter) {
+    fun getAnnouncementsData(uid: String, adapter: CompanyAnnouncementsAdapter) {
         modelScope.launch {
             try {
                 if (uid.isNotEmpty()) {

@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import carService.app.R
@@ -50,7 +51,8 @@ class CompanyAnnouncementFragment(override val layoutId: Int = R.layout.company_
     private val auth: FirebaseAuth by lazy { Firebase.auth }
     private var imageUri: Uri? = null
     private var userRequest: OrganisationAnnouncements = OrganisationAnnouncements(
-        "", 0, "", "", -900, "", "")
+        "", 0, "", "", -900, "", ""
+    )
 
     private val getActionPhotoFromStorage =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { pic ->
@@ -94,10 +96,20 @@ class CompanyAnnouncementFragment(override val layoutId: Int = R.layout.company_
         companyAnnouncementsDataAdapter = CompanyAnnouncementsAdapter(AppImageView())
         recyclerView.adapter = companyAnnouncementsDataAdapter
 
-//        if (companyAnnouncementsDataAdapter.itemCount < 0) {
-//            binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
-//        }
         getData()
+
+        /** ======= Сетим ItemTouchHelper в наш ресайклер для смахивания и таскания ======== */
+        val swipeToDelete =
+            object : ItemTouchHelperAnnouncementCallback(companyAnnouncementsDataAdapter) {
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+
+                    companyAnnouncementsDataAdapter.onItemDismiss(viewHolder.adapterPosition)
+                    showToast("Объявление успешно удалено!")
+                }
+            }
+        val itemTH = ItemTouchHelper(swipeToDelete)
+        itemTH.attachToRecyclerView(recyclerView)
+        /** ================================================================================ */
     }
 
     override fun initViewModel() {
@@ -125,7 +137,8 @@ class CompanyAnnouncementFragment(override val layoutId: Int = R.layout.company_
         doInScopeResume {
             viewModel.isStateException.collect { isStateException ->
                 if (isStateException != "" && userRequest.data?.isNotEmpty() == true && userRequest.data?.isNotEmpty() == true
-                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true) {
+                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true
+                ) {
                     view?.showsnackBar(getString(R.string.access_failed))
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 }
@@ -194,7 +207,8 @@ class CompanyAnnouncementFragment(override val layoutId: Int = R.layout.company_
     }
 
     private fun saveServicesData() {
-        val theme = binding.includedBottomSheetLayoutCompanyServices.themeEt.text?.toString()?.trim()
+        val theme =
+            binding.includedBottomSheetLayoutCompanyServices.themeEt.text?.toString()?.trim()
         val overview =
             binding.includedBottomSheetLayoutCompanyServices.overviewEt.text?.toString()?.trim()
         val price = binding.includedBottomSheetLayoutCompanyServices.priceEt.text.toString()
@@ -207,8 +221,10 @@ class CompanyAnnouncementFragment(override val layoutId: Int = R.layout.company_
         }
         if (theme?.isNotEmpty() == true && overview?.isNotEmpty() == true && price.isNotEmpty() && imageUri != null) {
             imageUri?.let {
-                viewModel.updateOrganisationServiceList(theme, overview, price, currentUser,
-                    it, companyAnnouncementsDataAdapter)
+                viewModel.updateOrganisationServiceList(
+                    theme, overview, price, currentUser,
+                    it, companyAnnouncementsDataAdapter
+                )
                 binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
             }
         }
@@ -283,7 +299,7 @@ class CompanyAnnouncementFragment(override val layoutId: Int = R.layout.company_
 
     private fun getData() {
         val currentUser = auth.currentUser?.uid.toString()
-        viewModel.gerAnnouncementsData(currentUser, companyAnnouncementsDataAdapter)
+        viewModel.getAnnouncementsData(currentUser, companyAnnouncementsDataAdapter)
         binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
     }
 
