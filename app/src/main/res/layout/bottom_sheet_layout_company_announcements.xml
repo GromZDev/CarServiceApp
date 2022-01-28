@@ -1,0 +1,161 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_container_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bottom_sheet_request_services_bg"
+    app:behavior_hideable="true"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/bottom_sheet_line"
+        style="@style/My_Bottom_Sheet_Line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/top_textview"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/benton_sans_bold"
+        android:text="Для того, чтобы клиенты увидели ваше объявление, заполните следующие данные"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottom_sheet_line" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/theme_et"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:maxLines="2"
+        android:maxLength="60"
+        android:background="@drawable/main_button_background"
+        android:gravity="center"
+        android:hint="@string/bottom_sheet_service_name"
+        android:inputType="textMultiLine"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textAllCaps="false"
+        android:textColor="@color/reg_form_color"
+        android:textColorHint="@color/hint_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_textview" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/overview_et"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:maxLines="4"
+        android:maxLength="300"
+        android:scrollbars="vertical"
+        android:background="@drawable/main_button_background"
+        android:gravity="center"
+        android:hint="@string/bottom_sheet_service_overview"
+        android:inputType="textMultiLine"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textAllCaps="false"
+        android:textColor="@color/reg_form_color"
+        android:textColorHint="@color/hint_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/theme_et" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/price_et"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/main_button_background"
+        android:gravity="center"
+        android:maxLines="1"
+        android:maxLength="16"
+        android:hint="Стоимость"
+        android:inputType="number"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textAllCaps="false"
+        android:textColor="@color/reg_form_color"
+        android:textColorHint="@color/hint_text_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/overview_et" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/you_image_iw"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/main_button_background"
+        android:contentDescription="Изображение"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price_et" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/make_photo_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/company_announce_add_fab"
+        android:contentDescription="@string/makePhoto"
+        android:src="@drawable/ic_photo_camera"
+        app:elevation="6dp"
+        app:fabCustomSize="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/you_image_iw"
+        app:layout_constraintEnd_toEndOf="@+id/you_image_iw"
+        app:tint="@color/white" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_button"
+        android:layout_width="325dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button_background"
+        android:fontFamily="@font/benton_sans_bold"
+        android:text="Создать предложение"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/you_image_iw" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_button"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
