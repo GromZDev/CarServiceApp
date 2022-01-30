@@ -291,6 +291,16 @@
                 app:layout_constraintStart_toEndOf="@+id/social_textview"
                 app:layout_constraintTop_toTopOf="@+id/social_textview" />
 
+            <include
+                android:id="@+id/includedLoadingLayout"
+                layout="@layout/loading_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/alfa_main_bg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
