@@ -18,14 +18,14 @@ class MainUserViewModel(
 
     fun getLiveData() = liveDataToObserve
 
-    fun getOrganisationMockData() = getDataFromLocalSource()
+    fun getOrganisationData() = getDataFromDB()
 
-    private fun getDataFromLocalSource() {
+    private fun getDataFromDB() {
         modelScope.launch {
             liveDataToObserve.value = CompaniesNearAppState.Loading
             liveDataToObserve.postValue(
                 CompaniesNearAppState.Success(
-                    organisationRepositoryImpl.getAllOrganisationMockData()
+                    organisationRepositoryImpl.getAllOrganisationData(),
                 )
             )
         }
