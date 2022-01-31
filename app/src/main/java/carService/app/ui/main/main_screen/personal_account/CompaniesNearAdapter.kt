@@ -1,19 +1,22 @@
 package carService.app.ui.main.main_screen.personal_account
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import carService.app.data.model.UserData
+import carService.app.data.model.organization.OrganisationData
 import carService.app.databinding.ItemCompaniesNearRvBinding
 import carService.app.ui.main.main_screen.company_account.MainCompanyFragment
 import carService.app.utils.AppImageView
+import org.koin.core.component.KoinApiExtension
 
+@KoinApiExtension
 class CompaniesNearAdapter(
     val imageLoader: AppImageView,
     private var onItemViewClickListener: MainCompanyFragment.OnNearRvItemViewClickListener?
 ) : RecyclerView.Adapter<CompaniesNearAdapter.CompaniesNearViewHolder>() {
 
-    private var nearCompaniesList: List<UserData> = arrayListOf()
+    private var nearCompaniesList: List<OrganisationData> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = CompaniesNearViewHolder(
         ItemCompaniesNearRvBinding.inflate(
@@ -28,7 +31,8 @@ class CompaniesNearAdapter(
         holder.bind(nearCompaniesList[position])
     }
 
-    fun setNearCompanies(organisationsNear: List<UserData>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun setNearCompanies(organisationsNear: List<OrganisationData>) {
         this.nearCompaniesList = organisationsNear
         notifyDataSetChanged()
     }
@@ -37,12 +41,12 @@ class CompaniesNearAdapter(
         RecyclerView.ViewHolder(vb.root) {
 
 
-        fun bind(organisation: UserData) = with(vb) {
+        fun bind(organisation: OrganisationData) = with(vb) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 itemCompanyName.text = organisation.name
-                itemCompanyMainService.text = organisation.companyServices?.service1
+                itemCompanyMainService.text = organisation.email
 
-                organisation.profileImageUrl?.let {
+                organisation.mainOrganisationPhoto?.let {
                     imageLoader.useCoilToLoadPhoto(
                         imageLink = it,
                         container = itemCompanyImage,

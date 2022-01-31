@@ -5,7 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import carService.app.R
 import carService.app.base.BaseFragment
-import carService.app.data.model.UserData
+import carService.app.data.model.organization.OrganisationData
+import carService.app.data.model.organization.announcements.OrganisationAnnouncements
 import carService.app.databinding.MainUserFragmentBinding
 import carService.app.ui.main.main_screen.company_account.MainCompanyFragment
 import carService.app.utils.AppImageView
@@ -35,12 +36,12 @@ class MainUserFragment(
     }
 
     override fun initViewModel() {
-        doInScope {
-            viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
-            viewModel.getOrganisationMockData()
-            setFakeData2()
-            setFakeData3()
-        }
+        //     doInScope {
+        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getOrganisationData()
+        setFakeData2()
+        setFakeData3()
+        //       }
     }
 
     private fun renderData(appState: CompaniesNearAppState) {
@@ -59,7 +60,7 @@ class MainUserFragment(
                 binding.mainTextview.visibility = View.VISIBLE
                 navBar.visibility = View.VISIBLE
 
-                setFakeData(appState.organisationData)
+                setOrganisationList(appState.organisationData)
 
             }
             is CompaniesNearAppState.Loading -> {
@@ -84,7 +85,8 @@ class MainUserFragment(
         }
     }
 
-    private fun setFakeData(appState: List<UserData>) {
+
+    private fun setOrganisationList(appState: List<OrganisationData>) {
         val nearCompanies: RecyclerView = binding.companiesNearRv
         nearCompanies.layoutManager = LinearLayoutManager(
             context,
@@ -118,11 +120,17 @@ class MainUserFragment(
             false
         )
 
-        val bestCompaniesAdapter = BestCompaniesByLocationAdapter()
-        bestCompanies.adapter = bestCompaniesAdapter
+        val orgAnnouncementsAdapter = OrganisationAnnouncementsAdapter(AppImageView())
+        bestCompanies.adapter = orgAnnouncementsAdapter
 
-        val bestCompaniesList: List<Any> = arrayListOf("2", "6", "5", "t", "y4", "1", "1", "1")
-        bestCompaniesAdapter.setBestCompanies(bestCompaniesList)
+        val bestCompaniesList: List<OrganisationAnnouncements> = arrayListOf(
+            OrganisationAnnouncements(),
+            OrganisationAnnouncements(),
+            OrganisationAnnouncements(),
+            OrganisationAnnouncements(),
+            OrganisationAnnouncements()
+        )
+        orgAnnouncementsAdapter.setBestCompanies(bestCompaniesList)
     }
 
     private fun setFakeData3() {

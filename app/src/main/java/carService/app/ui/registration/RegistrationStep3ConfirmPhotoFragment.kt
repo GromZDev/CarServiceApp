@@ -7,14 +7,14 @@ import android.view.View
 import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.databinding.RegistrationStep3ConfirmPhotoFragmentBinding
-import carService.app.utils.*
-import com.google.firebase.storage.FirebaseStorage
+import carService.app.utils.SharedPreferencesHelper
+import carService.app.utils.hideToolbarAndBottomNav
+import carService.app.utils.navigate
+import carService.app.utils.showsnackBar
 import kotlinx.coroutines.flow.collect
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
-import java.text.SimpleDateFormat
-import java.util.*
 
 @KoinApiExtension
 class RegistrationStep3ConfirmPhotoFragment(override val layoutId: Int = R.layout.registration_step3_confirm_photo_fragment) :
@@ -47,12 +47,7 @@ class RegistrationStep3ConfirmPhotoFragment(override val layoutId: Int = R.layou
         }
 
         binding.nextCreateAccountButton.setOnClickListener {
-            if (arguments !== null) {
-                val b = arguments?.getParcelable<Uri>(BUNDLE_EXTRA)
-                val myUri: Uri = b as Uri
-                uploadImageToDatabase(myUri)
-                updateProfile()
-            }
+            updateProfile()
         }
 
         binding.backButtonImage.setOnClickListener {
@@ -92,6 +87,7 @@ class RegistrationStep3ConfirmPhotoFragment(override val layoutId: Int = R.layou
                 }
             }
         }
+
     }
 
     private fun updateProfile() {
@@ -105,25 +101,9 @@ class RegistrationStep3ConfirmPhotoFragment(override val layoutId: Int = R.layou
             }
 
             else -> {
-                viewModel.updateProfileUser(userImage)
+                viewModel.updateProfileUser(userImage, myUri)
                 binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
             }
-        }
-    }
-
-    private fun uploadImageToDatabase(imageUri: Uri) {
-
-        val formatter = SimpleDateFormat("dd_MM_yyy_HH_mm_ss", Locale.getDefault())
-        val now = Date()
-        val fileName = formatter.format(now)
-
-        val storageReference = FirebaseStorage.getInstance().getReference("images/$fileName")
-
-        storageReference.putFile(imageUri).addOnSuccessListener {
-            showToast("Фото успешно загружено!")
-
-        }.addOnFailureListener {
-            showToast("Ошибка при загрузке фото. Попробуйте еще раз!")
         }
     }
 }

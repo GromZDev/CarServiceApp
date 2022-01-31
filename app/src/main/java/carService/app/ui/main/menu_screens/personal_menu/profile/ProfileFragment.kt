@@ -13,6 +13,7 @@ import carService.app.utils.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.storage.FirebaseStorage
 import org.koin.core.component.KoinApiExtension
 import java.util.*
 
@@ -51,13 +52,18 @@ class ProfileFragment(override val layoutId: Int = R.layout.profile_fragment) :
                 }
                 binding.nicknameTextview.text = user?.nickName
 
-                user?.profileImageUrl?.let {
-                    imageLoader.useLoadPhotoToProfile(
-                        imageLink = it,
-                        container = binding.userProfileImageView,
-                        imageView = binding.userProfileImageView
-                    )
-                }
+                val imagePath =
+                    "images/users/${uid}/${user?.fileName}"
+                FirebaseStorage.getInstance().reference
+                    .child(imagePath)
+                    .downloadUrl
+                    .addOnSuccessListener {
+                        imageLoader.useLoadPhotoToProfile(
+                            imageLink = it.toString(),
+                            container = binding.userProfileImageView,
+                            imageView = binding.userProfileImageView
+                        )
+                    }
 
                 binding.nameTextview.text = user?.name ?: ""
                 binding.lastnameTextview.text = user?.lastName ?: ""

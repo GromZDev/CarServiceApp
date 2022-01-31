@@ -54,7 +54,8 @@ class RegistrationStep4LocationViewModel(
                 profileImageUrl = CommonConstants.USER?.profileImageUrl.toString(),
                 location = CommonConstants.USER?.location,
                 companyServices = null,
-                rating = 0f
+                rating = 0f,
+                fileName = CommonConstants.USER?.fileName.toString()
             )
 
             Log.d("RegistrationStep4Location", user.toString())

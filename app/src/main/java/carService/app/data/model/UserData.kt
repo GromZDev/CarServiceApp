@@ -18,7 +18,8 @@ data class UserData(
     var location: Location? = null,
     var companyServices: OrganisationServices? = null,
     var personalServices: List<PersonalServicesRequests>? = null,
-    var rating: Float? = 0f
+    var rating: Float? = 0f,
+    var fileName: String? = ""
 ) : Parcelable {
     enum class TYPE {
         PERSONAL,
