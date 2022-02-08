@@ -99,6 +99,32 @@
         app:layout_constraintTop_toBottomOf="@+id/my_top_textview" />
 
     <TextView
+        android:id="@+id/profile_icon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/ic_personal_account"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/history_textview" />
+
+    <TextView
+        android:id="@+id/profile_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/benton_sans_bold"
+        android:gravity="center_vertical"
+        android:text="Мой профиль"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/profile_icon"
+        app:layout_constraintTop_toBottomOf="@+id/history_textview" />
+
+    <TextView
         android:id="@+id/share_button"
         android:layout_width="0dp"
         android:layout_height="76dp"
@@ -112,7 +138,7 @@
         app:drawableStartCompat="@drawable/ic_share_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/history_textview"
+        app:layout_constraintTop_toBottomOf="@+id/profile_textview"
         app:layout_constraintWidth_percent="0.8"
         tools:ignore="RtlCompat" />
 

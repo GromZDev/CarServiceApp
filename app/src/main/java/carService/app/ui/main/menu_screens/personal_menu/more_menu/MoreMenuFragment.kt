@@ -35,6 +35,10 @@ class MoreMenuFragment(
 //            clearApplicatione()
             navigate(R.id.loginFragment)
         }
+
+        binding.profileTextview.setOnClickListener {
+            navigate(R.id.profileFragment)
+        }
     }
 
     /**

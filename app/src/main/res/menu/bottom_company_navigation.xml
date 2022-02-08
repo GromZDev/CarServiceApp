@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_company_profile"
+        android:id="@+id/action_company_main"
         android:enabled="true"
-        android:title="@string/profile_organisation"
-        android:icon="@drawable/ic_personal_account"
+        android:icon="@drawable/ic_home"
+        android:title="@string/menu_beginning"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_announcements"
@@ -14,11 +14,11 @@
         android:icon="@drawable/ic_company_announce"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_show_clients_announce"
+        android:id="@+id/action_search"
         android:enabled="true"
-        android:title="@string/clients_announcements_company"
-        android:icon="@drawable/ic_show_clients_announce"
-        app:showAsAction="ifRoom"/>
+        android:icon="@drawable/ic_search"
+        android:title="@string/menu_request"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_find_client"
         android:enabled="true"

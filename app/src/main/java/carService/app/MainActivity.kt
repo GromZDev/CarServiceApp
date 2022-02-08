@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.setOnItemSelectedListener {
             when (it.itemId) {
 
-                R.id.action_profile -> {
-                    navController.navigate(R.id.profileFragment)
+                R.id.action_search -> {
+                    navController.navigate(R.id.searchFragment)
                     true
                 }
                 R.id.action_main_screen -> {
@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         bottomCompanyNavigation.setOnItemSelectedListener {
             when (it.itemId) {
 
-                R.id.action_company_profile -> {
+                R.id.action_company_main -> {
                     navController.navigate(R.id.mainCompanyPageFragment)
                     true
                 }
@@ -74,8 +74,8 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.companyAnnouncementsFragment)
                     true
                 }
-                R.id.action_show_clients_announce -> {
-                    navController.navigate(R.id.showClientsAnnounceFragment)
+                R.id.action_search -> {
+                    navController.navigate(R.id.companySearchFragment)
                     true
                 }
                 R.id.action_find_client -> {

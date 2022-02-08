@@ -9,16 +9,19 @@ import carService.app.R
 import carService.app.base.BaseFragment
 import carService.app.data.model.UserData
 import carService.app.data.model.organization.OrganisationData
+import carService.app.data.model.organization.announcements.OrganisationAnnouncements
 import carService.app.databinding.MainCompanyFragmentBinding
 import carService.app.di.FireBaseModule
+import carService.app.ui.main.main_screen.personal_account.*
+import carService.app.ui.main.menu_screens.company_menu.profile.CompanyProfileFragment
 import carService.app.utils.AppImageView
+import carService.app.utils.navigate
+import carService.app.utils.showsnackBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinApiExtension
 import java.util.*
 
@@ -33,67 +36,134 @@ class MainCompanyFragment(
         fun newInstance() = MainCompanyFragment()
     }
 
-    private val fireBase by inject<FireBaseModule>()
+    private val viewModel by viewModel<MainCompanyViewModel>()
 
-    interface OnNearRvItemViewClickListener {
-        fun onNearRvItemViewClick()
-    }
+    private lateinit var navBar: BottomNavigationView
 
     override fun initViews() {
-        super.initViews()
-
-        val navBar: BottomNavigationView =
-            requireActivity().findViewById(R.id.bottom_company_navigation)
+        navBar = requireActivity().findViewById(R.id.bottom_company_navigation)
         navBar.visibility = View.VISIBLE
+    }
 
-        val currentUser = fireBase.provideFireBaseAuth.currentUser?.uid.toString()
-        if (currentUser.isNotEmpty()) {
-            getCompanyData(currentUser)
+    override fun initViewModel() {
+        //     doInScope {
+        viewModel.getLiveData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getOrganisationData()
+        setFakeData2()
+        setFakeData3()
+        //       }
+    }
+
+
+
+    private fun renderData(appState: CompaniesNearAppState) {
+        when (appState) {
+            is CompaniesNearAppState.Success -> {
+                binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+
+                binding.popularServicesRv.visibility = View.VISIBLE
+                binding.popularServicesTextview.visibility = View.VISIBLE
+                binding.bestCompaniesRv.visibility = View.VISIBLE
+                binding.highRatedCompaniesTextview.visibility = View.VISIBLE
+                binding.companiesNearRv.visibility = View.VISIBLE
+                binding.nearCompaniesTextview.visibility = View.VISIBLE
+                binding.doSearchButton.visibility = View.VISIBLE
+                binding.searchInputField.visibility = View.VISIBLE
+                binding.mainTextview.visibility = View.VISIBLE
+                navBar.visibility = View.VISIBLE
+
+                setOrganisationList(appState.organisationData)
+
+            }
+            is CompaniesNearAppState.Loading -> {
+                binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
+
+                navBar.visibility = View.GONE
+                binding.popularServicesRv.visibility = View.GONE
+                binding.popularServicesTextview.visibility = View.GONE
+                binding.bestCompaniesRv.visibility = View.GONE
+                binding.highRatedCompaniesTextview.visibility = View.GONE
+                binding.companiesNearRv.visibility = View.GONE
+                binding.nearCompaniesTextview.visibility = View.GONE
+                binding.doSearchButton.visibility = View.GONE
+                binding.searchInputField.visibility = View.GONE
+                binding.mainTextview.visibility = View.GONE
+
+            }
+            is CompaniesNearAppState.Error -> {
+                binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+                binding.mainFragmentRoot.showsnackBar("Error")
+            }
         }
     }
 
-    private fun getCompanyData(uid: String) {
-        binding.includedLoadingLayout.loadingLayout.visibility = View.VISIBLE
-        fireBase.provideFirebaseFirestore.collection("organisationAccount").document(uid)
-            .get()
-            .addOnSuccessListener { link ->
-                val imageLoader = AppImageView()
-                val user = link.toObject<UserData>()
 
-                if (user != null) {
-                    binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
-                }
-                binding.companyNicknameTextview.text = user?.nickName.toString()
+    private fun setOrganisationList(appState: List<OrganisationData>) {
+        val nearCompanies: RecyclerView = binding.companiesNearRv
+        nearCompanies.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
 
+        val nearCompaniesAdapter = CompaniesNearAdapter(
+            AppImageView(),
+            object : CompanyProfileFragment.OnNearRvItemViewClickListener {
+                override fun onNearRvItemViewClick() {
+                    val manager = activity?.supportFragmentManager
+                    manager?.let {
 
-                val imagePath =
-                    "images/users/${uid}/${user?.fileName}"
-                FirebaseStorage.getInstance().reference
-                    .child(imagePath)
-                    .downloadUrl
-                    .addOnSuccessListener {
-                        imageLoader.useLoadPhotoToProfile(
-                            imageLink = it.toString(),
-                            container = binding.companyImageView,
-                            imageView = binding.companyImageView
-                        )
+                        manager.beginTransaction()
+                        navigate(R.id.companyDetailsFragment)
                     }
-
-                binding.companyNameTextview.text = user?.name
-                binding.companyLastnameTextview.text = user?.lastName
-                binding.emailTextview.text = user?.email
-
-                val geoCoder = Geocoder(context, Locale.getDefault())
-                if (user?.location?.latitude !== null) {
-                    val myPlaceByLocation: List<Address> =
-                        user.location?.latitude?.toDouble()
-                            ?.let { it1 ->
-                                user.location?.longitude?.toDouble()
-                                    ?.let { it2 -> geoCoder.getFromLocation(it1, it2, 1) }
-                            } as List<Address>
-                    val myAddress = myPlaceByLocation[0].getAddressLine(0)
-                    binding.organisationAddressTextview.text = myAddress ?: ""
                 }
-            }
+
+            })
+        nearCompanies.adapter = nearCompaniesAdapter
+        nearCompaniesAdapter.setNearCompanies(appState)
+
     }
+
+    private fun setFakeData2() {
+        val bestCompanies: RecyclerView = binding.bestCompaniesRv
+        bestCompanies.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+
+        val orgAnnouncementsAdapter = OrganisationAnnouncementsAdapter(AppImageView())
+        bestCompanies.adapter = orgAnnouncementsAdapter
+
+        val bestCompaniesList: List<OrganisationAnnouncements> = arrayListOf(
+            OrganisationAnnouncements(),
+            OrganisationAnnouncements(),
+            OrganisationAnnouncements(),
+            OrganisationAnnouncements(),
+            OrganisationAnnouncements()
+        )
+        orgAnnouncementsAdapter.setBestCompanies(bestCompaniesList)
+    }
+
+    private fun setFakeData3() {
+
+        val popularServices: RecyclerView = binding.popularServicesRv
+        popularServices.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+
+        val popularServicesAdapter = PopularServicesMainScreenAdapter()
+        popularServices.adapter = popularServicesAdapter
+
+        val popularServicesList: List<Any> = arrayListOf(
+            "Шумка", "Полировка", "Ремонт коробки",
+            "Диагностика", "Ремонт ходовой", "Детейлинг", "Перетяжка салона", "Установка динамиков"
+        )
+        popularServicesAdapter.setPopularServices(popularServicesList)
+    }
+
+
+
 }

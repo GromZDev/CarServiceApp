@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
+        android:id="@+id/main_fragment_root"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_bg"
@@ -15,293 +16,126 @@
 
             <TextView
                 android:id="@+id/main_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
                 android:fontFamily="@font/benton_sans_bold"
-                android:text="@string/organisation"
+                android:text="@string/top_tw_main_user_fragment"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/company_nickname_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:fontFamily="@font/benton_sans_bold"
-                android:textColor="@color/profile_name_color"
-                android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@+id/main_textview"
-                app:layout_constraintTop_toTopOf="@+id/main_textview"
-                tools:text="CSF Workshop" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/company_imageView"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:layout_marginTop="24dp"
-                android:contentDescription="@string/company_logo"
-                android:padding="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_textview"
-                app:shapeAppearanceOverlay="@style/CompanyImgItemCircle"
-                app:strokeColor="@color/profile_stroke_color"
-                app:strokeWidth="8dp" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/make_photo_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/company_announce_add_fab"
-                android:contentDescription="@string/makePhoto"
-                android:src="@drawable/ic_photo_camera"
-                app:elevation="6dp"
-                app:fabCustomSize="40dp"
-                app:layout_constraintBottom_toBottomOf="@+id/company_imageView"
-                app:layout_constraintEnd_toEndOf="@+id/company_imageView"
-                app:tint="@color/white" />
-
-            <TextView
-                android:id="@+id/company_name_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_input_field"
+                android:layout_width="280dp"
+                android:layout_height="52dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/benton_sans_bold"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/company_imageView"
-                tools:text="CSF" />
-
-            <TextView
-                android:id="@+id/company_lastname_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/benton_sans_bold"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintStart_toEndOf="@+id/company_name_textview"
-                app:layout_constraintTop_toBottomOf="@+id/company_imageView"
-                tools:text="Workshop" />
-
-            <ImageView
-                android:id="@+id/edit_name_and_surname_button_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="24dp"
-                android:background="@drawable/ic_mode_edit"
-                android:backgroundTint="@color/company_announce_add_fab"
-                android:contentDescription="@string/back_button"
-                app:layout_constraintStart_toEndOf="@+id/company_lastname_textview"
-                app:layout_constraintTop_toTopOf="@+id/company_lastname_textview" />
-
-            <TextView
-                android:id="@+id/email_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/benton_sans_book"
-                android:textColor="@color/hint_text_color"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
-                app:layout_constraintTop_toBottomOf="@+id/company_name_textview"
-                tools:text="csf@carsound-factory.ru" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/tel_numbers_rv"
-                style="@style/CompaniesTelNumbersRecyclerItem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
-                app:layout_constraintTop_toBottomOf="@+id/email_textview"
-                tools:text="csf@carsound-factory.ru" />
-
-            <TextView
-                android:id="@+id/company_services_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/benton_sans_bold"
-                android:text="@string/my_services_company_main"
-                android:textColor="@color/profile_name_color"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
-                app:layout_constraintTop_toBottomOf="@+id/tel_numbers_rv" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_service_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="-12dp"
-                android:backgroundTint="@color/company_announce_add_fab"
-                android:contentDescription="@string/adding_an_announcement"
-                android:src="@android:drawable/ic_input_add"
-                app:fabCustomSize="40dp"
-                app:layout_constraintBottom_toBottomOf="@+id/company_services_textview"
-                app:layout_constraintStart_toEndOf="@+id/company_services_textview"
-                app:tint="@color/white" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/all_company_services_rv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/main_button_background"
+                android:drawableStart="@drawable/ic_search"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textColor="@color/reg_form_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/main_textview" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/do_search_button"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/main_button_background"
+                android:drawableTop="@drawable/ic_do_search_button"
+                android:paddingTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/company_services_textview"
-                app:layout_constraintTop_toBottomOf="@+id/company_services_textview" />
+                app:layout_constraintTop_toTopOf="@+id/search_input_field" />
 
             <TextView
-                android:id="@+id/other_organisation_photos_textview"
-                android:layout_width="wrap_content"
+                android:id="@+id/near_companies_textview"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/benton_sans_bold"
-                android:text="@string/org_photos"
-                android:textColor="@color/profile_name_color"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
-                app:layout_constraintTop_toBottomOf="@+id/all_company_services_rv" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/add_other_photos_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="-12dp"
-                android:backgroundTint="@color/company_announce_add_fab"
-                android:contentDescription="@string/adding_an_announcement"
-                android:src="@android:drawable/ic_input_add"
-                app:fabCustomSize="40dp"
-                app:layout_constraintBottom_toBottomOf="@+id/other_organisation_photos_textview"
-                app:layout_constraintStart_toEndOf="@+id/other_organisation_photos_textview"
-                app:tint="@color/white" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/other_organisation_photos_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
-                android:padding="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/company_services_textview"
-                app:layout_constraintTop_toBottomOf="@+id/other_organisation_photos_textview" />
-
-            <TextView
-                android:id="@+id/location_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/benton_sans_bold"
-                android:text="@string/address"
-                android:textColor="@color/profile_name_color"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
-                app:layout_constraintTop_toBottomOf="@+id/other_organisation_photos_rv" />
-
-            <ImageView
-                android:id="@+id/edit_address_button_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="24dp"
-                android:background="@drawable/ic_mode_edit"
-                android:backgroundTint="@color/company_announce_add_fab"
-                android:contentDescription="@string/back_button"
-                app:layout_constraintStart_toEndOf="@+id/location_textview"
-                app:layout_constraintTop_toTopOf="@+id/location_textview" />
-
-            <TextView
-                android:id="@+id/organisation_address_textview"
-                android:layout_width="340dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/benton_sans_book"
-                android:textColor="@color/hint_text_color"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/location_textview"
-                app:layout_constraintTop_toBottomOf="@+id/location_textview"
-                tools:text="Тут выводится адрес организации" />
-
-            <TextView
-                android:id="@+id/working_time_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/benton_sans_bold"
-                android:text="@string/working_time"
-                android:textColor="@color/profile_name_color"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/company_name_textview"
-                app:layout_constraintTop_toBottomOf="@+id/organisation_address_textview" />
-
-            <ImageView
-                android:id="@+id/edit_working_time_button_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginStart="24dp"
-                android:background="@drawable/ic_mode_edit"
-                android:backgroundTint="@color/company_announce_add_fab"
-                android:contentDescription="@string/back_button"
-                app:layout_constraintStart_toEndOf="@+id/working_time_textview"
-                app:layout_constraintTop_toTopOf="@+id/working_time_textview" />
-
-            <TextView
-                android:id="@+id/company_work_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/benton_sans_bold"
-                android:gravity="center"
+                android:text="@string/companies_near"
                 android:textColor="@color/white"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/working_time_textview"
-                tools:text="Понедельник" />
+                app:layout_constraintTop_toBottomOf="@+id/search_input_field" />
 
-            <TextView
-                android:id="@+id/social_textview"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/companies_near_rv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/benton_sans_bold"
-                android:text="@string/social"
-                android:textColor="@color/profile_name_color"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="@+id/working_time_textview"
-                app:layout_constraintTop_toBottomOf="@+id/company_work_time" />
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/near_companies_textview" />
 
-            <ImageView
-                android:id="@+id/edit_social_button_image"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+            <TextView
+                android:id="@+id/high_rated_companies_textview"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:background="@drawable/ic_mode_edit"
-                android:backgroundTint="@color/company_announce_add_fab"
-                android:contentDescription="@string/back_button"
-                app:layout_constraintStart_toEndOf="@+id/social_textview"
-                app:layout_constraintTop_toTopOf="@+id/social_textview" />
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/best_deals_of_companies"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/companies_near_rv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/best_companies_rv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/high_rated_companies_textview" />
+
+            <TextView
+                android:id="@+id/popular_services_textview"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="24dp"
+                android:fontFamily="@font/benton_sans_bold"
+                android:text="@string/popular_services_of_companies_tw"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/best_companies_rv" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popular_services_rv"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginTop="20dp"
+                android:clipToPadding="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/popular_services_textview" />
 
             <include
                 android:id="@+id/includedLoadingLayout"
                 layout="@layout/loading_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/alfa_main_bg"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="@id/main_layout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </ScrollView>
 </layout>

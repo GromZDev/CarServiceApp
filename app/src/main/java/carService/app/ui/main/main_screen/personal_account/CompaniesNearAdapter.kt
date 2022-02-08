@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import carService.app.data.model.organization.OrganisationData
 import carService.app.databinding.ItemCompaniesNearRvBinding
 import carService.app.ui.main.main_screen.company_account.MainCompanyFragment
+import carService.app.ui.main.menu_screens.company_menu.profile.CompanyProfileFragment
 import carService.app.utils.AppImageView
 import org.koin.core.component.KoinApiExtension
 
 @KoinApiExtension
 class CompaniesNearAdapter(
     val imageLoader: AppImageView,
-    private var onItemViewClickListener: MainCompanyFragment.OnNearRvItemViewClickListener?
+    private var onItemViewClickListener: CompanyProfileFragment.OnNearRvItemViewClickListener?
 ) : RecyclerView.Adapter<CompaniesNearAdapter.CompaniesNearViewHolder>() {
 
     private var nearCompaniesList: List<OrganisationData> = arrayListOf()

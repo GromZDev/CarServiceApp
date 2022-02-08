@@ -9,6 +9,7 @@ import carService.app.data.model.organization.OrganisationData
 import carService.app.data.model.organization.announcements.OrganisationAnnouncements
 import carService.app.databinding.MainUserFragmentBinding
 import carService.app.ui.main.main_screen.company_account.MainCompanyFragment
+import carService.app.ui.main.menu_screens.company_menu.profile.CompanyProfileFragment
 import carService.app.utils.AppImageView
 import carService.app.utils.navigate
 import carService.app.utils.showsnackBar
@@ -96,7 +97,7 @@ class MainUserFragment(
 
         val nearCompaniesAdapter = CompaniesNearAdapter(
             AppImageView(),
-            object : MainCompanyFragment.OnNearRvItemViewClickListener {
+            object : CompanyProfileFragment.OnNearRvItemViewClickListener {
                 override fun onNearRvItemViewClick() {
                     val manager = activity?.supportFragmentManager
                     manager?.let {

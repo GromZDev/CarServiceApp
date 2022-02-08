@@ -57,6 +57,21 @@
         android:label="profile_fragment"
         tools:layout="@layout/profile_fragment" />
     <fragment
+        android:id="@+id/searchFragment"
+        android:name="carService.app.ui.main.menu_screens.personal_menu.search.SearchFragment"
+        android:label="search_fragment"
+        tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/companySearchFragment"
+        android:name="carService.app.ui.main.menu_screens.company_menu.search.CompanySearchFragment"
+        android:label="company_search_fragment"
+        tools:layout="@layout/company_search_fragment" />
+    <fragment
+        android:id="@+id/companyProfileFragment"
+        android:name="carService.app.ui.main.menu_screens.company_menu.profile.CompanyProfileFragment"
+        android:label="company_profile_fragment"
+        tools:layout="@layout/company_profile_fragment" />
+    <fragment
         android:id="@+id/registrationFragment"
         android:name="carService.app.ui.registration.RegistrationFragment"
         android:label="registration_fragment"
@@ -191,7 +206,7 @@
         android:id="@+id/mainCompanyPageFragment"
         android:name="carService.app.ui.main.main_screen.company_account.MainCompanyFragment"
         android:label="main_Company_Page_Fragment"
-        tools:layout="@layout/main_company_fragment">
+        tools:layout="@layout/company_profile_fragment">
         <action
             android:id="@+id/mainCompanyPageFragment_to_companyAnnouncementsFragment"
             app:destination="@id/companyAnnouncementsFragment" />

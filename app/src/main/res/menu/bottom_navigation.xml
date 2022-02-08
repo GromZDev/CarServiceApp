@@ -7,15 +7,15 @@
         android:title="@string/menu_beginning"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_profile"
-        android:enabled="true"
-        android:icon="@drawable/ic_personal_account"
-        android:title="@string/menu_profile"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/action_request_services"
         android:enabled="true"
         android:icon="@drawable/ic_request_service"
+        android:title="@string/menu_request"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
         android:title="@string/menu_request"
         app:showAsAction="ifRoom" />
     <item

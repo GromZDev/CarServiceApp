@@ -35,6 +35,10 @@ class MoreCompanyMenuFragment(
         binding.shareButton.setOnClickListener {
             shareApp()
         }
+
+        binding.profileTextview.setOnClickListener {
+            navigate(R.id.companyProfileFragment)
+        }
     }
 
     /**
