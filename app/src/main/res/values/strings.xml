@@ -63,7 +63,7 @@
     <string name="history_search_tw">История поиска</string>
     <string name="share_with_friends">Поделиться с друзьями</string>
     <string name="share_link">Отправить ссылку на приложение</string>
-    <string name="company_announce_tw">Мои объявления</string>
+    <string name="company_announce_tw">Создать объявление</string>
     <string name="company_announce_hint_tw">Здесь создаются и отображаются все ваши объявления, которые будут видны нуждающимся в них автовладельцам</string>
     <string name="adding_an_announcement">Adding an announcement</string>
     <string name="profile_organisation">Профиль</string>

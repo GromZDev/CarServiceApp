@@ -37,7 +37,7 @@ class RegistrationStepSuccessFragment(
     private fun goToAccount() {
                 when(prefs.typeAccount) {
                     PERSONAL_ACCOUNT -> navigate(R.id.mainUserFragment)
-                    ORGANIZATION_ACCOUNT -> navigate(R.id.mainCompanyPageFragment)
+                    ORGANIZATION_ACCOUNT -> navigate(R.id.mainUserFragment)
                     // возможно другое действие
                     else -> navigate(R.id.mainUserFragment)
                 }

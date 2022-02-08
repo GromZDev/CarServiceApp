@@ -2,7 +2,6 @@ package carService.app.ui.main.menu_screens.personal_menu.request_services
 
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isEmpty
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +34,8 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private var userRequest: PersonalServicesRequests = PersonalServicesRequests("", "", -900, "")
 
+    private lateinit var bottomSheetBehaviorCompany: BottomSheetBehavior<ConstraintLayout>
+
     private lateinit var userServices: MutableList<PersonalServicesRequests>
     private lateinit var userServicesRequestsDataAdapter: RequestPersonalServicesAdapter
     private lateinit var recyclerView: RecyclerView
@@ -43,10 +44,11 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
     override fun initViews() {
         super.initViews()
         setBottomSheetBehavior(binding.includedBottomSheetLayoutServiceRequest.bottomSheetContainer)
+        setBottomSheetBehaviorCompany(binding.includedBottomSheetLayoutCompanyServices.bottomSheetContainerConstraint)
         navBar = requireActivity().findViewById(R.id.bottom_navigation)
         navBar.visibility = View.VISIBLE
 
-      //  binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
+        //  binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
 
         recyclerView = binding.requestServicesRv
         recyclerView.layoutManager = LinearLayoutManager(
@@ -76,6 +78,11 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
 
         binding.addMyCarButton.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            binding.constraintContainer.alpha = 0.2f
+        }
+
+        binding.companyAnnouncementAddingFab.setOnClickListener {
+            bottomSheetBehaviorCompany.state = BottomSheetBehavior.STATE_EXPANDED
             binding.constraintContainer.alpha = 0.2f
         }
 
@@ -116,7 +123,8 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
         doInScopeResume {
             viewModel.isStateException.collect { isStateException ->
                 if (isStateException != "" && userRequest.data?.isNotEmpty() == true && userRequest.overview?.isNotEmpty() == true
-                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true) {
+                    && userRequest.price != -900 && userRequest.data?.isNotEmpty() == true
+                ) {
                     view?.showsnackBar(getString(R.string.access_failed))
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 }
@@ -130,7 +138,7 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
                 } else if (it == null && userServices.isNotEmpty()) {
                     showToast("что-то пошло не так (")
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
-                } else if (it == null || userServices.isEmpty() ) {
+                } else if (it == null || userServices.isEmpty()) {
                     binding.includedLoadingLayout.loadingLayout.visibility = View.GONE
                 }
             }
@@ -161,6 +169,34 @@ class RequestServicesFragment(override val layoutId: Int = R.layout.request_serv
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
+                    navBar.visibility = View.VISIBLE
+                } else {
+                    navBar.visibility = View.GONE
+                }
+                when (newState) {
+                    BottomSheetBehavior.STATE_HIDDEN -> binding.constraintContainer.alpha = 1.0f
+                    BottomSheetBehavior.STATE_COLLAPSED -> binding.constraintContainer.alpha = 1.0f
+                    BottomSheetBehavior.STATE_DRAGGING -> {}
+                    BottomSheetBehavior.STATE_EXPANDED -> {}
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {}
+                    BottomSheetBehavior.STATE_SETTLING -> {}
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+        })
+    }
+
+    private fun setBottomSheetBehaviorCompany(bottomSheet: ConstraintLayout) {
+        bottomSheetBehaviorCompany = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehaviorCompany.state = BottomSheetBehavior.STATE_HIDDEN
+
+        bottomSheetBehaviorCompany.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (bottomSheetBehaviorCompany.state == BottomSheetBehavior.STATE_HIDDEN) {
                     navBar.visibility = View.VISIBLE
                 } else {
                     navBar.visibility = View.GONE
